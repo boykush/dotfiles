@@ -29,6 +29,9 @@ eval "$(zoxide init zsh)"
 # starship
 eval "$(starship init zsh)"
 
+# mysql
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
 # java
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
 
