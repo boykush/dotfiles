@@ -24,7 +24,7 @@ inoremap <silent> jj <ESC>
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Config for Neovim
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/usr/local/opt/python@3.7/bin/python3'
 
 " 他のウィンドウ・アプリでの変更を反映する
 au FocusGained,BufEnter * checktime
