@@ -30,7 +30,7 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 # java
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
 
 # python
 export PATH=/usr/local/bin:$PATH
