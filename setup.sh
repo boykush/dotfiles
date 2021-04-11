@@ -99,8 +99,9 @@ fi
 ## install node & npm install neovim
 if ! which node > /dev/null; then
     echo "[INFO] install node"
-    brew install nvm
-    nvm install v10
+    brew install nodenv
+    nodenv install 14.16.1
+    nodenv global 14.16.1
     npm install -g yarn neovim
 else
     echo "[INFO] node is already installed"
