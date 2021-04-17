@@ -47,7 +47,9 @@ fi
 ## install alacritty
 if ! which alacritty > /dev/null; then
     echo "[INFO] install alacritty"
-    brew cask install alacritty
+    brew install --cask alacritty
+    brew tap homebrew/cask-fonts
+    brew install --cask font-hack-nerd-font
 else
     echo "[INFO] alacritty is already installed"
 fi
