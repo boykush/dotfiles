@@ -37,6 +37,7 @@ export PATH=/usr/local/bin:$PATH
 
 # nodenv
 eval "$(nodenv init -)"
+export PATH="$HOME/.nodenv/bin:$PATH"
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
