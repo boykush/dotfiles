@@ -14,3 +14,17 @@
 
 [interactive]
   diffFilter = delta --color-only
+
+[alias]
+  cm    = commit
+  co    = checkout
+  cp    = cherry-pick
+  br    = branch
+  fe    = fetch
+  rb    = rebase
+  mg    = merge
+  rs    = reset
+  pullm = pull origin master
+  pullr = pull --rebase origin master
+  pushh = push origin HEAD
+  pushf = push -f origin HEAD

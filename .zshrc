@@ -42,13 +42,6 @@ export PATH="$HOME/.nodenv/bin:$PATH"
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# fvi - search file and open file by nvim
-fvi() {
-  files=$(git ls-files) &&
-  selected_files=$(echo "$files" | fzf -m --preview "bat --color=always --style=header,grid --line-range :100 {}") &&
-  vi $selected_files
-}
-
 # fbr - checkout git branch (including remote branches)
 fbr() {
   local branches branch
