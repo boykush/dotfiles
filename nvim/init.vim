@@ -105,9 +105,6 @@ if dein#check_install()
   call dein#install()
 endif
 
-" Config for Neovim
-let g:python3_host_prog = '/usr/local/opt/python@3.7/bin/python3'
-
 " For defx
 " Key mapping of defx
 autocmd FileType defx call s:defx_my_settings()

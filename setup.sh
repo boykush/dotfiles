@@ -34,6 +34,21 @@ ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_c
 ## make directory .config
 mkdir -p ~/.config
 
+## link tmux config
+ln -nfs ~/dotfiles/.tmux.conf ~/.tmux.conf
+
+## link alacritty config
+ln -nfs ~/dotfiles/alacritty ~/.config/alacritty
+
+## link neovim config
+ln -nfs ~/dotfiles/nvim ~/.config/nvim
+
+## link gitui config
+ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
+
+## make directory .config
+mkdir -p ~/.config
+
 ## install brew
 if ! which brew > /dev/null; then
     echo "[INFO] install brew"
