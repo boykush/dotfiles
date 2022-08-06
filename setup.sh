@@ -16,6 +16,7 @@ ln -nfs ~/dotfiles/.gitconfig ~/.gitconfig
 ln -nfs ~/dotfiles/git ~/.config/git
 
 ## link idea vim
+ln -nfs ~/dotfiles/ideavim/.ideavimrc ~/.ideavimrc
 ln -nfs ~/dotfiles/intellij/.ideavimrc ~/.ideavimrc
 
 ## link tmux config
@@ -26,6 +27,12 @@ ln -nfs ~/dotfiles/alacritty ~/.config/alacritty
 
 ## link neovim config
 ln -nfs ~/dotfiles/nvim ~/.config/nvim
+
+## link gitui config
+ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
+
+## make directory .config
+mkdir -p ~/.config
 
 ## install brew
 if ! which brew > /dev/null; then
@@ -158,12 +165,28 @@ else
     echo "[INFO] bat is already installed"
 fi
 
+## install navi
+if ! which navi > /dev/null; then
+    echo "[INFO] install navi"
+    brew install navi
+else
+    echo "[INFO] navi is already installed"
+fi
+
 ## install procs
 if ! which procs > /dev/null; then
     echo "[INFO] install procs"
     brew install procs
 else
     echo "[INFO] procs is already installed"
+fi
+
+## install grex
+if ! which grex > /dev/null; then
+    echo "[INFO] install grex"
+    brew install grex
+else
+    echo "[INFO] grex is already installed"
 fi
 
 ## install starship

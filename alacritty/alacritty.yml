@@ -7,21 +7,35 @@ window:
 env:
   TERM: alacritty
 
-# Colors (Material Theme Darker)
+# Background Opacity
+# background_opacity: 0.9
+
+# Colors (Material Theme)
 colors:
   primary:
-    background: '#212121'
-    foreground: '#a6accd'
+    background: '0x1e282d'
+    foreground: '0xc4c7d1'
 
   normal:
-    black:   '#000000'
-    red:     '#ff5370'
-    green:   '#c3e88d'
-    yellow:  '#ffcb6b'
-    blue:    '#82aaff'
-    magenta: '#bb80b3'
-    cyan:    '#89ddff'
-    white:   '#ffffff'
+    black:   '0x666666'
+    red:     '0xeb606b'
+    green:   '0xc3e88d'
+    yellow:  '0xf7eb95'
+    blue:    '0x80cbc4'
+    magenta: '0xff2f90'
+    cyan:    '0xaeddff'
+    white:   '0xffffff'
+
+  # Bright colors
+  bright:
+    black:   '0xa1a1a1'
+    red:     '0xeb606b'
+    green:   '0xc3e88d'
+    yellow:  '0xf7eb95'
+    blue:    '0x7dc6bf'
+    magenta: '0x6c71c4'
+    cyan:    '0x35434d'
+    white:   '0xffffff'
 
   selection:
     text:       '#ffffff'
