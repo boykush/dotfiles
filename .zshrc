@@ -33,7 +33,7 @@ eval "$(starship init zsh)"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
 
 # python
-export PATH=/usr/local/bin:$PATH
+export PATH="/usr/local/opt/python@3.7/bin:$PATH"
 
 # nodenv
 eval "$(nodenv init -)"
