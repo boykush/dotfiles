@@ -17,6 +17,7 @@
 
 [alias]
   cm    = commit
+  ss    = stash 
   co    = checkout
   cp    = cherry-pick
   br    = branch
