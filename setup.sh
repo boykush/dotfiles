@@ -212,3 +212,12 @@ if ! which silicon > /dev/null; then
 else
     echo "[INFO] silicon is already installed"
 fi
+
+## install mcfly
+if ! which mcfly > /dev/null; then
+  echo "[INFO] install mcfly"
+  brew tap cantino/mcfly
+  brew install cantino/mcfly/mcfly
+else
+    echo "[INFO] mcfly is already installed"
+fi
