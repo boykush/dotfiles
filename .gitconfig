@@ -25,3 +25,8 @@
   pullr = pull --rebase origin master
   pushh = push origin HEAD
   pushf = push -f origin HEAD
+
+[http]
+    postbuffer = 9999999999
+[safe]
+	directory = /github/workspace
