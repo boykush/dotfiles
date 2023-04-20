@@ -69,14 +69,13 @@ else
     echo "[INFO] neovim is already installed"
 fi
 
-## install dein.vim
-if [ -d "~/.cache/dein" ]; then
-    echo "[INFO] install dein.vim"
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-    sh ./installer.sh ~/.cache/dein
-    rm ./installer.sh
+## install plug.vim
+if [ ! -d "~/.local/share/nvim/site/autoload/plug.vim" ]; then
+    echo "[INFO] install plug.vim"
+    zsh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 else
-    echo "[INFO] dein.vim is already installed"
+    echo "[INFO] plug.vim is already installed"
 fi
 
 ## install fzf
