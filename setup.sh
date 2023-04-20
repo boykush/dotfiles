@@ -19,10 +19,6 @@ ln -nfs ~/dotfiles/git ~/.config/git
 ln -nfs ~/dotfiles/ideavim/.ideavimrc ~/.ideavimrc
 ln -nfs ~/dotfiles/intellij/.ideavimrc ~/.ideavimrc
 
-## link tmux config
-ln -nfs ~/dotfiles/.tmux.conf ~/.tmux.conf
-
-
 ## link zellij config
 ln -nfs ~/dotfiles/zellij ~/.config/zellij
 
@@ -34,7 +30,6 @@ ln -nfs ~/dotfiles/nvim ~/.config/nvim
 
 ## link gitui config
 ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
-
 
 ## make directory .config
 mkdir -p ~/.config
@@ -53,15 +48,6 @@ if ! which zellij > /dev/null; then
     brew install zellij
 else
     echo "[INFO] zellij is already installed"
-fi
-
-## install tmux
-if ! which tmux > /dev/null; then
-    echo "[INFO] install tmux"
-    brew install tmux
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-else
-    echo "[INFO] tmux is already installed"
 fi
 
 ## install alacritty
