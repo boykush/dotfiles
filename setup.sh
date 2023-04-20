@@ -22,6 +22,10 @@ ln -nfs ~/dotfiles/intellij/.ideavimrc ~/.ideavimrc
 ## link tmux config
 ln -nfs ~/dotfiles/.tmux.conf ~/.tmux.conf
 
+
+## link zellij config
+ln -nfs ~/dotfiles/zellij ~/.config/zellij
+
 ## link alacritty config
 ln -nfs ~/dotfiles/alacritty ~/.config/alacritty
 
@@ -30,6 +34,7 @@ ln -nfs ~/dotfiles/nvim ~/.config/nvim
 
 ## link gitui config
 ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
+
 
 ## make directory .config
 mkdir -p ~/.config
@@ -40,6 +45,14 @@ if ! which brew > /dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 else
     echo "[INFO] brew is already installed"
+fi
+
+## install zellij
+if ! which zellij > /dev/null; then
+    echo "[INFO] install zellij"
+    brew install zellij
+else
+    echo "[INFO] zellij is already installed"
 fi
 
 ## install tmux
