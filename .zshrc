@@ -35,13 +35,6 @@ eval "$(mcfly init zsh)"
 # java
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
 
-# python
-export PATH=/usr/local/bin:$PATH
-
-# nodenv
-eval "$(nodenv init -)"
-export PATH="$HOME/.nodenv/bin:$PATH"
-
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

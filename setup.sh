@@ -91,15 +91,6 @@ else
     echo "[INFO] ripgrep is already installed"
 fi
 
-## install python & pip install neovim
-if ! which python3 > /dev/null; then
-    echo "[INFO] install python"
-    brew install python
-    pip3 install neovim
-else
-    echo "[INFO] python is already installed"
-fi
-
 ## install exa
 if ! which exa > /dev/null; then
   echo "[INFO] install exa"
