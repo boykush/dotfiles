@@ -1,14 +1,12 @@
 window:
   startup_mode: Fullscreen
+  opacity: 0.9
   padding:
     x: 5
     y: 5
 
 env:
   TERM: alacritty
-
-# Background Opacity
-# background_opacity: 0.9
 
 # Colors (Material Theme)
 colors:
