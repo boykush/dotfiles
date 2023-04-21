@@ -31,9 +31,6 @@ ln -nfs ~/dotfiles/nvim ~/.config/nvim
 ## link gitui config
 ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
 
-## make directory .config
-mkdir -p ~/.config
-
 ## install brew
 if ! which brew > /dev/null; then
     echo "[INFO] install brew"
@@ -69,14 +66,13 @@ else
     echo "[INFO] neovim is already installed"
 fi
 
-## install dein.vim
-if [ -d "~/.cache/dein" ]; then
-    echo "[INFO] install dein.vim"
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-    sh ./installer.sh ~/.cache/dein
-    rm ./installer.sh
+## install packaer.nvim
+if [ ! -d "~/.local/share/nvim/site/pack/packer" ]; then
+    echo "[INFO] install packer.nvim"
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 else
-    echo "[INFO] dein.vim is already installed"
+    echo "[INFO] packer.nvim is already installed"
 fi
 
 ## install fzf
@@ -93,26 +89,6 @@ if ! which rg > /dev/null; then
     brew install ripgrep
 else
     echo "[INFO] ripgrep is already installed"
-fi
-
-## install python & pip install neovim
-if ! which python3 > /dev/null; then
-    echo "[INFO] install python"
-    brew install python
-    pip3 install neovim
-else
-    echo "[INFO] python is already installed"
-fi
-
-## install node & npm install neovim
-if ! which node > /dev/null; then
-    echo "[INFO] install node"
-    brew install nodenv
-    nodenv install 14.16.1
-    nodenv global 14.16.1
-    npm install -g yarn neovim
-else
-    echo "[INFO] node is already installed"
 fi
 
 ## install exa
