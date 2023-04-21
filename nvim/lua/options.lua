@@ -32,7 +32,7 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.autoread = true
 
 -- # クリップボード
-vim.opt.clipboard:append({ unnamedeplus = true })
+vim.opt.clipboard:append{"unnamedplus"}
 
 -- # マウス
 vim.opt.mouse = 'a'
