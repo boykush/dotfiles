@@ -39,14 +39,6 @@ else
     echo "[INFO] brew is already installed"
 fi
 
-## install zellij
-if ! which zellij > /dev/null; then
-    echo "[INFO] install zellij"
-    brew install zellij
-else
-    echo "[INFO] zellij is already installed"
-fi
-
 ## install alacritty
 if ! which alacritty > /dev/null; then
     echo "[INFO] install alacritty"
@@ -55,6 +47,14 @@ if ! which alacritty > /dev/null; then
     brew install --cask font-hack-nerd-font
 else
     echo "[INFO] alacritty is already installed"
+fi
+
+## install zellij
+if ! which zellij > /dev/null; then
+    echo "[INFO] install zellij"
+    brew install zellij
+else
+    echo "[INFO] zellij is already installed"
 fi
 
 # setup editor
@@ -115,15 +115,6 @@ else
   echo "[INFO] git-delta is already installed"
 fi
 
-## install Github CLI
-if ! which gh > /dev/null; then
-  echo "[INFO] install Github CLI"
-  brew install gh
-  gh config set pager delta
-else
-  echo "[INFO] Github CLI is already installed"
-fi
-
 ## install gitui
 if ! which gitui > /dev/null; then
     echo "[INFO] install gitui"
@@ -140,28 +131,12 @@ else
     echo "[INFO] bat is already installed"
 fi
 
-## install navi
-if ! which navi > /dev/null; then
-    echo "[INFO] install navi"
-    brew install navi
-else
-    echo "[INFO] navi is already installed"
-fi
-
 ## install procs
 if ! which procs > /dev/null; then
     echo "[INFO] install procs"
     brew install procs
 else
     echo "[INFO] procs is already installed"
-fi
-
-## install grex
-if ! which grex > /dev/null; then
-    echo "[INFO] install grex"
-    brew install grex
-else
-    echo "[INFO] grex is already installed"
 fi
 
 ## install starship
@@ -172,27 +147,3 @@ else
     echo "[INFO] starship is already installed"
 fi
 
-## install gawk
-if ! which gawk > /dev/null; then
-    echo "[INFO] install gawk"
-    brew install gawk
-else
-    echo "[INFO] gawk is already installed"
-fi
-
-## install silicon
-if ! which silicon > /dev/null; then
-    echo "[INFO] install silicon"
-    brew install silicon
-else
-    echo "[INFO] silicon is already installed"
-fi
-
-## install mcfly
-if ! which mcfly > /dev/null; then
-  echo "[INFO] install mcfly"
-  brew tap cantino/mcfly
-  brew install cantino/mcfly/mcfly
-else
-    echo "[INFO] mcfly is already installed"
-fi
