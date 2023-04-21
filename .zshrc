@@ -29,9 +29,6 @@ eval "$(zoxide init zsh)"
 # starship
 eval "$(starship init zsh)"
 
-# mcfly
-eval "$(mcfly init zsh)"
-
 # java
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
 
