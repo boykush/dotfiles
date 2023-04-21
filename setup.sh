@@ -69,13 +69,13 @@ else
     echo "[INFO] neovim is already installed"
 fi
 
-## install plug.vim
-if [ ! -d "~/.local/share/nvim/site/autoload/plug.vim" ]; then
-    echo "[INFO] install plug.vim"
-    zsh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+## install packaer.nvim
+if [ ! -d "~/.local/share/nvim/site/pack/packer" ]; then
+    echo "[INFO] install packer.nvim"
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 else
-    echo "[INFO] plug.vim is already installed"
+    echo "[INFO] packer.nvim is already installed"
 fi
 
 ## install fzf
