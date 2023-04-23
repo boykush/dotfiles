@@ -10,7 +10,7 @@
 [delta]
   line-numbers = true
   side-by-side = true
-  theme        = 'base16'
+  theme        = 'nord'
 
 [interactive]
   diffFilter = delta --color-only
