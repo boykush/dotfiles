@@ -21,7 +21,7 @@ if [[ $(command -v exa) ]]; then
 fi
 
 # bat
-export BAT_THEME="base16"
+export BAT_THEME="Nord"
 
 # zoxide
 eval "$(zoxide init zsh)"
