@@ -1,10 +1,13 @@
 require("packer").startup(function(use)
   -- Packer can manage itself
-  use "wbthomason/packer.nvim"
+  use {
+    "wbthomason/packer.nvim",
+  }
 
   -- Common
-  use "nvim-lua/plenary.nvim"
-
+  use {
+    "nvim-lua/plenary.nvim",
+  }
 
   -- File Explorer
   use {
@@ -16,7 +19,12 @@ require("packer").startup(function(use)
 
   -- Fuzzy Finder
   use {
-    "nvim-telescope/telescope.nvim"
+    "nvim-telescope/telescope.nvim",
+  }
+
+  -- Themes
+  use {
+    "nordtheme/vim",
   }
 
   -- Status Line
@@ -26,7 +34,7 @@ require("packer").startup(function(use)
 
   -- Tab Line
   use {
-    "akinsho/bufferline.nvim"
+    "akinsho/bufferline.nvim",
   }
 end)
 
