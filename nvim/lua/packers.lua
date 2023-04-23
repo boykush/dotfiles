@@ -2,23 +2,31 @@ require("packer").startup(function(use)
   -- Packer can manage itself
   use "wbthomason/packer.nvim"
 
+  -- Common
+  use "nvim-lua/plenary.nvim"
+
+
   -- File Explorer
   use {
     "nvim-tree/nvim-tree.lua",
-    requires = {
-      "nvim-tree/nvim-web-devicons",
-    },
+  }
+  use {
+    "nvim-tree/nvim-web-devicons",
   }
 
   -- Fuzzy Finder
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    "nvim-telescope/telescope.nvim"
   }
 
+  -- Status Line
   use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    "nvim-lualine/lualine.nvim",
+  }
+
+  -- Tab Line
+  use {
+    "akinsho/bufferline.nvim"
   }
 end)
 
