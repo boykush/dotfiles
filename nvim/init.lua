@@ -1,8 +1,12 @@
-require("options")
-require("keymappings")
-require("packers")
-require("nvim-tree-config")
-require("telescope-config")
-require("lualine-config")
-require("bufferline-config")
+-- Core
+require("core-options")
+require("core-keymappings")
+require("core-packers")
+require("core-themes")
+
+-- Plugin Config
+require("plugin-nvim-tree")
+require("plugin-telescope")
+require("plugin-lualine")
+require("plugin-bufferline")
 

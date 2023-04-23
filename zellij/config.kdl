@@ -243,6 +243,8 @@ pane_frames false
 //
 // theme "default"
 
+theme "nord"
+
 // The name of the default layout to load on startup
 // Default: "default"
 //
