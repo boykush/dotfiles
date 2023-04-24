@@ -1,4 +1,6 @@
-require("packer").startup(function(use)
+local packer = require("packer")
+
+packer.startup(function(use)
   -- Packer can manage itself
   use {
     "wbthomason/packer.nvim",
@@ -40,6 +42,11 @@ require("packer").startup(function(use)
   -- Git Decoration
   use {
     "lewis6991/gitsigns.nvim",
+  }
+
+  -- Auto Pairs
+  use {
+    "windwp/nvim-autopairs",
   }
 end)
 
