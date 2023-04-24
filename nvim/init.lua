@@ -10,4 +10,5 @@ require("plugin-telescope")
 require("plugin-lualine")
 require("plugin-bufferline")
 require("plugin-gitsigns")
+require("plugin-nvim-autopairs")
 
