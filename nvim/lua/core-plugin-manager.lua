@@ -36,5 +36,10 @@ require("packer").startup(function(use)
   use {
     "akinsho/bufferline.nvim",
   }
+
+  -- Git Decoration
+  use {
+    "lewis6991/gitsigns.nvim",
+  }
 end)
 
