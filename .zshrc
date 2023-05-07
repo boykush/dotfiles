@@ -30,7 +30,15 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 # java
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
+
+# nodenv
+eval "$(nodenv init -)"
+export PATH="$HOME/.nodenv/bin:$PATH"
+
+# kube
+export KUBECONFIG=$KUBECONFIG:~/.kube/kubeconfig_ops_dev-cluster
+export KUBECONFIG=${KUBECONFIG}:~/.kube/kubeconfig_developer_prod-cluster.yaml
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -43,3 +51,4 @@ fbr() {
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+
