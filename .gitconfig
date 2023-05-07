@@ -6,6 +6,7 @@
   editor       = nvim
   pager        = delta
   excludesfile = ~/.config/git/ignore
+	symlinks = true
 
 [delta]
   line-numbers = true
