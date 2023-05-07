@@ -52,3 +52,4 @@ fbr() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
+source /Users/kushirotaichi/.docker/init-zsh.sh || true # Added by Docker Desktop
