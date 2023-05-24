@@ -11,4 +11,5 @@ require("plugin-lualine")
 require("plugin-bufferline")
 require("plugin-gitsigns")
 require("plugin-nvim-autopairs")
+require("plugin-nvim-treesitter")
 
