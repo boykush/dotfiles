@@ -29,6 +29,11 @@ packer.startup(function(use)
     "nordtheme/vim",
   }
 
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate"
+  }
+
   -- Status Line
   use {
     "nvim-lualine/lualine.nvim",
