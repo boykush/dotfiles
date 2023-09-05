@@ -31,6 +31,9 @@ ln -nfs ~/dotfiles/nvim ~/.config/nvim
 ## link gitui config
 ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
 
+## link gh-dash config
+ln -s ~/dotfiles/gh-dash/config.yml ~/.config/gh-dash/config.yml
+
 ## install brew
 if ! which brew > /dev/null; then
     echo "[INFO] install brew"
