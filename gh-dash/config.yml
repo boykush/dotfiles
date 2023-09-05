@@ -8,16 +8,11 @@ prSections:
         # grow: <bool> this will make the column grow in size
   - title: Needs My Review
     filters: is:open review-requested:@me
-  - title: Subscribed
-    filters: is:open -author:@me repo:cli/cli repo:dlvhdr/gh-dash
-    limit: 50 # optional limit of rows fetched for this section
 issuesSections:
   - title: Created
     filters: is:open author:@me
   - title: Assigned
     filters: is:open assignee:@me
-  - title: Subscribed
-    filters: is:open -author:@me repo:microsoft/vscode repo:dlvhdr/gh-dash
 defaults:
   layout:
     prs:
@@ -29,7 +24,7 @@ defaults:
   prsLimit: 20 # global limit
   issuesLimit: 20 # global limit
   preview:
-    open: true # wether to have the preview pane open by default
+    open: false # wether to have the preview pane open by default
     width: 60 # width in columns
   refetchIntervalMinutes: 30 # will refetch all sections every 30 minutes
 repoPaths: # configure where to locate repos when checking out PRs
@@ -38,21 +33,21 @@ repoPaths: # configure where to locate repos when checking out PRs
 keybindings: # optional, define custom keybindings - see more info below
 theme: # optional, see more info below
   colors:
-  background:
-    selected: '#808080'
-  border:
-    faint: '#000000'
-    primary: '#808080'
-    secondary: '#c0c0c0'
-  text:
-    faint: '#8a8a8a'
-    inverted: '#303030'
-    primary: '#ffffff'
-    secondary: '#c6c6c6'
-    success: '#008000'
-    warning: '#800000'
-ui:
-  table:
-    showSeparators: true
+    background:
+      selected: "#81A1C1"
+    border:
+      faint:     "#3B4252"
+      primary:   "#4C566A"
+      secondary: "#434C5E"
+    text:
+      faint:     "#4C566A"
+      inverted:  "#D8DEE9"
+      primary:   "#FFFFFF"
+      secondary: "#81A1C1"
+      success:   "#A3BE8C"
+      warning:   "#EBCB8B"
+  ui:
+    table:
+      showSeparators: true
 pager:
-  diff: less # or delta for example
+  diff: "delta" # or delta for example
