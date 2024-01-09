@@ -31,9 +31,6 @@ ln -nfs ~/dotfiles/nvim ~/.config/nvim
 ## link gitui config
 ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
 
-## link gh-dash config
-ln -s ~/dotfiles/gh-dash/config.yml ~/.config/gh-dash/config.yml
-
 ## install brew
 if ! which brew > /dev/null; then
     echo "[INFO] install brew"
@@ -124,15 +121,6 @@ if ! which gitui > /dev/null; then
     brew install gitui
 else
     echo "[INFO] gitui is already installed"
-fi
-
-## install github-cli
-if ! which gh > /dev/null; then
-    echo "[INFO] install gh"
-    brew install gh
-    gh extension install dlvhdr/gh-dash
-else
-    echo "[INFO] gh is already installed"
 fi
 
 ## install bat
