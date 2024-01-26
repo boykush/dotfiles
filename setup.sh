@@ -57,7 +57,6 @@ else
     echo "[INFO] zellij is already installed"
 fi
 
-# setup editor
 ## install neovim
 if ! which nvim > /dev/null; then
     echo "[INFO] install neovim"
@@ -67,13 +66,14 @@ else
 fi
 
 ## install packaer.nvim
-if [ ! -d "~/.local/share/nvim/site/pack/packer" ]; then
+if [ ! -d "~/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
     echo "[INFO] install packer.nvim"
     git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 else
     echo "[INFO] packer.nvim is already installed"
 fi
+
 
 ## install fzf
 if ! which fzf > /dev/null; then
