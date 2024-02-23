@@ -22,8 +22,8 @@ ln -nfs ~/dotfiles/intellij/.ideavimrc ~/.ideavimrc
 ## link zellij config
 ln -nfs ~/dotfiles/zellij ~/.config/zellij
 
-## link alacritty config
-ln -nfs ~/dotfiles/alacritty ~/.config/alacritty
+## link wezterm config
+ln -nfs ~/dotfiles/wezterm ~/.config/wezterm
 
 ## link neovim config
 ln -nfs ~/dotfiles/nvim ~/.config/nvim
@@ -39,14 +39,14 @@ else
     echo "[INFO] brew is already installed"
 fi
 
-## install alacritty
-if ! which alacritty > /dev/null; then
-    echo "[INFO] install alacritty"
-    brew install --cask alacritty
+## install wezterm
+if ! which wezterm > /dev/null; then
+    echo "[INFO] install wezterm"
+    brew install --cask wezterm
     brew tap homebrew/cask-fonts
     brew install --cask font-hack-nerd-font
 else
-    echo "[INFO] alacritty is already installed"
+    echo "[INFO] wezterm is already installed"
 fi
 
 ## install zellij
