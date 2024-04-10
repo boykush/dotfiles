@@ -29,6 +29,9 @@ eval "$(zoxide init zsh)"
 # starship
 eval "$(starship init zsh)"
 
+# nodenv
+eval "$(nodenv init -)"
+
 # java
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
 
