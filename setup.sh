@@ -8,9 +8,70 @@ emulate -R sh
 ln -nfs ~/dotfiles/.zshrc ~/.zshrc
 source ~/.zshrc
 
+# install tools
+## install brew
+if ! which brew > /dev/null; then
+  echo "[INFO] install brew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+else
+  echo "[INFO] brew is already installed"
+fi
+
+## install tools
+exists=$(brew list)
+for f (
+  zellij
+  fzf
+  ripgrep
+  exa
+  zoxide
+  git-delta
+  gitui
+  bat
+  procs
+  starship
+  neovim
+)
+do
+  if ((! exists[(Ie)$f] )); then
+    echo "[INFO] install $f"
+    brew install $f
+  else
+    echo "[INFO] $f is already installed"
+  fi
+done
+## for neovim
+if [ ! -d "~/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
+  echo "[INFO] install packer.nvim"
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+else
+  echo "[INFO] packer.nvim is already installed"
+fi
+
+# install applications
+exists=$(brew list --cask)
+for f (
+  wezterm
+  font-hack-nerd-font
+  alfred
+  visual-studio-code
+  intellij-idea-ce
+  cmd-eikana
+)
+do
+  if ((! exists[(Ie)$f] )); then
+    echo "[INFO] install $f"
+    brew install --cask $f
+  else
+    echo "[INFO] $f is already installed"
+  fi
+done
+brew tap homebrew/cask-fonts
+
+# setup config
 ## make directory .config
 mkdir -p ~/.config
-
 ## link git config
 ln -nfs ~/dotfiles/.gitconfig ~/.gitconfig
 ln -nfs ~/dotfiles/git ~/.config/git
@@ -30,120 +91,4 @@ ln -nfs ~/dotfiles/nvim ~/.config/nvim
 
 ## link gitui config
 ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
-
-## install brew
-if ! which brew > /dev/null; then
-    echo "[INFO] install brew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-else
-    echo "[INFO] brew is already installed"
-fi
-
-## install wezterm
-if ! which wezterm > /dev/null; then
-    echo "[INFO] install wezterm"
-    brew install --cask wezterm
-    brew tap homebrew/cask-fonts
-    brew install --cask font-hack-nerd-font
-else
-    echo "[INFO] wezterm is already installed"
-fi
-
-## install zellij
-if ! which zellij > /dev/null; then
-    echo "[INFO] install zellij"
-    brew install zellij
-else
-    echo "[INFO] zellij is already installed"
-fi
-
-## install neovim
-if ! which nvim > /dev/null; then
-    echo "[INFO] install neovim"
-    brew install neovim
-else
-    echo "[INFO] neovim is already installed"
-fi
-
-## install packaer.nvim
-if [ ! -d "~/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
-    echo "[INFO] install packer.nvim"
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-else
-    echo "[INFO] packer.nvim is already installed"
-fi
-
-
-## install fzf
-if ! which fzf > /dev/null; then
-    echo "[INFO] install fzf"
-    brew install fzf
-else
-    echo "[INFO] fzf is already installed"
-fi
-
-## install rg
-if ! which rg > /dev/null; then
-    echo "[INFO] install ripgrep"
-    brew install ripgrep
-else
-    echo "[INFO] ripgrep is already installed"
-fi
-
-## install exa
-if ! which exa > /dev/null; then
-  echo "[INFO] install exa"
-  brew install exa
-else
-  echo "[INFO] exa is already installed"
-fi
-
-## install zoxide
-if ! which zoxide > /dev/null; then
-  echo "[INFO] install zoxide"
-  brew install zoxide
-else
-  echo "[INFO] zoxide is already installed"
-fi
-
-## install git-delta
-if ! which delta > /dev/null; then
-  echo "[INFO] install git-delta"
-  brew install git-delta
-else
-  echo "[INFO] git-delta is already installed"
-fi
-
-## install gitui
-if ! which gitui > /dev/null; then
-    echo "[INFO] install gitui"
-    brew install gitui
-else
-    echo "[INFO] gitui is already installed"
-fi
-
-## install bat
-if ! which bat > /dev/null; then
-    echo "[INFO] install bat"
-    brew install bat
-else
-    echo "[INFO] bat is already installed"
-fi
-
-## install procs
-if ! which procs > /dev/null; then
-    echo "[INFO] install procs"
-    brew install procs
-else
-    echo "[INFO] procs is already installed"
-fi
-
-## install starship
-if ! which starship > /dev/null; then
-    echo "[INFO] install starship"
-    brew install starship
-else
-    echo "[INFO] starship is already installed"
-fi
 
