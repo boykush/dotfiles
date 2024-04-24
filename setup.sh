@@ -52,6 +52,7 @@ fi
 # install applications
 exists=$(brew list --cask)
 for f (
+  google-chrome
   wezterm
   font-hack-nerd-font
   alfred
