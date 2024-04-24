@@ -36,7 +36,7 @@ eval "$(starship init zsh)"
 eval "$(nodenv init -)"
 
 # java
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-22.jdk/Contents/Home
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -32,6 +32,7 @@ for f (
   starship
   neovim
   nodenv
+  sbt
 )
 do
   if ((! exists[(Ie)$f] )); then
@@ -63,6 +64,7 @@ for f (
   visual-studio-code
   intellij-idea-ce
   cmd-eikana
+  zulu
 )
 do
   if ((! exists[(Ie)$f] )); then
