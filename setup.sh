@@ -23,7 +23,7 @@ for f (
   zellij
   fzf
   ripgrep
-  exa
+  eza
   zoxide
   git-delta
   gitui
@@ -31,6 +31,7 @@ for f (
   procs
   starship
   neovim
+  nodenv
 )
 do
   if ((! exists[(Ie)$f] )); then
@@ -50,6 +51,9 @@ else
 fi
 
 # install applications
+
+brew tap homebrew/cask-fonts
+
 exists=$(brew list --cask)
 for f (
   google-chrome
@@ -92,4 +96,3 @@ ln -nfs ~/dotfiles/nvim ~/.config/nvim
 
 ## link gitui config
 ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
-

@@ -6,17 +6,20 @@ export EDITOR=nvim
 # alias
 alias vi='nvim'
 
+# brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # exa
-if [[ $(command -v exa) ]]; then
-  alias e='exa --icons'
+if [[ $(command -v eza) ]]; then
+  alias e='eza --icons'
   alias ls=e
-  alias ea='exa -a --icons'
+  alias ea='eza -a --icons'
   alias la=ea
-  alias ee='exa -aal --icons -hl --git'
+  alias ee='eza -aal --icons -hl --git'
   alias ll=ee
-  alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+  alias et='eza -T -L 3 -a -I "node_modules|.git|.cache" --icons'
   alias lt=et
-  alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
+  alias eta='eza -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
   alias lta=eta
 fi
 
