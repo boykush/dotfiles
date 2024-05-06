@@ -57,13 +57,12 @@ brew tap homebrew/cask-fonts
 
 exists=$(brew list --cask)
 for f (
-  google-chrome
+  arc
   wezterm
   font-hack-nerd-font
   alfred
   visual-studio-code
   intellij-idea-ce
-  cmd-eikana
   zulu
 )
 do
