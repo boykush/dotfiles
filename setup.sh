@@ -30,6 +30,7 @@ for f (
   bat
   procs
   starship
+  zola
   neovim
   nodenv
   sbt
