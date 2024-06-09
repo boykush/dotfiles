@@ -61,10 +61,10 @@ for f (
   arc
   wezterm
   font-hack-nerd-font
-  alfred
   visual-studio-code
   intellij-idea-ce
   zulu
+  chatgpt
 )
 do
   if ((! exists[(Ie)$f] )); then
