@@ -65,6 +65,7 @@ for f (
   intellij-idea-ce
   zulu
   chatgpt
+  alfred
 )
 do
   if ((! exists[(Ie)$f] )); then
