@@ -44,7 +44,7 @@ do
   fi
 done
 ## for neovim
-if [ ! -d "~/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
+if [ -d "~/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
   echo "[INFO] install packer.nvim"
   git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
@@ -53,9 +53,6 @@ else
 fi
 
 # install applications
-
-brew tap homebrew/cask-fonts
-
 exists=$(brew list --cask)
 for f (
   arc
@@ -75,7 +72,6 @@ do
     echo "[INFO] $f is already installed"
   fi
 done
-brew tap homebrew/cask-fonts
 
 # setup config
 ## make directory .config
@@ -96,6 +92,3 @@ ln -nfs ~/dotfiles/wezterm ~/.config/wezterm
 
 ## link neovim config
 ln -nfs ~/dotfiles/nvim ~/.config/nvim
-
-## link gitui config
-ln -s ~/dotfiles/gitui/key_config.ron ~/Library/Application\ Support/gitui/key_config.ron
