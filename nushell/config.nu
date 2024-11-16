@@ -13,9 +13,9 @@ def fbr [] {
   let branch = (
     $branches
     | fzf
+    | str replace -r '\s*' ''
+    | str replace -r 'remotes/[^/]*/' ''
   )
-
-  print $branch
 
   git checkout $branch
 }
