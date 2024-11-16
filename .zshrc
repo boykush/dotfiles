@@ -15,34 +15,3 @@ if [[ $- == *i* ]]; then
   exec nu
 fi
 
-# exa
-if [[ $(command -v eza) ]]; then
-  alias e='eza --icons'
-  alias ls=e
-  alias ea='eza -a --icons'
-  alias la=ea
-  alias ee='eza -aal --icons -hl --git'
-  alias ll=ee
-  alias et='eza -T -L 3 -a -I "node_modules|.git|.cache" --icons'
-  alias lt=et
-  alias eta='eza -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
-  alias lta=eta
-fi
-
-# bat
-export BAT_THEME="Nord"
-
-# zoxide
-eval "$(zoxide init zsh)"
-
-# starship
-eval "$(starship init zsh)"
-
-# nodenv
-eval "$(nodenv init -)"
-
-# java
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-22.jdk/Contents/Home
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
