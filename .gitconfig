@@ -1,5 +1,5 @@
 [user]
-	email = k.taichi0315@gmail.com
+	email = boykush315@gmail.com
 	name  = Taichi Kushiro
 
 [core]
@@ -21,7 +21,6 @@
   pi    = cherry-pick
   br    = branch
   fe    = fetch
-  pullm = pull origin master
   pullr = pull --rebase origin master
   pushh = push origin HEAD
   pushf = push -f origin HEAD
