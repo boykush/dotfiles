@@ -9,6 +9,12 @@ alias vi='nvim'
 # brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# for nushell
+if [[ $- == *i* ]]; then
+  # インタラクティブシェルの場合のみnushellを起動
+  exec nu
+fi
+
 # exa
 if [[ $(command -v eza) ]]; then
   alias e='eza --icons'
