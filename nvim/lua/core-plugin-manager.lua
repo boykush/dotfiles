@@ -29,8 +29,10 @@ packer.startup(function(use)
     "nordtheme/vim",
   }
 
+  -- Tree Sitter
   use {
     "nvim-treesitter/nvim-treesitter",
+    requires = { "nushell/tree-sitter-nu", run = ":TSUpdate nu" },
     run = ":TSUpdate"
   }
 

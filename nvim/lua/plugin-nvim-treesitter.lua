@@ -9,6 +9,7 @@ require("nvim-treesitter.configs").setup {
     "lua",
     "make",
     "markdown",
+    "nu",
     "proto",
     "rust",
     "scala",
