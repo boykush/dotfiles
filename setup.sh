@@ -17,12 +17,47 @@ else
   echo "[INFO] brew is already installed"
 fi
 
+## install tools
+exists=$(brew list)
+for f (
+  zellij
+  fzf
+  ripgrep
+  eza
+  zoxide
+  git-delta
+  gitui
+  bat
+  procs
+  starship
+  zola
+  neovim
+  arc
+  wezterm
+  font-hack-nerd-font
+  visual-studio-code
+  alfred
+)
+do
+  if ((! exists[(Ie)$f] )); then
+    echo "[INFO] install $f"
+    brew install $f
+  else
+    echo "[INFO] $f is already installed"
+  fi
+done
+## for neovim
+if [ -d "~/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
+  echo "[INFO] install packer.nvim"
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+else
+  echo "[INFO] packer.nvim is already installed"
+fi
+
 # setup config
 ## make directory .config
 mkdir -p ~/.config
-
-## link nushell config
-ln -nfs ~/dotfiles/nushell ~/.config/nushell
 
 ## link git config
 ln -nfs ~/dotfiles/.gitconfig ~/.gitconfig
