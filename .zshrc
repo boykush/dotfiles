@@ -9,6 +9,9 @@ alias vi='nvim'
 # brew
 eval $(/opt/homebrew/bin/brew shellenv)
 
+# mise
+eval "$(mise activate zsh)"
+
 # exa
 if [[ $(command -v eza) ]]; then
   alias e='eza --icons'

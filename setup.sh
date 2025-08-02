@@ -20,6 +20,7 @@ fi
 ## install tools
 exists=$(brew list)
 for f (
+  mise
   zellij
   fzf
   ripgrep
@@ -58,6 +59,9 @@ fi
 # setup config
 ## make directory .config
 mkdir -p ~/.config
+
+## link mise config
+ln -nfs ~/dotfiles/mise ~/.config/mise
 
 ## link git config
 ln -nfs ~/dotfiles/.gitconfig ~/.gitconfig
