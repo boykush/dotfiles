@@ -6,3 +6,5 @@
 .bsp/
 .g8/
 .netrwhist
+
+**/.claude/settings.local.json
