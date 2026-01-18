@@ -36,4 +36,4 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 # fbr - checkout git branch (using mise task)
-alias fbr='mise run --cd ~/.config/mise fbr'
+alias fbr='mise run fbr'
