@@ -1,7 +1,0 @@
-IdeaVIM
-PlantUML integration
-com.chrisrm.idea.MaterialThemeUI
-com.mallowigi
-izhangzhihao.rainbow.brackets
-net.vektah.codeglance
-org.intellij.scala

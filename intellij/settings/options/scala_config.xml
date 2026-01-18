@@ -1,9 +1,0 @@
-<application>
-  <component name="ApplicationCodeStyleSettingsMigration">
-    <option name="version" value="1" />
-  </component>
-  <component name="ScalaApplicationSettings">
-    <option name="SUGGEST_IN_EDITOR_DOC_RENDERING" value="false" />
-    <option name="SUGGEST_LEGACY_IMPORT_LAYOUT" value="false" />
-  </component>
-</application>
