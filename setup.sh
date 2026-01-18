@@ -56,10 +56,6 @@ ln -nfs ~/dotfiles/mise ~/.config/mise
 ln -nfs ~/dotfiles/.gitconfig ~/.gitconfig
 ln -nfs ~/dotfiles/git ~/.config/git
 
-## link idea vim
-ln -nfs ~/dotfiles/ideavim/.ideavimrc ~/.ideavimrc
-ln -nfs ~/dotfiles/intellij/.ideavimrc ~/.ideavimrc
-
 ## link zellij config
 ln -nfs ~/dotfiles/zellij ~/.config/zellij
 
