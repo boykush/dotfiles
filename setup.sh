@@ -26,7 +26,6 @@ for f (
   wezterm
   font-hack-nerd-font
   visual-studio-code
-  alfred
 )
 do
   if ((! exists[(Ie)$f] )); then
