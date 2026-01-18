@@ -1,8 +1,3 @@
-# common
-export XDG_CONFIG_HOME=~/.config
-export LANG=ja_JP.UTF-8
-export EDITOR=nvim
-
 # alias
 alias vi='nvim'
 
@@ -25,9 +20,6 @@ if [[ $(command -v eza) ]]; then
   alias eta='eza -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
   alias lta=eta
 fi
-
-# bat
-export BAT_THEME="Nord"
 
 # zoxide
 eval "$(zoxide init zsh)"
