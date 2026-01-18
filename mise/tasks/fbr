@@ -1,5 +1,6 @@
 #!/bin/bash
 #MISE description="checkout git branch (including remote branches)"
+#MISE dir="{{cwd}}"
 
 branches=$(git branch --all | grep -v HEAD)
 branch=$(echo "$branches" | fzf --height 40% --reverse +m)
