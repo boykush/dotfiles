@@ -2,3 +2,16 @@
 node = "22"
 python = "3"
 uv = "latest"
+
+# CLI tools (migrated from brew)
+bat = "0.26.1"
+delta = "0.18.2"
+eza = "0.23.4"
+fzf = "0.67.0"
+gitui = "0.28.0"
+neovim = "0.11.5"
+ripgrep = "15.1.0"
+starship = "1.24.2"
+zellij = "0.43.1"
+zola = "0.22.0"
+zoxide = "0.9.8"

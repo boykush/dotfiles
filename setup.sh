@@ -21,18 +21,7 @@ fi
 exists=$(brew list)
 for f (
   mise
-  zellij
-  fzf
-  ripgrep
-  eza
-  zoxide
-  git-delta
-  gitui
-  bat
   procs
-  starship
-  zola
-  neovim
   arc
   wezterm
   font-hack-nerd-font
