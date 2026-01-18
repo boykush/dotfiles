@@ -7,7 +7,6 @@ BAT_THEME = "Nord"
 [tools]
 node = "22"
 python = "3"
-uv = "latest"
 
 # CLI tools (migrated from brew)
 bat = "0.26.1"
