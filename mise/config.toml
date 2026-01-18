@@ -1,3 +1,6 @@
+[settings]
+experimental = true
+
 [env]
 XDG_CONFIG_HOME = "~/.config"
 LANG = "ja_JP.UTF-8"
@@ -37,3 +40,6 @@ fbr = "mise run fbr"
 
 [task_config]
 dir = "{{ config_root }}/tasks"
+
+[hooks]
+postinstall = "~/.config/mise/hooks/postinstall.sh"
