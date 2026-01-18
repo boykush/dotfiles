@@ -35,11 +35,5 @@ eval "$(zoxide init zsh)"
 # starship
 eval "$(starship init zsh)"
 
-# fbr - checkout git branch (including remote branches)
-fbr() {
-  local branches branch
-  branches=$(git branch --all | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
+# fbr - checkout git branch (using mise task)
+alias fbr='mise run fbr'
