@@ -23,6 +23,7 @@ starship = "1.24.2"
 zellij = "0.43.1"
 zola = "0.22.0"
 zoxide = "0.9.8"
+claude = "2.1.12"
 
 [shell_alias]
 vi = "nvim"
