@@ -14,4 +14,6 @@ config.window_padding = {
 
 config.font = wezterm.font 'Hack Nerd Font Mono'
 
+config.enable_csi_u_key_encoding = true
+
 return config
