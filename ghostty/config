@@ -1,0 +1,9 @@
+theme = nord
+font-family = Hack Nerd Font Mono
+
+macos-titlebar-style = tabs
+
+window-padding-x = 16
+window-padding-y = 8
+
+copy-on-select = clipboard

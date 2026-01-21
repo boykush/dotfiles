@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # brew install (GUIアプリ、フォント、CLIツール)
-brew_tools=(procs arc wezterm font-hack-nerd-font visual-studio-code)
+brew_tools=(procs arc wezterm ghostty font-hack-nerd-font visual-studio-code)
 installed=$(brew list)
 for tool in "${brew_tools[@]}"; do
   if ! echo "$installed" | grep -q "^${tool}$"; then
@@ -17,6 +17,7 @@ ln -nfs ~/dotfiles/.gitconfig ~/.gitconfig
 ln -nfs ~/dotfiles/git ~/.config/git
 ln -nfs ~/dotfiles/zellij ~/.config/zellij
 ln -nfs ~/dotfiles/wezterm ~/.config/wezterm
+ln -nfs ~/dotfiles/ghostty ~/.config/ghostty
 ln -nfs ~/dotfiles/nvim ~/.config/nvim
 
 # packer.nvimインストール
