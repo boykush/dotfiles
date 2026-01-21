@@ -29,4 +29,4 @@ fi
 mkdir -p ~/.config
 
 ## link mise config
-ln -nfs ~/dotfiles/mise ~/.conf/mise
+ln -nfs ~/dotfiles/mise ~/.config/mise
