@@ -18,6 +18,7 @@ ln -nfs ~/dotfiles/git ~/.config/git
 ln -nfs ~/dotfiles/zellij ~/.config/zellij
 ln -nfs ~/dotfiles/ghostty ~/.config/ghostty
 ln -nfs ~/dotfiles/nvim ~/.config/nvim
+ln -nfs ~/dotfiles/gitui ~/.config/gitui
 
 # packer.nvimインストール
 PACKER_PATH=~/.local/share/nvim/site/pack/packer/start/packer.nvim
