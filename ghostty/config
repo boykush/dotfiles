@@ -2,6 +2,7 @@ theme = nord
 font-family = Hack Nerd Font Mono
 
 macos-titlebar-style = tabs
+macos-option-as-alt = true
 
 window-padding-x = 16
 window-padding-y = 8
