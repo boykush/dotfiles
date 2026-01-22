@@ -1,5 +1,6 @@
 theme = nord
 font-family = Hack Nerd Font Mono
+font-family = Osaka
 
 macos-titlebar-style = tabs
 macos-option-as-alt = true
