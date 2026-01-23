@@ -20,7 +20,6 @@ python = "3"
 "aqua:helix-editor/helix" = "25.01"
 "aqua:BurntSushi/ripgrep" = "15.1.0"
 "aqua:starship/starship" = "1.24.2"
-"aqua:zellij-org/zellij" = "0.43.1"
 "aqua:ajeetdsouza/zoxide" = "0.9.8"
 "npm:@anthropic-ai/claude-code" = "2.1.17"
 
