@@ -15,7 +15,6 @@ done
 # シンボリックリンク作成
 ln -nfs ~/dotfiles/.gitconfig ~/.gitconfig
 ln -nfs ~/dotfiles/git ~/.config/git
-ln -nfs ~/dotfiles/zellij ~/.config/zellij
 ln -nfs ~/dotfiles/ghostty ~/.config/ghostty
 ln -nfs ~/dotfiles/nvim ~/.config/nvim
 ln -nfs ~/dotfiles/gitui ~/.config/gitui
