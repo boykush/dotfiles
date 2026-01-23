@@ -3,7 +3,7 @@
 	name  = Taichi Kushiro
 
 [core]
-  editor       = nvim
+	editor = hx
   pager        = delta
   excludesfile = ~/.config/git/ignore
 	symlinks = true
