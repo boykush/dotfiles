@@ -24,6 +24,7 @@ python = "3"
 "npm:@anthropic-ai/claude-code" = "2.1.17"
 
 [shell_alias]
+cat = "bat"
 vi = "hx"
 e = "eza --icons"
 ls = "eza --icons"
