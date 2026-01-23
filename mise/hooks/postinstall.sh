@@ -16,15 +16,5 @@ done
 ln -nfs ~/dotfiles/.gitconfig ~/.gitconfig
 ln -nfs ~/dotfiles/git ~/.config/git
 ln -nfs ~/dotfiles/ghostty ~/.config/ghostty
-ln -nfs ~/dotfiles/nvim ~/.config/nvim
 ln -nfs ~/dotfiles/gitui ~/.config/gitui
 ln -nfs ~/dotfiles/helix ~/.config/helix
-
-# packer.nvimインストール
-PACKER_PATH=~/.local/share/nvim/site/pack/packer/start/packer.nvim
-if [ ! -d "$PACKER_PATH" ]; then
-  echo "[INFO] install packer.nvim"
-  git clone --depth 1 https://github.com/wbthomason/packer.nvim "$PACKER_PATH"
-else
-  echo "[INFO] packer.nvim is already installed"
-fi
