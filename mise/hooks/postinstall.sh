@@ -1,18 +1,8 @@
 #!/bin/bash
 
-# brew install (GUIアプリ、フォント、CLIツール)
-brew_tools=(arc ghostty font-hack-nerd-font visual-studio-code)
-installed=$(brew list)
-for tool in "${brew_tools[@]}"; do
-  if ! echo "$installed" | grep -q "^${tool}$"; then
-    echo "[INFO] install $tool"
-    brew install "$tool"
-  else
-    echo "[INFO] $tool is already installed"
-  fi
-done
-
 # シンボリックリンク作成
+ln -nfs ~/dotfiles/.zprofile ~/.zprofile
+ln -nfs ~/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/dotfiles/.gitconfig ~/.gitconfig
 ln -nfs ~/dotfiles/git ~/.config/git
 ln -nfs ~/dotfiles/ghostty ~/.config/ghostty
