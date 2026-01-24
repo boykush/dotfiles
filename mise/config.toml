@@ -8,6 +8,8 @@ EDITOR = "hx"
 BAT_THEME = "Nord"
 
 [tools]
+node = "24"
+
 # CLI tools (migrated from brew)
 "aqua:sharkdp/bat" = "0.26.1"
 "aqua:dandavison/delta" = "0.18.2"
