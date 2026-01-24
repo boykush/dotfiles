@@ -5,6 +5,7 @@ emulate -R sh
 
 # setup terminal
 ## set zsh config
+ln -nfs ~/dotfiles/.zprofile ~/.zprofile
 ln -nfs ~/dotfiles/.zshrc ~/.zshrc
 
 # install tools
