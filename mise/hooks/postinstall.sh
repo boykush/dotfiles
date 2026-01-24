@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # brew install (GUIアプリ、フォント、CLIツール)
-brew_tools=(procs arc ghostty font-hack-nerd-font visual-studio-code)
+brew_tools=(arc ghostty font-hack-nerd-font visual-studio-code)
 installed=$(brew list)
 for tool in "${brew_tools[@]}"; do
   if ! echo "$installed" | grep -q "^${tool}$"; then

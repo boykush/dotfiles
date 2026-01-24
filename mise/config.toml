@@ -21,6 +21,7 @@ python = "3"
 "aqua:BurntSushi/ripgrep" = "15.1.0"
 "aqua:starship/starship" = "1.24.2"
 "aqua:ajeetdsouza/zoxide" = "0.9.8"
+"aqua:dalance/procs" = "0.14.10"
 "npm:@anthropic-ai/claude-code" = "2.1.19"
 
 [shell_alias]
