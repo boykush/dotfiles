@@ -9,3 +9,6 @@ default-yank-register = "+"
 normal = "block"
 insert = "bar"       # Vim風: insertモードで縦線
 select = "underline"
+
+[keys.insert.j]
+k = "normal_mode"    # jk でnormalモードへ（Vim風）
