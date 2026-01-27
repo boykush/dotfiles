@@ -4,3 +4,8 @@ theme = "nord"
 # システムクリップボードを使用
 clipboard-provider = "pasteboard"
 default-yank-register = "+"
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"       # Vim風: insertモードで縦線
+select = "underline"
