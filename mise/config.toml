@@ -22,7 +22,7 @@ node = "24"
 "aqua:ajeetdsouza/zoxide" = "0.9.8"
 "aqua:dalance/procs" = "0.14.10"
 "aqua:cli/cli" = "2.86.0"
-"npm:@anthropic-ai/claude-code" = "2.1.25"
+"npm:@anthropic-ai/claude-code" = "2.1.27"
 
 [shell_alias]
 cat = "bat"
