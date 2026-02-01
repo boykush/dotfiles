@@ -23,8 +23,7 @@ node = "24"
 "aqua:dalance/procs" = "0.14.10"
 "aqua:cli/cli" = "2.86.0"
 "npm:@anthropic-ai/claude-code" = "2.1.29"
-tmux = "3.6a"
-"aqua:watchexec/watchexec" = "2.3.3"
+"asdf:mise-plugins/mise-tmux" = "3.6a"
 
 [shell_alias]
 cat = "bat"
