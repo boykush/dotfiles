@@ -9,3 +9,4 @@ ln -nfs ~/dotfiles/ghostty ~/.config/ghostty
 ln -nfs ~/dotfiles/gitui ~/.config/gitui
 ln -nfs ~/dotfiles/helix ~/.config/helix
 ln -nfs ~/dotfiles/claude-code/settings.json ~/.claude/settings.json
+ln -nfs ~/dotfiles/claude-code/skills ~/.claude/skills
