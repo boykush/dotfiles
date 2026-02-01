@@ -18,7 +18,7 @@ tmux new-session -d -s "$SESSION_NAME" -c "$(pwd)" "claude"
 # Split and open helix in the right pane (upper)
 tmux split-window -h -t "$SESSION_NAME" -c "$(pwd)" "hx"
 
-# Split right pane vertically for gitui (lower)
+# Split right pane vertically for gitui (lower right)
 tmux split-window -v -t "$SESSION_NAME":0.1 -c "$(pwd)" "gitui"
 
 # Split left pane vertically for free terminal (lower left)

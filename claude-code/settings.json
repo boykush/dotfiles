@@ -32,6 +32,15 @@
             "command": "$HOME/.claude/hooks/helix-open.sh"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/helix-reload.sh"
+          }
+        ]
       }
     ]
   }
