@@ -1,13 +1,13 @@
 ---
-name: start-workspace-multi
-description: 複数リポジトリを管理するマルチエージェント作業環境を構築する
+name: start-workspace
+description: マルチエージェント作業環境を構築する
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Bash(echo *), Bash(tmux *), Bash(git worktree *)
 ---
 
-# /start-workspace-multi
+# /start-workspace
 
-複数リポジトリを含む親ディレクトリでマルチエージェント作業環境を構築する。
+マルチエージェント作業環境を構築する。
 
 ## 引数
 
