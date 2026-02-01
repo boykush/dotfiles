@@ -9,18 +9,27 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/preview-in-helix.sh"
+            "command": "$HOME/.claude/hooks/helix-open.sh"
           }
         ]
       }
     ],
     "PostToolUse": [
       {
-        "matcher": "Edit|Write|NotebookEdit|Bash",
+        "matcher": "Edit|NotebookEdit",
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/preview-in-helix.sh"
+            "command": "$HOME/.claude/hooks/helix-reload.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/helix-open.sh"
           }
         ]
       }
