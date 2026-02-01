@@ -13,8 +13,8 @@ tmux new-session -d -s "$SESSION_NAME" -c "$(pwd)" "claude"
 # Split and open helix in the right pane (upper)
 tmux split-window -h -t "$SESSION_NAME" -c "$(pwd)" "hx"
 
-# Split right pane vertically for git status (lower)
-tmux split-window -v -t "$SESSION_NAME":0.1 -c "$(pwd)"
+# Split right pane vertically for gitui (lower)
+tmux split-window -v -t "$SESSION_NAME":0.1 -c "$(pwd)" "gitui"
 
 # Focus the left pane (claude)
 tmux select-pane -t "$SESSION_NAME":0.0
