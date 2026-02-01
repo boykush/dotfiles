@@ -14,3 +14,6 @@ keybind = super+alt+h=goto_split:left
 keybind = super+alt+j=goto_split:down
 keybind = super+alt+k=goto_split:up
 keybind = super+alt+l=goto_split:right
+
+# tmux内でShift+Enterを動作させるためのワークアラウンド
+keybind = shift+enter=text:\x1b\r
