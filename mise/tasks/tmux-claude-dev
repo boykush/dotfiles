@@ -21,7 +21,10 @@ tmux split-window -h -t "$SESSION_NAME" -c "$(pwd)" "hx"
 # Split right pane vertically for gitui (lower)
 tmux split-window -v -t "$SESSION_NAME":0.1 -c "$(pwd)" "gitui"
 
-# Focus the left pane (claude)
+# Split left pane vertically for free terminal (lower left)
+tmux split-window -v -t "$SESSION_NAME":0.0 -c "$(pwd)"
+
+# Focus the left upper pane (claude)
 tmux select-pane -t "$SESSION_NAME":0.0
 
 # Attach to the session
