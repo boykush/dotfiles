@@ -109,8 +109,8 @@ $ARGUMENTS: WIP制限 (デフォルト: 4) - 同時実行可能なタスク数
    ```
 6. workerにタスク送信:
    ```bash
-   # 既存のclaudeセッションを終了 (Ctrl+C)
-   tmux send-keys -t workers.{N} C-c
+   # ペインを強制リセット（既存のclaudeセッションを確実に終了）
+   tmux respawn-pane -k -t workers.{N} -c "$(pwd)"
    # 新しいタスクを開始
    tmux send-keys -t workers.{N} "cd $(pwd)/{repo}/wt/{task-id}" Enter
    tmux send-keys -t workers.{N} "claude --dangerously-skip-permissions /start-worker-task '{タスク内容}'" Enter
