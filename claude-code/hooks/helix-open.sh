@@ -1,6 +1,6 @@
 #!/bin/bash
 # Open file in Helix editor (tmux pane 1)
-# Triggers: PreToolUse:Edit|NotebookEdit, PostToolUse:Write
+# Triggers: PreToolUse:Edit|NotebookEdit|Read, PostToolUse:Write
 
 set -euo pipefail
 
