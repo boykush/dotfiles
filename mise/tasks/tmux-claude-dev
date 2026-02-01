@@ -2,10 +2,15 @@
 #MISE description="Start tmux with Claude Code + helix preview pane"
 #MISE dir="{{cwd}}"
 
-SESSION_NAME="claude-dev"
+# Session name based on repository directory name
+REPO_NAME=$(basename "$(pwd)")
+SESSION_NAME="claude-dev-${REPO_NAME}"
 
-# Kill existing session if it exists
-tmux kill-session -t "$SESSION_NAME" 2>/dev/null || true
+# If session already exists, attach to it
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    tmux attach-session -t "$SESSION_NAME"
+    exit 0
+fi
 
 # Create new tmux session with claude in the first pane
 tmux new-session -d -s "$SESSION_NAME" -c "$(pwd)" "claude"
