@@ -1,5 +1,6 @@
 #!/bin/bash
 # Reload file in Helix editor (tmux top-right pane)
+# Sends Escape (C-[) first to ensure normal mode
 # Triggers: PostToolUse:Edit|NotebookEdit
 
 set -euo pipefail
@@ -9,4 +10,5 @@ if [ -z "${TMUX:-}" ]; then
   exit 0
 fi
 
+tmux send-keys -t "{top-right}" C-[
 tmux send-keys -t "{top-right}" ":reload" Enter
