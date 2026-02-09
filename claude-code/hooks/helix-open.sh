@@ -1,6 +1,6 @@
 #!/bin/bash
 # Open file in Helix editor (tmux top-right pane)
-# Sends Escape (C-[) first to ensure normal mode
+# Assumes Helix is in normal mode
 # Triggers: PreToolUse:Edit|NotebookEdit|Read, PostToolUse:Write
 
 set -euo pipefail
@@ -14,6 +14,5 @@ INPUT=$(cat)
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.notebook_path // empty' 2>/dev/null)
 
 if [ -n "$FILE_PATH" ]; then
-  tmux send-keys -t "{top-right}" C-[
   tmux send-keys -t "{top-right}" ":open $FILE_PATH" Enter
 fi
