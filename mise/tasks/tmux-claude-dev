@@ -13,7 +13,7 @@ if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
 fi
 
 # Create new tmux session with claude in the first pane
-tmux new-session -d -s "$SESSION_NAME" -c "$(pwd)" "mise exec -- claude"
+tmux new-session -d -s "$SESSION_NAME" -c "$(pwd)" "mise exec -- claude --teammate-mode in-process"
 
 # Split and open helix in the right pane (upper)
 tmux split-window -h -t "$SESSION_NAME" -c "$(pwd)" "hx"
