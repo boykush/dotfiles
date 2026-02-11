@@ -9,7 +9,7 @@ experimental = true
 
 [tools]
 # Java 21 LTS for Metals/Serena
-java = "temurin-21"
+java = "temurin-21.0.10+7.0.LTS"
 
 # Coursier for Metals LSP
 "github:coursier/coursier" = "latest"
