@@ -12,7 +12,7 @@ fi
 
 # Skip if not in claude-dev session (e.g., Agent Teams)
 SESSION_NAME=$(tmux display-message -p '#S')
-if [[ "$SESSION_NAME" != claude-dev-* ]]; then
+if [[ "$SESSION_NAME" != "claude-dev" ]]; then
   exit 0
 fi
 
