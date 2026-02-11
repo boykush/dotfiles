@@ -2,30 +2,32 @@
 #MISE description="Start tmux with Claude Code + helix preview pane"
 #MISE dir="{{cwd}}"
 
-# Session name based on repository directory name
-REPO_NAME=$(basename "$(pwd)")
-SESSION_NAME="claude-dev-${REPO_NAME}"
+SESSION_NAME="claude-dev"
 
-# If session already exists, attach to it
+# Select repository directory via zoxide
+TARGET_DIR=$(zoxide query -i) || exit 0
+REPO_NAME=$(basename "$TARGET_DIR")
+
+setup_panes() {
+    local target="$SESSION_NAME:$REPO_NAME"
+    tmux split-window -h -t "$target" -c "$TARGET_DIR" "hx"
+    tmux split-window -v -t "$target.1" -c "$TARGET_DIR" "gitui"
+    tmux split-window -v -t "$target.0" -c "$TARGET_DIR"
+    tmux select-pane -t "$target.0"
+}
+
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    # Switch to existing window or create new one
+    if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${REPO_NAME}$"; then
+        tmux select-window -t "$SESSION_NAME:$REPO_NAME"
+    else
+        tmux new-window -t "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "mise exec -- claude --teammate-mode in-process"
+        setup_panes
+    fi
+    # Attach only if not already inside tmux
+    [ -z "$TMUX" ] && tmux attach-session -t "$SESSION_NAME"
+else
+    tmux new-session -d -s "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "mise exec -- claude --teammate-mode in-process"
+    setup_panes
     tmux attach-session -t "$SESSION_NAME"
-    exit 0
 fi
-
-# Create new tmux session with claude in the first pane
-tmux new-session -d -s "$SESSION_NAME" -c "$(pwd)" "mise exec -- claude --teammate-mode in-process"
-
-# Split and open helix in the right pane (upper)
-tmux split-window -h -t "$SESSION_NAME" -c "$(pwd)" "hx"
-
-# Split right pane vertically for gitui (lower right)
-tmux split-window -v -t "$SESSION_NAME":0.1 -c "$(pwd)" "gitui"
-
-# Split left pane vertically for free terminal (lower left)
-tmux split-window -v -t "$SESSION_NAME":0.0 -c "$(pwd)"
-
-# Focus the left upper pane (claude)
-tmux select-pane -t "$SESSION_NAME":0.0
-
-# Attach to the session
-tmux attach-session -t "$SESSION_NAME"
