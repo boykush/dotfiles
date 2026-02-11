@@ -22,5 +22,5 @@ FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.notebook
 if [ -n "$FILE_PATH" ]; then
   # Escape spaces for Helix :open command
   ESCAPED_PATH="${FILE_PATH// /\\ }"
-  tmux send-keys -t "{top-right}" ":open $ESCAPED_PATH" Enter
+  tmux send-keys -t "{top-right}" ":open $ESCAPED_PATH" Enter ":reload" Enter
 fi
