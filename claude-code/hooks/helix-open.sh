@@ -20,5 +20,7 @@ INPUT=$(cat)
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.notebook_path // empty' 2>/dev/null)
 
 if [ -n "$FILE_PATH" ]; then
-  tmux send-keys -t "{top-right}" ":open $FILE_PATH" Enter
+  # Escape spaces for Helix :open command
+  ESCAPED_PATH="${FILE_PATH// /\\ }"
+  tmux send-keys -t "{top-right}" ":open $ESCAPED_PATH" Enter
 fi
