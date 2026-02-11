@@ -1,0 +1,21 @@
+# Scala AI Development Environment
+# Copy this directory to your project root
+#
+# Usage:
+#   cp -r ~/.config/mise/templates/scala/. /path/to/project/
+
+[settings]
+experimental = true
+
+[tools]
+# Java 21 LTS for Metals/Serena
+java = "temurin-21"
+
+# Coursier for Metals LSP
+"github:coursier/coursier" = "latest"
+
+# uv for Serena MCP (uvx)
+"aqua:astral-sh/uv" = "latest"
+
+[hooks]
+postinstall = "cs install metals"
