@@ -23,7 +23,7 @@ node = "24"
 "aqua:ajeetdsouza/zoxide" = "0.9.9"
 "aqua:dalance/procs" = "0.14.10"
 "aqua:cli/cli" = "2.86.0"
-"npm:@anthropic-ai/claude-code" = "2.1.38"
+"npm:@anthropic-ai/claude-code" = "2.1.39"
 "asdf:mise-plugins/mise-tmux" = "3.6a"
 
 [shell_alias]
