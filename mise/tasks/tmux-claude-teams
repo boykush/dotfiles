@@ -1,0 +1,23 @@
+#!/bin/bash
+#MISE description="Start tmux with Claude Agent Teams"
+#MISE dir="{{cwd}}"
+
+SESSION_NAME="claude-teams"
+
+# Select repository directory via zoxide
+TARGET_DIR=$(zoxide query -i) || exit 0
+REPO_NAME=$(basename "$TARGET_DIR")
+
+CLAUDE_CMD="CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 mise exec -- claude --teammate-mode in-process"
+
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${REPO_NAME}$"; then
+        tmux select-window -t "$SESSION_NAME:$REPO_NAME"
+    else
+        tmux new-window -t "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+    fi
+    [ -z "$TMUX" ] && tmux attach-session -t "$SESSION_NAME"
+else
+    tmux new-session -d -s "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+    tmux attach-session -t "$SESSION_NAME"
+fi
