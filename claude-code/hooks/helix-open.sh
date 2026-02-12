@@ -27,4 +27,10 @@ if [ -n "$FILE_PATH" ]; then
   # Escape spaces for Helix :open command
   ESCAPED_PATH="${FILE_PATH// /\\ }"
   tmux send-keys -t "$TARGET_PANE" ":open $ESCAPED_PATH" Enter ":reload" Enter
+
+  # Read tool: jump to offset line if specified
+  OFFSET=$(echo "$INPUT" | jq -r '.tool_input.offset // empty' 2>/dev/null)
+  if [ -n "$OFFSET" ]; then
+    tmux send-keys -t "$TARGET_PANE" ":goto $OFFSET" Enter "zc"
+  fi
 fi
