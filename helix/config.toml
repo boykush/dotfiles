@@ -4,6 +4,7 @@ theme = "nord"
 # システムクリップボードを使用
 clipboard-provider = "pasteboard"
 default-yank-register = "+"
+cursorline = true
 
 [editor.soft-wrap]
 enable = true
