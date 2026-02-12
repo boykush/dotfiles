@@ -1,0 +1,8 @@
+#!/bin/bash
+#MISE description="interactive process kill with procs + fzf"
+
+pid=$(procs --no-header | fzf --height 40% --reverse --header="Select process to kill" | awk '{print $1}')
+if [ -n "$pid" ]; then
+  echo "Killing PID: $pid"
+  kill "$pid"
+fi
