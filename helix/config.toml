@@ -5,6 +5,9 @@ theme = "nord"
 clipboard-provider = "pasteboard"
 default-yank-register = "+"
 
+[editor.soft-wrap]
+enable = true
+
 [editor.cursor-shape]
 normal = "block"
 insert = "bar"       # Vim風: insertモードで縦線
