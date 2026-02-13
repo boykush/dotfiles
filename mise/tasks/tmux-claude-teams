@@ -9,15 +9,15 @@ TARGET_DIR=$(zoxide query -i) || exit 0
 REPO_NAME=$(basename "$TARGET_DIR")
 
 CLAUDE_CMD="CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 mise exec -- claude --teammate-mode tmux"
+WINDOW_NAME="${REPO_NAME}-${RANDOM}"
 
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${REPO_NAME}$"; then
-        tmux select-window -t "$SESSION_NAME:$REPO_NAME"
-    else
-        tmux new-window -t "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
-    fi
+    tmux new-window -t "$SESSION_NAME" -n "$WINDOW_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
     [ -z "$TMUX" ] && tmux attach-session -t "$SESSION_NAME"
 else
-    tmux new-session -d -s "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+    tmux new-session -d -s "$SESSION_NAME" -n "$WINDOW_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+    # C-j C-t で新しいClaudeセッションウィンドウを追加 (このセッション内のみ)
+    tmux bind C-t if-shell '[ "$(tmux display-message -p "#S")" = "claude-teams" ]' \
+        'new-window "mise run tmux-claude-teams"'
     tmux attach-session -t "$SESSION_NAME"
 fi
