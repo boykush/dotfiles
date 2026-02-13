@@ -8,7 +8,7 @@ SESSION_NAME="claude-teams"
 TARGET_DIR=$(zoxide query -i) || exit 0
 REPO_NAME=$(basename "$TARGET_DIR")
 
-CLAUDE_CMD="CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 mise exec -- claude --teammate-mode in-process"
+CLAUDE_CMD="CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 mise exec -- claude --teammate-mode tmux"
 
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${REPO_NAME}$"; then
