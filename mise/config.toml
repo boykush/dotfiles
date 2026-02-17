@@ -47,4 +47,5 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} eza -l --git --icons --no-
 dir = "{{ config_root }}/tasks"
 
 [hooks]
+enter = "mise up"
 postinstall = "~/.config/mise/hooks/postinstall.sh"
