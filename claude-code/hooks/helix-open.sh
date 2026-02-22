@@ -10,12 +10,6 @@ if [ -z "${TMUX:-}" ]; then
   exit 0
 fi
 
-# Skip if not in claude-dev session (e.g., Agent Teams)
-SESSION_NAME=$(tmux display-message -t "$TMUX_PANE" -p '#S')
-if [[ "$SESSION_NAME" != "claude-dev" ]]; then
-  exit 0
-fi
-
 INPUT=$(cat)
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.notebook_path // empty' 2>/dev/null)
 

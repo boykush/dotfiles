@@ -21,13 +21,13 @@ if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${REPO_NAME}$"; then
         tmux select-window -t "$SESSION_NAME:$REPO_NAME"
     else
-        tmux new-window -t "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "mise exec -- claude --teammate-mode in-process"
+        tmux new-window -t "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "mise exec -- claude --settings ~/.claude/claude-dev.json --teammate-mode in-process"
         setup_panes
     fi
     # Attach only if not already inside tmux
     [ -z "$TMUX" ] && tmux attach-session -t "$SESSION_NAME"
 else
-    tmux new-session -d -s "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "mise exec -- claude --teammate-mode in-process"
+    tmux new-session -d -s "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "mise exec -- claude --settings ~/.claude/claude-dev.json --teammate-mode in-process"
     setup_panes
     tmux attach-session -t "$SESSION_NAME"
 fi
