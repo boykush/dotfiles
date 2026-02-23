@@ -1,0 +1,22 @@
+#!/bin/bash
+#MISE description="Remove a worker window from claude-tasks session"
+
+SESSION_NAME="claude-tasks"
+WINDOW_NAME="${1:?Usage: mise run claude/tmux-tasks/remove <window-name>}"
+
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    echo "Session '$SESSION_NAME' not found."
+    exit 1
+fi
+
+if [ "$WINDOW_NAME" = "tasks" ]; then
+    echo "Cannot remove the management window 'tasks'."
+    exit 1
+fi
+
+if ! tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${WINDOW_NAME}$"; then
+    echo "Window '$WINDOW_NAME' not found in session '$SESSION_NAME'."
+    exit 1
+fi
+
+tmux kill-window -t "$SESSION_NAME:$WINDOW_NAME"

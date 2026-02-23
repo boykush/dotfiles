@@ -6,6 +6,7 @@ XDG_CONFIG_HOME = "{{env.HOME}}/.config"
 LANG = "ja_JP.UTF-8"
 EDITOR = "hx"
 BAT_THEME = "Nord"
+CLAUDE_TASKS_WORKSPACE = "{{env.HOME}}/GitHub/boykush/repositories"
 
 [tools]
 node = "24"

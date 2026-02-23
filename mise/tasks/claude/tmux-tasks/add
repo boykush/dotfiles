@@ -1,0 +1,44 @@
+#!/bin/bash
+#MISE description="Add a worker window to claude-tasks session"
+
+SESSION_NAME="claude-tasks"
+
+TARGET_DIR="${1:?Usage: mise run claude:tmux-tasks:add <directory> [worktree-name] [task-id]}"
+WORKTREE_NAME="${2:-}"
+TASK_ID="${3:-}"
+
+# Resolve to absolute path
+TARGET_DIR=$(cd "$TARGET_DIR" 2>/dev/null && pwd) || { echo "Directory not found: $1"; exit 1; }
+REPO_NAME=$(basename "$TARGET_DIR")
+
+if [ -n "$WORKTREE_NAME" ]; then
+    WINDOW_NAME="${REPO_NAME}-${WORKTREE_NAME}"
+else
+    WINDOW_NAME="$REPO_NAME"
+fi
+
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    echo "Session '$SESSION_NAME' not found. Run 'mise run claude:tmux-tasks' first."
+    exit 1
+fi
+
+if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${WINDOW_NAME}$"; then
+    tmux select-window -t "$SESSION_NAME:$WINDOW_NAME"
+    exit 0
+fi
+
+TMUX_CMD="mise exec -- claude --settings ~/.claude/claude-tasks.json --permission-mode acceptEdits"
+
+if [ -n "$WORKTREE_NAME" ]; then
+    TMUX_CMD="$TMUX_CMD --worktree $WORKTREE_NAME"
+else
+    TMUX_CMD="$TMUX_CMD --worktree"
+fi
+
+if [ -n "$TASK_ID" ]; then
+    TMUX_CMD="$TMUX_CMD --append-system-prompt 'あなたはタスク #${TASK_ID} に割り当てられたワーカーです。'"
+    TMUX_CMD="$TMUX_CMD 'TaskGet #${TASK_ID} で割り当てられたタスクの詳細を確認し、着手してください'"
+fi
+
+tmux new-window -d -t "$SESSION_NAME" -n "$WINDOW_NAME" -c "$TARGET_DIR" "$TMUX_CMD"
+tmux split-window -h -t "$SESSION_NAME:$WINDOW_NAME" -c "$TARGET_DIR"
