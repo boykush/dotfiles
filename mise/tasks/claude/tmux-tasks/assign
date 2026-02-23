@@ -4,7 +4,7 @@
 SESSION_NAME="claude-tasks"
 WINDOW_NAME="tasks"
 
-TARGET_DIR="${1:?Usage: mise run claude:tmux-tasks:add <directory> [worktree-name] [task-id]}"
+TARGET_DIR="${1:?Usage: mise run claude:tmux-tasks:assign <directory> [worktree-name] [task-id]}"
 WORKTREE_NAME="${2:-}"
 TASK_ID="${3:-}"
 
@@ -29,7 +29,7 @@ if tmux list-panes -t "$SESSION_NAME:$WINDOW_NAME" -F '#{pane_title}' | grep -q 
     exit 0
 fi
 
-TMUX_CMD="mise exec -- claude --settings ~/.claude/claude-tasks.json --dangerously-skip-permissions"
+TMUX_CMD="mise exec -- claude --allowedTools 'Bash(npm run *)' 'Bash(git diff *)' 'Bash(git status *)' 'Bash(git add *)' 'Bash(git commit *)' 'Read' 'Edit' 'Write' 'Glob' 'Grep' 'TaskGet' 'TaskUpdate' 'TaskList'"
 
 if [ -n "$WORKTREE_NAME" ]; then
     TMUX_CMD="$TMUX_CMD --worktree $WORKTREE_NAME"

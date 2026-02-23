@@ -12,6 +12,6 @@ fi
 
 tmux new-session -d -s "$SESSION_NAME" -n "$WINDOW_NAME" \
     -e CLAUDE_CODE_TASK_LIST_ID="$SESSION_NAME" \
-    "mise exec -- claude --settings ~/.claude/claude-tasks.json"
+    "mise exec -- claude"
 tmux set-environment -t "$SESSION_NAME" CLAUDE_CODE_TASK_LIST_ID "$SESSION_NAME"
 tmux attach-session -t "$SESSION_NAME"
