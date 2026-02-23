@@ -3,13 +3,15 @@
 
 SESSION_NAME="claude-tasks"
 WINDOW_NAME="tasks"
-WORKSPACE="${CLAUDE_TASKS_WORKSPACE:?CLAUDE_TASKS_WORKSPACE is not set}"
 
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     tmux select-window -t "$SESSION_NAME:$WINDOW_NAME"
     [ -z "$TMUX" ] && tmux attach-session -t "$SESSION_NAME"
     exit 0
 fi
+
+# Select workspace directory via zoxide
+WORKSPACE=$(zoxide query -i) || exit 0
 
 tmux new-session -d -s "$SESSION_NAME" -n "$WINDOW_NAME" -c "$WORKSPACE" \
     -e CLAUDE_CODE_TASK_LIST_ID="$SESSION_NAME" \

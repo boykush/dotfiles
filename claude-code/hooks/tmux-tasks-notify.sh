@@ -4,18 +4,20 @@
 
 set -euo pipefail
 
-# Skip if not in tmux
-if [ -z "${TMUX:-}" ]; then
+# Skip if not in tmux or TMUX_PANE is unavailable
+if [ -z "${TMUX:-}" ] || [ -z "${TMUX_PANE:-}" ]; then
     exit 0
 fi
 
 SESSION_NAME="claude-tasks"
 MANAGER_WINDOW="tasks"
 
-# Get current window name for the notification
-CURRENT_WINDOW=$(tmux display-message -t "$TMUX_PANE" -p '#{window_name}')
-
-if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    tmux display-message -t "$SESSION_NAME:$MANAGER_WINDOW" \
-        "Task completed in [$CURRENT_WINDOW]"
+# Skip if the claude-tasks session doesn't exist
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    exit 0
 fi
+
+WORKER_NAME=$(tmux display-message -t "$TMUX_PANE" -p '#{pane_title}' 2>/dev/null) || exit 0
+
+tmux display-message -t "$SESSION_NAME:$MANAGER_WINDOW" \
+    "Task completed in [$WORKER_NAME]"

@@ -1,16 +1,5 @@
 {
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash|Edit|Write|NotebookEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/tmux-tasks-approve.sh"
-          }
-        ]
-      }
-    ],
     "TaskCompleted": [
       {
         "hooks": [

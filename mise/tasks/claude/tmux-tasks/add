@@ -1,7 +1,8 @@
 #!/bin/bash
-#MISE description="Add a worker window to claude-tasks session"
+#MISE description="Add a worker pane to claude-tasks session"
 
 SESSION_NAME="claude-tasks"
+WINDOW_NAME="tasks"
 
 TARGET_DIR="${1:?Usage: mise run claude:tmux-tasks:add <directory> [worktree-name] [task-id]}"
 WORKTREE_NAME="${2:-}"
@@ -12,9 +13,9 @@ TARGET_DIR=$(cd "$TARGET_DIR" 2>/dev/null && pwd) || { echo "Directory not found
 REPO_NAME=$(basename "$TARGET_DIR")
 
 if [ -n "$WORKTREE_NAME" ]; then
-    WINDOW_NAME="${REPO_NAME}-${WORKTREE_NAME}"
+    WORKER_NAME="${REPO_NAME}-${WORKTREE_NAME}"
 else
-    WINDOW_NAME="$REPO_NAME"
+    WORKER_NAME="$REPO_NAME"
 fi
 
 if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
@@ -22,12 +23,13 @@ if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     exit 1
 fi
 
-if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${WINDOW_NAME}$"; then
-    tmux select-window -t "$SESSION_NAME:$WINDOW_NAME"
+# Check if worker already exists by pane title
+if tmux list-panes -t "$SESSION_NAME:$WINDOW_NAME" -F '#{pane_title}' | grep -q "^${WORKER_NAME}$"; then
+    echo "Worker '$WORKER_NAME' already exists."
     exit 0
 fi
 
-TMUX_CMD="mise exec -- claude --settings ~/.claude/claude-tasks.json --permission-mode acceptEdits"
+TMUX_CMD="mise exec -- claude --settings ~/.claude/claude-tasks.json --dangerously-skip-permissions"
 
 if [ -n "$WORKTREE_NAME" ]; then
     TMUX_CMD="$TMUX_CMD --worktree $WORKTREE_NAME"
@@ -40,5 +42,24 @@ if [ -n "$TASK_ID" ]; then
     TMUX_CMD="$TMUX_CMD 'TaskGet #${TASK_ID} で割り当てられたタスクの詳細を確認し、着手してください'"
 fi
 
-tmux new-window -d -t "$SESSION_NAME" -n "$WINDOW_NAME" -c "$TARGET_DIR" "$TMUX_CMD"
-tmux split-window -h -t "$SESSION_NAME:$WINDOW_NAME" -c "$TARGET_DIR"
+# First worker: split horizontally (create right column)
+# Subsequent workers: split last right pane vertically (stack)
+PANE_COUNT=$(tmux list-panes -t "$SESSION_NAME:$WINDOW_NAME" | wc -l | tr -d ' ')
+
+if [ "$PANE_COUNT" -eq 1 ]; then
+    tmux split-window -h -t "$SESSION_NAME:$WINDOW_NAME.0" -c "$TARGET_DIR" \
+        -e CLAUDE_CODE_TASK_LIST_ID="$SESSION_NAME" \
+        "$TMUX_CMD"
+else
+    LAST_PANE=$(tmux list-panes -t "$SESSION_NAME:$WINDOW_NAME" -F '#{pane_index}' | tail -1)
+    tmux split-window -v -t "$SESSION_NAME:$WINDOW_NAME.${LAST_PANE}" -c "$TARGET_DIR" \
+        -e CLAUDE_CODE_TASK_LIST_ID="$SESSION_NAME" \
+        "$TMUX_CMD"
+fi
+
+# Set pane title for identification
+NEW_PANE=$(tmux list-panes -t "$SESSION_NAME:$WINDOW_NAME" -F '#{pane_index}' | tail -1)
+tmux select-pane -t "$SESSION_NAME:$WINDOW_NAME.${NEW_PANE}" -T "$WORKER_NAME"
+
+# Return focus to management pane
+tmux select-pane -t "$SESSION_NAME:$WINDOW_NAME.0"
