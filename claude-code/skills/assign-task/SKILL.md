@@ -1,21 +1,21 @@
 ---
 name: assign-task
-description: Assign a worker pane to a task. Use when asked to start, assign, resume, or begin work on a task.
+description: タスクにワーカーを割り当てる。開始・アサイン・着手を依頼された時に使う。
 disable-model-invocation: true
 allowed-tools: Bash(mise run claude:tmux-tasks:assign *)
 ---
 
-Assign a worker pane to a task in the claude-tasks tmux session. The worker uses `--allowedTools` for strict permission control.
+claude-tasks tmuxセッションでタスクにワーカーペインを割り当てる。ワーカーは `--allowedTools` で権限を厳密に制御する。
 
-## Steps
+## 手順
 
-1. Use TaskList to show pending and in_progress tasks. Ask the user which task to assign.
-2. Use TaskGet to read the task description and get the project path.
-3. Derive a kebab-case worktree name from the task subject (e.g., "add dark mode" → `add-dark-mode`).
-4. Run `mise run claude:tmux-tasks:assign <project-path> <worktree-name> <task-id>`
-5. If the task was pending, use TaskUpdate to set status to in_progress.
+1. TaskList で pending / in_progress のタスクを表示し、どのタスクに割り当てるか聞く。
+2. TaskGet でタスクの説明とプロジェクトパスを取得する。
+3. タスクの subject から kebab-case のworktree名を導出する（例: "add dark mode" → `add-dark-mode`）。
+4. `mise run claude:tmux-tasks:assign <project-path> <worktree-name> <task-id>` を実行する。
+5. タスクが pending だった場合、TaskUpdate で status を in_progress に更新する。
 
-## Notes
+## 注意
 
 - `--allowedTools` はプロジェクトの技術スタックに応じて調整する（npm/cargo/mix等）
 - `--dangerously-skip-permissions` は使用しない

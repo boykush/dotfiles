@@ -1,12 +1,12 @@
 ---
 name: list-tasks
-description: List tasks. Use when asked to show, list, or check tasks.
+description: タスク一覧を表示する。一覧・確認を依頼された時に使う。
 disable-model-invocation: true
 ---
 
-List all tasks.
+全タスクを一覧表示する。
 
-## Steps
+## 手順
 
-1. Use TaskList to show all tasks.
-2. Present the results to the user.
+1. TaskList で全タスクを表示する。
+2. 結果をユーザーに提示する。

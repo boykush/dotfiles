@@ -1,12 +1,12 @@
 ---
 name: delete-task
-description: Delete a task from the shared task list. Use when asked to delete or remove a task.
+description: 共有タスクリストからタスクを削除する。削除を依頼された時に使う。
 disable-model-invocation: true
 ---
 
-Delete a task from the shared task list.
+共有タスクリストからタスクを削除する。
 
-## Steps
+## 手順
 
-1. Use TaskList to show all tasks. Ask the user which task to delete.
-2. Use TaskUpdate to set the task status to deleted.
+1. TaskList で全タスクを表示し、どのタスクを削除するか聞く。
+2. TaskUpdate で status を deleted に設定する。
