@@ -29,7 +29,7 @@ if tmux list-panes -t "$SESSION_NAME:$WINDOW_NAME" -F '#{pane_title}' | grep -q 
     exit 0
 fi
 
-TMUX_CMD="mise exec -- claude --allowedTools 'Bash(npm run *)' 'Bash(git diff *)' 'Bash(git status *)' 'Bash(git add *)' 'Bash(git commit *)' 'Read' 'Edit' 'Write' 'Glob' 'Grep' 'TaskGet' 'TaskUpdate' 'TaskList'"
+TMUX_CMD="mise exec -- claude --dangerously-skip-permissions"
 
 if [ -n "$WORKTREE_NAME" ]; then
     TMUX_CMD="$TMUX_CMD --worktree $WORKTREE_NAME"

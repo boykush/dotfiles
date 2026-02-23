@@ -5,7 +5,7 @@ disable-model-invocation: true
 allowed-tools: Bash(mise run claude:tmux-tasks:assign *)
 ---
 
-claude-tasks tmuxセッションでタスクにワーカーペインを割り当てる。ワーカーは `--allowedTools` で権限を厳密に制御する。
+claude-tasks tmuxセッションでタスクにワーカーペインを割り当てる。ワーカーは `--dangerously-skip-permissions` で全権限を持つ。
 
 ## 手順
 
@@ -17,6 +17,4 @@ claude-tasks tmuxセッションでタスクにワーカーペインを割り当
 
 ## 注意
 
-- `--allowedTools` はプロジェクトの技術スタックに応じて調整する（npm/cargo/mix等）
-- `--dangerously-skip-permissions` は使用しない
 - 環境変数 `CLAUDE_CODE_TASK_LIST_ID` は管理セッションから自動継承される
