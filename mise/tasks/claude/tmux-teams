@@ -18,6 +18,6 @@ else
     tmux new-session -d -s "$SESSION_NAME" -n "$WINDOW_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
     # C-j C-t で新しいClaudeセッションウィンドウを追加 (このセッション内のみ)
     tmux bind C-t if-shell '[ "$(tmux display-message -p "#S")" = "claude-teams" ]' \
-        'new-window "mise run tmux-claude-teams"'
+        'new-window "mise run claude:tmux-teams"'
     tmux attach-session -t "$SESSION_NAME"
 fi
