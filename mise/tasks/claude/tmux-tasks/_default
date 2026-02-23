@@ -10,10 +10,7 @@ if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     exit 0
 fi
 
-# Select workspace directory via zoxide
-WORKSPACE=$(zoxide query -i) || exit 0
-
-tmux new-session -d -s "$SESSION_NAME" -n "$WINDOW_NAME" -c "$WORKSPACE" \
+tmux new-session -d -s "$SESSION_NAME" -n "$WINDOW_NAME" \
     -e CLAUDE_CODE_TASK_LIST_ID="$SESSION_NAME" \
     "mise exec -- claude --settings ~/.claude/claude-tasks.json"
 tmux set-environment -t "$SESSION_NAME" CLAUDE_CODE_TASK_LIST_ID "$SESSION_NAME"

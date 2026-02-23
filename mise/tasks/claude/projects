@@ -1,0 +1,7 @@
+#!/bin/bash
+#MISE description="List project directories containing .claude (via zoxide)"
+
+zoxide query -l | while read -r dir; do
+    [ -d "$dir/.claude" ] && echo "$dir"
+done
+exit 0
