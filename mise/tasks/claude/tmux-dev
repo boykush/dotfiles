@@ -14,8 +14,6 @@ setup_panes() {
     local target="$SESSION_NAME:$REPO_NAME"
     tmux split-window -h -t "$target" -c "$TARGET_DIR" "hx"
     tmux split-window -v -t "$target.1" -c "$TARGET_DIR" "gitui"
-    tmux split-window -v -t "$target.0" -c "$TARGET_DIR"
-    tmux select-pane -t "$target.0"
 }
 
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
