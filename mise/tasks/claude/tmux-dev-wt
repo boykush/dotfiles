@@ -17,7 +17,7 @@ fi
 WORKTREE_NAME="wt${NEXT_NUM}"
 
 WINDOW_NAME="${REPO_NAME}-${WORKTREE_NAME}"
-CLAUDE_CMD="mise exec -- claude --settings ~/.claude/claude-dev-wt.json --teammate-mode in-process --worktree $WORKTREE_NAME"
+CLAUDE_CMD="mise run claude:dev-wt $WORKTREE_NAME"
 
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${WINDOW_NAME}$"; then

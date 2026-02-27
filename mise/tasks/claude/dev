@@ -1,0 +1,5 @@
+#!/bin/bash
+#MISE description="Run Claude Code with dev settings (teammate mode)"
+#MISE dir="{{cwd}}"
+
+mise exec -- claude --settings ~/.claude/claude-dev.json --teammate-mode in-process
