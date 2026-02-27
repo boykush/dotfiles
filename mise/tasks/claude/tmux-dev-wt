@@ -8,13 +8,8 @@ SESSION_NAME="claude-dev"
 TARGET_DIR=$(zoxide query -i) || exit 0
 REPO_NAME=$(basename "$TARGET_DIR")
 
-# Auto-generate sequential worktree number
-NEXT_NUM=1
-if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    LAST_NUM=$(tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | sed -n "s/^${REPO_NAME}-wt\([0-9]*\)$/\1/p" | sort -n | tail -1)
-    [ -n "$LAST_NUM" ] && NEXT_NUM=$((LAST_NUM + 1))
-fi
-WORKTREE_NAME="wt${NEXT_NUM}"
+# Generate random worktree name
+WORKTREE_NAME="wt-$(LC_ALL=C tr -dc 'a-z0-9' < /dev/urandom | head -c 4)"
 
 WINDOW_NAME="${REPO_NAME}-${WORKTREE_NAME}"
 CLAUDE_CMD="mise run claude:dev-wt $WORKTREE_NAME"
