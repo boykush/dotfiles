@@ -10,7 +10,6 @@ ln -nfs ~/dotfiles/gitui ~/.config/gitui
 ln -nfs ~/dotfiles/helix ~/.config/helix
 ln -nfs ~/dotfiles/claude-code/settings.json ~/.claude/settings.json
 ln -nfs ~/dotfiles/claude-code/claude-dev.json ~/.claude/claude-dev.json
-ln -nfs ~/dotfiles/claude-code/claude-dev-wt.json ~/.claude/claude-dev-wt.json
 ln -nfs ~/dotfiles/claude-code/skills ~/.claude/skills
 ln -nfs ~/dotfiles/claude-code/hooks ~/.claude/hooks
 ln -nfs ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
