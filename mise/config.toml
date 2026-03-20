@@ -12,6 +12,7 @@ node = "24"
 
 # CLI tools (migrated from brew)
 "aqua:sharkdp/bat" = "0.26.1"
+"aqua:sharkdp/fd" = "10.4.2"
 "aqua:dandavison/delta" = "0.18.2"
 "asdf:mise-plugins/mise-eza" = "0.23.4"
 "aqua:junegunn/fzf" = "0.70.0"
