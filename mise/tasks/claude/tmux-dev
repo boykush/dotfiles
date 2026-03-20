@@ -10,25 +10,16 @@ REPO_NAME=$(basename "$TARGET_DIR")
 
 CLAUDE_CMD="mise run claude:dev"
 
-setup_panes() {
-    local target="$SESSION_NAME:$REPO_NAME"
-    tmux split-window -h -t "$target" -c "$TARGET_DIR" "hx"
-    tmux split-window -v -t "$target.1" -c "$TARGET_DIR" "gitui"
-    tmux select-pane -t "$target.0"
-}
-
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     # Switch to existing window or create new one
     if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${REPO_NAME}$"; then
         tmux select-window -t "$SESSION_NAME:$REPO_NAME"
     else
         tmux new-window -t "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
-        setup_panes
     fi
     # Attach only if not already inside tmux
     [ -z "$TMUX" ] && tmux attach-session -t "$SESSION_NAME"
 else
     tmux new-session -d -s "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
-    setup_panes
     tmux attach-session -t "$SESSION_NAME"
 fi

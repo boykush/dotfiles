@@ -39,6 +39,16 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/dev-session-start.sh"
+          }
+        ]
+      }
     ]
   }
 }

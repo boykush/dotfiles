@@ -1,5 +1,5 @@
 #!/bin/bash
-#MISE description="Run Claude Code with dev-wt settings (teammate mode + worktree)"
+#MISE description="Run Claude Code with dev settings + worktree"
 #MISE dir="{{cwd}}"
 
-mise exec -- claude --settings ~/.claude/claude-dev-wt.json --worktree
+mise exec -- claude --settings ~/.claude/claude-dev.json --worktree
