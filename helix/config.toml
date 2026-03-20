@@ -14,5 +14,16 @@ normal = "block"
 insert = "bar"       # Vim風: insertモードで縦線
 select = "underline"
 
+[keys.normal]
+C-y = [
+  ':sh rm -f /tmp/yazi-helix-chooser',
+  ':insert-output mise exec -- yazi "%{buffer_name}" --chooser-file=/tmp/yazi-helix-chooser',
+  ':sh printf "\\x1b[?1049h\\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/yazi-helix-chooser}',
+  ':redraw',
+  ':set mouse false',
+  ':set mouse true',
+]
+
 [keys.insert.j]
 k = "normal_mode"    # jk でnormalモードへ（Vim風）
