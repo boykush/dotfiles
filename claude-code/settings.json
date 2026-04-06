@@ -6,5 +6,6 @@
     "skill-creator@claude-plugins-official": true
   },
   "skipDangerousModePermissionPrompt": true,
-  "enableRemoteControl": true
+  "enableRemoteControl": true,
+  "effortLevel": "high"
 }
