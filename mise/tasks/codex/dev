@@ -1,0 +1,5 @@
+#!/bin/bash
+#MISE description="Run Codex CLI in dev mode"
+#MISE dir="{{cwd}}"
+
+mise exec -- codex

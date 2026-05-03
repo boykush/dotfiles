@@ -1,0 +1,37 @@
+#!/bin/bash
+#MISE description="Start tmux with Codex CLI + helix preview pane"
+#MISE dir="{{cwd}}"
+
+set -euo pipefail
+
+SESSION_NAME="codex-dev"
+
+# Select repository directory via zoxide
+TARGET_DIR=$(zoxide query -i) || exit 0
+REPO_NAME=$(basename "$TARGET_DIR")
+
+CODEX_CMD="mise run codex:dev"
+
+open_or_attach() {
+  if [ -z "${TMUX:-}" ]; then
+    tmux attach-session -t "$SESSION_NAME"
+  fi
+}
+
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+  if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${REPO_NAME}$"; then
+    tmux select-window -t "$SESSION_NAME:$REPO_NAME"
+  else
+    tmux new-window -t "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CODEX_CMD"
+    tmux split-window -h -t "$SESSION_NAME:$REPO_NAME" -c "$TARGET_DIR" "hx"
+    tmux split-window -v -t "$SESSION_NAME:$REPO_NAME.1" -c "$TARGET_DIR" "gitui"
+    tmux select-pane -t "$SESSION_NAME:$REPO_NAME.0"
+  fi
+  open_or_attach
+else
+  tmux new-session -d -s "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CODEX_CMD"
+  tmux split-window -h -t "$SESSION_NAME:$REPO_NAME" -c "$TARGET_DIR" "hx"
+  tmux split-window -v -t "$SESSION_NAME:$REPO_NAME.1" -c "$TARGET_DIR" "gitui"
+  tmux select-pane -t "$SESSION_NAME:$REPO_NAME.0"
+  tmux attach-session -t "$SESSION_NAME"
+fi
