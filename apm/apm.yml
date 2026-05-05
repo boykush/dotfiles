@@ -1,0 +1,21 @@
+name: boykush-agent-config
+version: 0.1.0
+description: Shared agent configuration dependencies for local Claude Code and Codex use.
+author: boykush
+target: [claude, codex]
+
+dependencies:
+  apm:
+    # Claude official plugins currently used in the global Claude Code setup.
+    - git: https://github.com/anthropics/claude-plugins-official.git
+      path: plugins/commit-commands
+      ref: 2cd88e7947b7
+    - git: https://github.com/anthropics/claude-plugins-official.git
+      path: plugins/skill-creator
+      ref: 55b58ec6e5649104f926ba7558b567dc8d33c5ff
+    - git: https://github.com/anthropics/claude-plugins-official.git
+      path: plugins/claude-md-management
+      ref: 55b58ec6e5649104f926ba7558b567dc8d33c5ff
+    - git: https://github.com/anthropics/claude-plugins-official.git
+      path: plugins/claude-code-setup
+      ref: 55b58ec6e5649104f926ba7558b567dc8d33c5ff

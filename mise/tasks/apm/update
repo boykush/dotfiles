@@ -1,0 +1,13 @@
+#!/bin/bash
+#MISE description="Update APM-managed agent dependencies globally"
+#MISE dir="{{config_root}}/apm"
+
+set -euo pipefail
+
+APM_DIR=$(pwd)
+if [ -e "$HOME/.apm" ] && [ ! -L "$HOME/.apm" ]; then
+  mv "$HOME/.apm" "$HOME/.apm.backup.$(date +%Y%m%d%H%M%S)"
+fi
+ln -nfs "$APM_DIR" "$HOME/.apm"
+
+mise exec -- apm install --global --update

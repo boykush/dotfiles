@@ -1,0 +1,53 @@
+lockfile_version: '1'
+generated_at: '2026-05-03T15:49:21.618123+00:00'
+apm_version: 0.12.0
+dependencies:
+- repo_url: anthropics/claude-plugins-official
+  host: github.com
+  resolved_commit: 55b58ec6e5649104f926ba7558b567dc8d33c5ff
+  resolved_ref: 55b58ec6e5649104f926ba7558b567dc8d33c5ff
+  virtual_path: plugins/claude-code-setup
+  is_virtual: true
+  package_type: marketplace_plugin
+  deployed_files:
+  - .agents/skills/claude-automation-recommender
+  - .claude/skills/claude-automation-recommender
+  content_hash: sha256:ec1d6b7712f33a08de79bc015a5e8e19031fefc4b2ae2debc75e19bda8fcca05
+- repo_url: anthropics/claude-plugins-official
+  host: github.com
+  resolved_commit: 55b58ec6e5649104f926ba7558b567dc8d33c5ff
+  resolved_ref: 55b58ec6e5649104f926ba7558b567dc8d33c5ff
+  virtual_path: plugins/claude-md-management
+  is_virtual: true
+  package_type: marketplace_plugin
+  deployed_files:
+  - .agents/skills/claude-md-improver
+  - .claude/skills/claude-md-improver
+  content_hash: sha256:eef0aa5a71845be937066ef304fbd152d523d2574587474d342def4c3e8514d4
+- repo_url: anthropics/claude-plugins-official
+  host: github.com
+  resolved_commit: 2cd88e7947b7382e045666abee790c7f55f669f3
+  resolved_ref: 2cd88e7947b7
+  virtual_path: plugins/commit-commands
+  is_virtual: true
+  package_type: marketplace_plugin
+  deployed_files:
+  - .claude/commands/clean_gone.md
+  - .claude/commands/commit-push-pr.md
+  - .claude/commands/commit.md
+  deployed_file_hashes:
+    .claude/commands/clean_gone.md: sha256:24ce5c79da87b481d346d26b297cbe327862f1e4bbee05406589f4b5468c7fa3
+    .claude/commands/commit-push-pr.md: sha256:63ee94bcf2a60101d542ec46bf2afa18b31565105ebfc63f1a38e4d308d3cd2f
+    .claude/commands/commit.md: sha256:366740b9d9f45e05bf7cc5b703156f95fe28180012899ceb90d89d34d4110e47
+  content_hash: sha256:059c0e9031132bf71628f984c7411a01543950f17c879100d23145c1bc28c7e1
+- repo_url: anthropics/claude-plugins-official
+  host: github.com
+  resolved_commit: 55b58ec6e5649104f926ba7558b567dc8d33c5ff
+  resolved_ref: 55b58ec6e5649104f926ba7558b567dc8d33c5ff
+  virtual_path: plugins/skill-creator
+  is_virtual: true
+  package_type: marketplace_plugin
+  deployed_files:
+  - .agents/skills/skill-creator
+  - .claude/skills/skill-creator
+  content_hash: sha256:c8fec944c7c073b04a8f9577e10fe50e00b52b6567c56292145e05284704f637

@@ -1,0 +1,30 @@
+#!/bin/bash
+#MISE description="Audit APM-managed agent dependencies"
+#MISE dir="{{config_root}}/apm"
+
+set -euo pipefail
+
+APM_DIR=$(pwd)
+if [ -e "$HOME/.apm" ] && [ ! -L "$HOME/.apm" ]; then
+  mv "$HOME/.apm" "$HOME/.apm.backup.$(date +%Y%m%d%H%M%S)"
+fi
+ln -nfs "$APM_DIR" "$HOME/.apm"
+
+AUDIT_ROOT=$(mktemp -d)
+trap 'rm -rf "$AUDIT_ROOT"' EXIT
+
+ln -s "$HOME/.apm/apm.yml" "$AUDIT_ROOT/apm.yml"
+ln -s "$HOME/.apm/apm.lock.yaml" "$AUDIT_ROOT/apm.lock.yaml"
+
+if [ -e "$HOME/.claude" ]; then
+  ln -s "$HOME/.claude" "$AUDIT_ROOT/.claude"
+fi
+
+if [ -e "$HOME/.agents" ]; then
+  ln -s "$HOME/.agents" "$AUDIT_ROOT/.agents"
+fi
+
+(
+  cd "$AUDIT_ROOT" &&
+    mise exec -- apm audit --ci
+)

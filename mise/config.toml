@@ -26,6 +26,7 @@ node = "24"
 "aqua:cli/cli" = "2.92.0"
 "aqua:sxyazi/yazi" = "26.1.22"
 "aqua:anthropics/claude-code" = "latest"
+"github:microsoft/apm" = "0.12.1"
 "asdf:mise-plugins/mise-tmux" = "3.6a"
 
 [shell_alias]

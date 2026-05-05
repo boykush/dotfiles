@@ -1,0 +1,42 @@
+name: APM
+
+on:
+  pull_request:
+    paths:
+      - "apm/**"
+      - "mise/config.toml"
+      - "mise/hooks/postinstall.sh"
+      - "mise/tasks/apm/**"
+      - ".github/workflows/apm.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "apm/**"
+      - "mise/config.toml"
+      - "mise/hooks/postinstall.sh"
+      - "mise/tasks/apm/**"
+      - ".github/workflows/apm.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      HOME: ${{ runner.temp }}/apm-home
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up mise
+        uses: jdx/mise-action@v3
+        with:
+          install: false
+
+      - name: Install APM CLI with mise
+        run: mise install github:microsoft/apm
+
+      - name: Install APM dependencies in isolated global scope
+        run: mise run apm:install
+
+      - name: Audit APM dependencies
+        run: mise run apm:audit
