@@ -7,9 +7,9 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "enableRemoteControl": true,
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "statusLine": {
     "type": "command",
-    "command": "printf '%b' \"$(jq -rj 'def c(p): if p>=90 then \"\\\\033[31m\" elif p>=70 then \"\\\\033[33m\" else \"\\\\033[32m\" end; def R: \"\\\\033[0m\"; def burn(u;e): if u>=90 then \"\\\\033[31m\" elif (e>0 and u>e*1.5) then \"\\\\033[31m\" elif u>e then \"\\\\033[33m\" else \"\\\\033[32m\" end; (.context_window.used_percentage // 0 | floor) as $x | \"\\\\033[36m[\\(.model.display_name)]\\\\033[0m \" + (if .rate_limits.five_hour then (.rate_limits.five_hour.used_percentage|floor) as $u | (.rate_limits.five_hour.resets_at // now) as $rst | (($rst - now) | if . < 0 then 0 else . end | floor) as $rem | ($rem/3600|floor) as $h | (($rem - $h*3600)/60|floor) as $m | ((18000 - ($rst - now)) / 18000 * 100 | if . < 0 then 0 elif . > 100 then 100 else . end) as $e | burn($u;$e)+\"5h \\($u)%\"+R+\" \\\\033[2m\" + (if $h>0 then \"\\($h)h\\($m)m\" else \"\\($m)m\" end) + \" left\\\\033[0m \\\\033[2m|\\\\033[0m \" else \"\" end) + c($x)+\"ctx \\($x)%\"+R')\""
+    "command": "~/.claude/statusline.sh"
   }
 }
