@@ -1,6 +1,7 @@
 theme = nord
 font-family = Hack Nerd Font Mono
-font-family = Osaka
+# Osaka は近年のmacOSから削除されたため、標準同梱の Hiragino Sans に変更
+font-family = Hiragino Sans
 
 macos-titlebar-style = tabs
 macos-option-as-alt = true
