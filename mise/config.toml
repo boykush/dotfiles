@@ -1,5 +1,6 @@
 [settings]
 experimental = true
+lockfile = true
 
 [env]
 XDG_CONFIG_HOME = "{{env.HOME}}/.config"
@@ -25,7 +26,7 @@ node = "24"
 "aqua:dalance/procs" = "0.14.11"
 "aqua:cli/cli" = "2.92.0"
 "aqua:sxyazi/yazi" = "26.5.6"
-"aqua:anthropics/claude-code" = "latest"
+"aqua:anthropics/claude-code" = "2.1.177"
 "asdf:mise-plugins/mise-tmux" = "3.6a"
 
 [shell_alias]
@@ -49,5 +50,5 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} eza -l --git --icons --no-
 dir = "{{ config_root }}/tasks"
 
 [hooks]
-enter = "mise up"
+enter = "mise install"
 postinstall = "~/.config/mise/hooks/postinstall.sh"

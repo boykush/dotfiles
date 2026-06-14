@@ -3,5 +3,8 @@
   "extends": [
     "config:recommended"
   ],
-  "reviewers": ["boykush"]
+  "reviewers": ["boykush"],
+  "minimumReleaseAge": "3 days",
+  "internalChecksFilter": "strict",
+  "github-actions": { "enabled": false }
 }
