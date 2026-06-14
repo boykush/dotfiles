@@ -1,0 +1,57 @@
+name: Renovate
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # 6時間ごと (00/06/12/18 UTC)
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: Renovate log level
+        type: choice
+        default: info
+        options:
+          - info
+          - debug
+
+concurrency:
+  group: renovate
+  cancel-in-progress: false
+
+# 必要最小限。GITHUB_TOKEN で push / PR / Dependency Dashboard を行う。
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: lts/*
+
+      # mise バイナリを PATH に置くだけ（ツール本体は不要なので install: false）。
+      # これで Renovate が binarySource=global で mise を見つけ、bump 時に mise lock を実行できる。
+      - name: Setup mise
+        uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # v4.1.0
+        with:
+          install: false
+
+      - name: Run Renovate
+        run: npx --yes renovate
+        env:
+          # 組み込みトークン（PAT 不要）。push / PR 用。
+          RENOVATE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # mise lock が GitHub API を叩く際のレート制限回避用。
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RENOVATE_REPOSITORIES: boykush/dotfiles
+          # ランナーに入れた mise を使う。
+          RENOVATE_BINARY_SOURCE: global
+          # mise lock の実行を許可（セルフホスト専用設定）。
+          RENOVATE_ALLOWED_UNSAFE_EXECUTIONS: '["mise"]'
+          # CI 上の mise プロンプト（trust 等）を自動承認。
+          MISE_YES: "1"
+          LOG_LEVEL: ${{ inputs.logLevel || 'info' }}
