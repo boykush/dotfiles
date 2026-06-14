@@ -83,42 +83,42 @@ url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d
 url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.177/darwin-x64/claude"
 
 [[tools."aqua:cli/cli"]]
-version = "2.92.0"
+version = "2.94.0"
 backend = "aqua:cli/cli"
 
 [tools."aqua:cli/cli"."platforms.linux-arm64"]
-checksum = "sha256:c2248526dd0160c08d3fccca2332c3c1a07c15a78b23978e77735f1b5a18cfee"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_arm64.tar.gz"
+checksum = "sha256:705a23b70b0f1b7ba4c302fdcef392ce3edaacfa7ce8e85e4d93d72ea800a538"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_linux_arm64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:cli/cli"."platforms.linux-arm64-musl"]
-checksum = "sha256:c2248526dd0160c08d3fccca2332c3c1a07c15a78b23978e77735f1b5a18cfee"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_arm64.tar.gz"
+checksum = "sha256:705a23b70b0f1b7ba4c302fdcef392ce3edaacfa7ce8e85e4d93d72ea800a538"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_linux_arm64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:cli/cli"."platforms.linux-x64"]
-checksum = "sha256:b57848131bdf0c229cd35e1f2a51aa718199858b2e728410b37e89a428943ec4"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_amd64.tar.gz"
+checksum = "sha256:a757f1ba6db18f4de8cbadb244843a5f89bc75b5e7c6fc127d2bd77fbd12ed62"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_linux_amd64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:cli/cli"."platforms.linux-x64-musl"]
-checksum = "sha256:b57848131bdf0c229cd35e1f2a51aa718199858b2e728410b37e89a428943ec4"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_amd64.tar.gz"
+checksum = "sha256:a757f1ba6db18f4de8cbadb244843a5f89bc75b5e7c6fc127d2bd77fbd12ed62"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_linux_amd64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:cli/cli"."platforms.macos-arm64"]
-checksum = "sha256:b11c54f6bd7d15ed6590475079e5b2fcf36f45d3991a80041b29c9d0cc1f1d07"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_macOS_arm64.zip"
+checksum = "sha256:4f9bc1a5e77500737290a307b40b4c396a4d23729f55340f2a83f414410165a1"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_macOS_arm64.zip"
 provenance = "github-attestations"
 
 [tools."aqua:cli/cli"."platforms.macos-x64"]
-checksum = "sha256:ae9bb327ab0d91071bdada79f8f14034a2a0f19b0e001835a782eafa519d2af0"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_macOS_amd64.zip"
+checksum = "sha256:733ee8fa49247d27cd94a6c7384455bdecaa82172a3bcfad63ac1ecc2867251d"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_macOS_amd64.zip"
 provenance = "github-attestations"
 
 [tools."aqua:cli/cli"."platforms.windows-x64"]
-checksum = "sha256:b6a8df3c8c6b9c80f290906387673bc4d272840f3789c5650e0e4e6e75522785"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_windows_amd64.zip"
+checksum = "sha256:c0766af54195dfa0bcd9a0cb63a45c313fbaffdebb9f736f666e9ba4be8c91e8"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_windows_amd64.zip"
 provenance = "github-attestations"
 
 [[tools."aqua:dalance/procs"]]
