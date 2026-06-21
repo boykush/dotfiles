@@ -30,4 +30,4 @@ mise install
 
 - **Homebrew**: `Brewfile`で宣言的に管理
 - **mise**: `mise/config.toml`で管理
-- **GitHubトークン**: `ghtkn`で発行（git の credential helper / gh / mise が共用）
+- **GitHubトークン**: `ghtkn`で発行（git の credential helper / gh が利用）

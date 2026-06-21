@@ -2,13 +2,6 @@
 experimental = true
 lockfile = true
 
-[settings.github]
-# mise が GitHub API を叩く際のトークンも ghtkn 経由で取得し、gh / git と統一する。
-# 非対話で走り得るため device flow は無効化し、失効時はハングせず未認証で続行させる
-# （初回認証は `ghtkn auth`、再認証は対話的な git/gh 側で行う）。この設定はグローバル
-# 設定（~/.config/mise = 本 dotfiles の symlink）でのみ有効。ghtkn 未導入時も未認証で続行。
-credential_command = "env GHTKN_ENABLE_DEVICE_FLOW=false ghtkn get -m 1h"
-
 [env]
 XDG_CONFIG_HOME = "{{env.HOME}}/.config"
 LANG = "ja_JP.UTF-8"
