@@ -22,6 +22,9 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+  # minimumReleaseAge + internalChecksFilter:strict で renovate/stability-days の
+  # コミットステータスを書くため。無いと 403 で毎 run 中断する。
+  statuses: write
 
 jobs:
   renovate:
