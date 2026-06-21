@@ -17,14 +17,11 @@ concurrency:
   group: renovate
   cancel-in-progress: false
 
-# 必要最小限。GITHUB_TOKEN で push / PR / Dependency Dashboard を行う。
+# Renovate は下で発行する GitHub App トークンで push / PR / status / commit を行う。
+# そのためジョブ既定の GITHUB_TOKEN には書き込み権限は不要（read のみ）。
+# 実際に必要な権限(contents / pull-requests / issues / statuses など)は App 側で付与する。
 permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-  # minimumReleaseAge + internalChecksFilter:strict で renovate/stability-days の
-  # コミットステータスを書くため。無いと 403 で毎 run 中断する。
-  statuses: write
+  contents: read
 
 jobs:
   renovate:
@@ -43,13 +40,24 @@ jobs:
         with:
           install: false
 
+      # GitHub App トークンを発行する。
+      # 既定の GITHUB_TOKEN だと commit status 作成が 422 になり、Renovate が
+      # PR 作成前に中断してしまう（status 書き込みエラーを致命扱いするため）。
+      # App トークンに切り替えると status / commit が通り、PR も CI 発火する（公式推奨）。
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.RENOVATE_APP_ID }}
+          private-key: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
+
       - name: Run Renovate
         run: npx --yes renovate
         env:
-          # 組み込みトークン（PAT 不要）。push / PR 用。
-          RENOVATE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GitHub App トークン（PAT 不使用）。push / PR / status / commit に使用。
+          RENOVATE_TOKEN: ${{ steps.app-token.outputs.token }}
           # mise lock が GitHub API を叩く際のレート制限回避用。
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           RENOVATE_REPOSITORIES: boykush/dotfiles
           # ランナーに入れた mise を使う。
           RENOVATE_BINARY_SOURCE: global
