@@ -24,3 +24,9 @@
   pullr = pull --rebase origin master
   pushh = push origin HEAD
   pushf = push -f origin HEAD
+
+# GitHub への HTTPS 認証は ghtkn の短命トークンを使う（gh auth setup-git の代替）。
+# 最初の空 helper で既定（osxkeychain 等）をリセットしてから ghtkn を登録する。
+[credential "https://github.com"]
+	helper =
+	helper = !ghtkn git-credential
