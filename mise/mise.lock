@@ -83,43 +83,8 @@ url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d
 url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/darwin-x64/claude"
 
 [[tools."aqua:cli/cli"]]
-version = "2.92.0"
+version = "2.94.0"
 backend = "aqua:cli/cli"
-
-[tools."aqua:cli/cli"."platforms.linux-arm64"]
-checksum = "sha256:c2248526dd0160c08d3fccca2332c3c1a07c15a78b23978e77735f1b5a18cfee"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_arm64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:cli/cli"."platforms.linux-arm64-musl"]
-checksum = "sha256:c2248526dd0160c08d3fccca2332c3c1a07c15a78b23978e77735f1b5a18cfee"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_arm64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:cli/cli"."platforms.linux-x64"]
-checksum = "sha256:b57848131bdf0c229cd35e1f2a51aa718199858b2e728410b37e89a428943ec4"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_amd64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:cli/cli"."platforms.linux-x64-musl"]
-checksum = "sha256:b57848131bdf0c229cd35e1f2a51aa718199858b2e728410b37e89a428943ec4"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_amd64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:cli/cli"."platforms.macos-arm64"]
-checksum = "sha256:b11c54f6bd7d15ed6590475079e5b2fcf36f45d3991a80041b29c9d0cc1f1d07"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_macOS_arm64.zip"
-provenance = "github-attestations"
-
-[tools."aqua:cli/cli"."platforms.macos-x64"]
-checksum = "sha256:ae9bb327ab0d91071bdada79f8f14034a2a0f19b0e001835a782eafa519d2af0"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_macOS_amd64.zip"
-provenance = "github-attestations"
-
-[tools."aqua:cli/cli"."platforms.windows-x64"]
-checksum = "sha256:b6a8df3c8c6b9c80f290906387673bc4d272840f3789c5650e0e4e6e75522785"
-url = "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_windows_amd64.zip"
-provenance = "github-attestations"
 
 [[tools."aqua:dalance/procs"]]
 version = "0.14.11"
@@ -273,36 +238,8 @@ url = "https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-windows-amd64.
 provenance = "github-attestations"
 
 [[tools."aqua:junegunn/fzf"]]
-version = "0.72.0"
+version = "0.73.1"
 backend = "aqua:junegunn/fzf"
-
-[tools."aqua:junegunn/fzf"."platforms.linux-arm64"]
-checksum = "sha256:a0a5b50730f568c5f08b8dbba1e6e598db253e1856d371290086786b889b996b"
-url = "https://github.com/junegunn/fzf/releases/download/v0.72.0/fzf-0.72.0-linux_arm64.tar.gz"
-
-[tools."aqua:junegunn/fzf"."platforms.linux-arm64-musl"]
-checksum = "sha256:a0a5b50730f568c5f08b8dbba1e6e598db253e1856d371290086786b889b996b"
-url = "https://github.com/junegunn/fzf/releases/download/v0.72.0/fzf-0.72.0-linux_arm64.tar.gz"
-
-[tools."aqua:junegunn/fzf"."platforms.linux-x64"]
-checksum = "sha256:0e58e4bd0b3c5d68c56b54c460a6863d0de79633ed18d388575a960ab447b006"
-url = "https://github.com/junegunn/fzf/releases/download/v0.72.0/fzf-0.72.0-linux_amd64.tar.gz"
-
-[tools."aqua:junegunn/fzf"."platforms.linux-x64-musl"]
-checksum = "sha256:0e58e4bd0b3c5d68c56b54c460a6863d0de79633ed18d388575a960ab447b006"
-url = "https://github.com/junegunn/fzf/releases/download/v0.72.0/fzf-0.72.0-linux_amd64.tar.gz"
-
-[tools."aqua:junegunn/fzf"."platforms.macos-arm64"]
-checksum = "sha256:4cbf87e8e8a342614c1e3e74670ceb18c2af998c4d4d0c379cfee9b520774e90"
-url = "https://github.com/junegunn/fzf/releases/download/v0.72.0/fzf-0.72.0-darwin_arm64.tar.gz"
-
-[tools."aqua:junegunn/fzf"."platforms.macos-x64"]
-checksum = "sha256:561c9db95cc1f75c8ad7e1d4461b2da0c8461189041f610ff1205f6303b84634"
-url = "https://github.com/junegunn/fzf/releases/download/v0.72.0/fzf-0.72.0-darwin_amd64.tar.gz"
-
-[tools."aqua:junegunn/fzf"."platforms.windows-x64"]
-checksum = "sha256:cce66ae7e442030334927bfbfd917690713e63d215aba93027f99807828fe239"
-url = "https://github.com/junegunn/fzf/releases/download/v0.72.0/fzf-0.72.0-windows_amd64.zip"
 
 [[tools."aqua:sharkdp/bat"]]
 version = "0.26.1"
@@ -395,6 +332,45 @@ url = "https://github.com/starship/starship/releases/download/v1.25.1/starship-x
 [tools."aqua:starship/starship"."platforms.windows-x64"]
 checksum = "sha256:a07cf3e428afab09324e510fb786041ebcc491a68b1ca6fba044c5a461f9b017"
 url = "https://github.com/starship/starship/releases/download/v1.25.1/starship-x86_64-pc-windows-msvc.zip"
+
+[[tools."aqua:suzuki-shunsuke/ghtkn"]]
+version = "0.2.6"
+backend = "aqua:suzuki-shunsuke/ghtkn"
+
+[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-arm64"]
+checksum = "sha256:5c4202bc7d5a8837bef881ee9f29841828e0e81df1c2e6b44addb27662eb7c9d"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_linux_arm64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-arm64-musl"]
+checksum = "sha256:5c4202bc7d5a8837bef881ee9f29841828e0e81df1c2e6b44addb27662eb7c9d"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_linux_arm64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-x64"]
+checksum = "sha256:08a4d4d50de5cebeaa7c9594a91123aa90b73e0838886ee27ffdb5e00aa8eeb2"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_linux_amd64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-x64-musl"]
+checksum = "sha256:08a4d4d50de5cebeaa7c9594a91123aa90b73e0838886ee27ffdb5e00aa8eeb2"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_linux_amd64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.macos-arm64"]
+checksum = "sha256:e8a6780b6dbd4aeb296fdd077909c10a8506cee3211bfeb544342d4c404308dd"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_darwin_arm64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.macos-x64"]
+checksum = "sha256:24f2f621ed8a85c89e8167f3084c48e4c231f34ed2b26e750c660848f3cd06d0"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_darwin_amd64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.windows-x64"]
+checksum = "sha256:82761a99b97336a671fff16da4950b4d76e969d386fbc5237361eb00d504cb3f"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_windows_amd64.zip"
+provenance = "github-attestations"
 
 [[tools."aqua:sxyazi/yazi"]]
 version = "26.5.6"

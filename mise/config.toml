@@ -2,6 +2,13 @@
 experimental = true
 lockfile = true
 
+[settings.github]
+# mise が GitHub API を叩く際のトークンも ghtkn 経由で取得し、gh / git と統一する。
+# 非対話で走り得るため device flow は無効化し、失効時はハングせず未認証で続行させる
+# （初回認証は `ghtkn auth`、再認証は対話的な git/gh 側で行う）。この設定はグローバル
+# 設定（~/.config/mise = 本 dotfiles の symlink）でのみ有効。ghtkn 未導入時も未認証で続行。
+credential_command = "env GHTKN_ENABLE_DEVICE_FLOW=false ghtkn get -m 1h"
+
 [env]
 XDG_CONFIG_HOME = "{{env.HOME}}/.config"
 LANG = "ja_JP.UTF-8"
@@ -25,6 +32,7 @@ node = "24"
 "aqua:ajeetdsouza/zoxide" = "0.9.9"
 "aqua:dalance/procs" = "0.14.11"
 "aqua:cli/cli" = "2.94.0"
+"aqua:suzuki-shunsuke/ghtkn" = "0.2.6" # GitHub App の短命トークン発行（gh auth login の代替）
 "aqua:sxyazi/yazi" = "26.5.6"
 "aqua:anthropics/claude-code" = "2.1.181"
 "asdf:mise-plugins/mise-tmux" = "3.6a"
@@ -44,11 +52,14 @@ eta = "eza -T -a -I 'node_modules|.git|.cache' --color=always --icons | less -r"
 lta = "eza -T -a -I 'node_modules|.git|.cache' --color=always --icons | less -r"
 fbr = "mise run fbr"
 fkill = "mise run fkill"
+# gh: 実行時に ghtkn の短命トークンを GH_TOKEN へ注入する（gh auth login の代替）。
+# 値はシングルクォートで保持され $(ghtkn get) は gh 実行時に遅延評価。command で alias 再帰を回避。
+# .zshrc に直書きせず mise が hook-env で alias を注入する（fbr/fkill と同じ仕組み）。
+gh = 'GH_TOKEN="$(ghtkn get)" command gh'
 gst = "git status -s | awk '{print $2}' | xargs -I {} eza -l --git --icons --no-permissions --no-filesize --no-user --no-time {}"
 
 [task_config]
 dir = "{{ config_root }}/tasks"
 
 [hooks]
-enter = "mise install"
 postinstall = "~/.config/mise/hooks/postinstall.sh"
