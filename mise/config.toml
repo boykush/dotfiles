@@ -27,7 +27,7 @@ node = "24"
 "aqua:cli/cli" = "2.94.0"
 "aqua:suzuki-shunsuke/ghtkn" = "0.2.6" # GitHub App の短命トークン発行（gh auth login の代替）
 "aqua:sxyazi/yazi" = "26.5.6"
-"aqua:anthropics/claude-code" = "2.1.181"
+"aqua:anthropics/claude-code" = "2.1.195"
 "asdf:mise-plugins/mise-tmux" = "3.6a"
 
 [shell_alias]
