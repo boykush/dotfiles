@@ -7,12 +7,12 @@ XDG_CONFIG_HOME = "{{env.HOME}}/.config"
 LANG = "ja_JP.UTF-8"
 EDITOR = "hx"
 BAT_THEME = "Nord"
-# gh / git 等が参照する GH_TOKEN を ghtkn の短命トークンで供給する（gh auth login の代替）。
-# shell_alias と違い実環境変数なので、alias を展開しない gh 呼び出し（Claude Desktop の
-# PR 連携など、子プロセス経由）にも伝播する。失効時は ghtkn get が非ゼロ終了するため
-# `|| true` で空にし、mise が全シェルでエラーを吐くのを防ぐ（空なら gh が未認証に
-# フォールバックするだけで、`ghtkn auth` 後に自然復帰）。再評価は shell 起動/cd/設定変更時のみ。
-GH_TOKEN = "{{ exec(command='ghtkn get 2>/dev/null || true') }}"
+# GitHub 認証の既定は gh auth login。その場合 GH_TOKEN は空で、gh は自身の保存トークンを使う。
+# ~/.gitconfig.ghtkn がある環境のみ ghtkn の短命トークンを GH_TOKEN に供給する（git も同
+# ファイルの include で ghtkn git-credential に切り替わり認証系統が揃う）。実環境変数なので、
+# alias を展開しない gh 呼び出し（子プロセス経由）にも伝播する。失効時は ghtkn get が非ゼロ
+# 終了するため `|| true` で空にする。再評価は shell 起動/cd/設定変更時のみ。
+GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/null || true') }}"
 
 [tools]
 node = "24"
