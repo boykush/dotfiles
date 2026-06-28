@@ -2,5 +2,19 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "mise 本体の min_version を追従（組み込み mise manager は [tools] のみ対象）",
+      "managerFilePatterns": [
+        "/^mise/config\\.toml$/"
+      ],
+      "matchStrings": [
+        "min_version\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "depNameTemplate": "jdx/mise",
+      "datasourceTemplate": "github-releases"
+    }
   ]
 }

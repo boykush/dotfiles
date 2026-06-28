@@ -1,3 +1,7 @@
+# mise 自身の下限バージョン。これ未満の mise で実行するとエラーになる（自動更新ではない）。
+# 更新は brew upgrade mise。上げたら必要に応じてこの値も追従させる。
+min_version = "2026.6.7"
+
 [settings]
 experimental = true
 lockfile = true
