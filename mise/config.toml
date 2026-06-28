@@ -7,6 +7,12 @@ XDG_CONFIG_HOME = "{{env.HOME}}/.config"
 LANG = "ja_JP.UTF-8"
 EDITOR = "hx"
 BAT_THEME = "Nord"
+# gh / git 等が参照する GH_TOKEN を ghtkn の短命トークンで供給する（gh auth login の代替）。
+# shell_alias と違い実環境変数なので、alias を展開しない gh 呼び出し（Claude Desktop の
+# PR 連携など、子プロセス経由）にも伝播する。失効時は ghtkn get が非ゼロ終了するため
+# `|| true` で空にし、mise が全シェルでエラーを吐くのを防ぐ（空なら gh が未認証に
+# フォールバックするだけで、`ghtkn auth` 後に自然復帰）。再評価は shell 起動/cd/設定変更時のみ。
+GH_TOKEN = "{{ exec(command='ghtkn get 2>/dev/null || true') }}"
 
 [tools]
 node = "24"
@@ -45,10 +51,6 @@ eta = "eza -T -a -I 'node_modules|.git|.cache' --color=always --icons | less -r"
 lta = "eza -T -a -I 'node_modules|.git|.cache' --color=always --icons | less -r"
 fbr = "mise run fbr"
 fkill = "mise run fkill"
-# gh: 実行時に ghtkn の短命トークンを GH_TOKEN へ注入する（gh auth login の代替）。
-# 値はシングルクォートで保持され $(ghtkn get) は gh 実行時に遅延評価。command で alias 再帰を回避。
-# .zshrc に直書きせず mise が hook-env で alias を注入する（fbr/fkill と同じ仕組み）。
-gh = 'GH_TOKEN="$(ghtkn get)" command gh'
 gst = "git status -s | awk '{print $2}' | xargs -I {} eza -l --git --icons --no-permissions --no-filesize --no-user --no-time {}"
 
 [task_config]

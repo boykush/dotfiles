@@ -24,7 +24,7 @@ mise install
 
 `mise install`時（postinstall）に、`ghtkn auth`（device flow＝ブラウザ承認）と旧 gh ログインの破棄が自動実行される（対話端末のみ。CI/非対話ではスキップ）。これで認証とフォールバック遮断が揃い ghtkn に一本化される。
 
-トークンは8時間で失効するが、失効後も git（HTTPS）/ gh が必要時に`ghtkn get`で device flow を自動起動するため、再`mise install`しなくても認証は継続する。
+トークンは8時間で失効する。再`mise install`は不要で、対話端末で `ghtkn auth` を打ち直せば復帰する（コーディングエージェント等の非対話環境では暴発防止のため device flow を無効化しており、自動再取得はされない）。
 
 ## パッケージ管理
 
