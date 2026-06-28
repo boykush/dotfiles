@@ -1,5 +1,6 @@
 #!/bin/bash
 #MISE description="GitHub 認証を既定(gh auth login)に戻す（marker 削除）"
+#MISE dir="{{cwd}}"
 
 rm -f ~/.gitconfig.ghtkn
 echo "既定(gh)に戻しました。'gh auth login' で認証してください。新しいシェルで反映されます。"
