@@ -61,54 +61,89 @@ checksum = "sha256:5af00d0916f05631e3030537289eac56605e7c1733318c4d525c8e847f124
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.9/zoxide-0.9.9-x86_64-pc-windows-msvc.zip"
 
 [[tools."aqua:anthropics/claude-code"]]
-version = "2.1.181"
+version = "2.1.195"
 backend = "aqua:anthropics/claude-code"
 
 [tools."aqua:anthropics/claude-code"."platforms.linux-arm64"]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/linux-arm64/claude"
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.195/linux-arm64/claude"
 
 [tools."aqua:anthropics/claude-code"."platforms.linux-arm64-musl"]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/linux-arm64-musl/claude"
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.195/linux-arm64-musl/claude"
 
 [tools."aqua:anthropics/claude-code"."platforms.linux-x64"]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/linux-x64/claude"
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.195/linux-x64/claude"
 
 [tools."aqua:anthropics/claude-code"."platforms.linux-x64-musl"]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/linux-x64-musl/claude"
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.195/linux-x64-musl/claude"
 
 [tools."aqua:anthropics/claude-code"."platforms.macos-arm64"]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/darwin-arm64/claude"
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.195/darwin-arm64/claude"
 
 [tools."aqua:anthropics/claude-code"."platforms.macos-x64"]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/darwin-x64/claude"
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.195/darwin-x64/claude"
 
 [[tools."aqua:cli/cli"]]
 version = "2.94.0"
 backend = "aqua:cli/cli"
 
+[tools."aqua:cli/cli"."platforms.linux-arm64"]
+checksum = "sha256:705a23b70b0f1b7ba4c302fdcef392ce3edaacfa7ce8e85e4d93d72ea800a538"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_linux_arm64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:cli/cli"."platforms.linux-arm64-musl"]
+checksum = "sha256:705a23b70b0f1b7ba4c302fdcef392ce3edaacfa7ce8e85e4d93d72ea800a538"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_linux_arm64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:cli/cli"."platforms.linux-x64"]
+checksum = "sha256:a757f1ba6db18f4de8cbadb244843a5f89bc75b5e7c6fc127d2bd77fbd12ed62"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_linux_amd64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:cli/cli"."platforms.linux-x64-musl"]
+checksum = "sha256:a757f1ba6db18f4de8cbadb244843a5f89bc75b5e7c6fc127d2bd77fbd12ed62"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_linux_amd64.tar.gz"
+provenance = "github-attestations"
+
+[tools."aqua:cli/cli"."platforms.macos-arm64"]
+checksum = "sha256:4f9bc1a5e77500737290a307b40b4c396a4d23729f55340f2a83f414410165a1"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_macOS_arm64.zip"
+provenance = "github-attestations"
+
+[tools."aqua:cli/cli"."platforms.macos-x64"]
+checksum = "sha256:733ee8fa49247d27cd94a6c7384455bdecaa82172a3bcfad63ac1ecc2867251d"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_macOS_amd64.zip"
+provenance = "github-attestations"
+
+[tools."aqua:cli/cli"."platforms.windows-x64"]
+checksum = "sha256:c0766af54195dfa0bcd9a0cb63a45c313fbaffdebb9f736f666e9ba4be8c91e8"
+url = "https://github.com/cli/cli/releases/download/v2.94.0/gh_2.94.0_windows_amd64.zip"
+provenance = "github-attestations"
+
 [[tools."aqua:dalance/procs"]]
-version = "0.14.11"
+version = "0.14.12"
 backend = "aqua:dalance/procs"
 
 [tools."aqua:dalance/procs"."platforms.linux-x64"]
-checksum = "sha256:9c4faecf85a3af4d3d39aae47d04fa31d0a6eb0a239039f68d3f55043f04f974"
-url = "https://github.com/dalance/procs/releases/download/v0.14.11/procs-v0.14.11-x86_64-linux.zip"
+checksum = "sha256:81964faf9d5cd0e9f399d5d0954fb6fe4d4d9f7d3cbec4507633df5a45b11713"
+url = "https://github.com/dalance/procs/releases/download/v0.14.12/procs-v0.14.12-x86_64-linux.zip"
 
 [tools."aqua:dalance/procs"."platforms.linux-x64-musl"]
-checksum = "sha256:9c4faecf85a3af4d3d39aae47d04fa31d0a6eb0a239039f68d3f55043f04f974"
-url = "https://github.com/dalance/procs/releases/download/v0.14.11/procs-v0.14.11-x86_64-linux.zip"
+checksum = "sha256:81964faf9d5cd0e9f399d5d0954fb6fe4d4d9f7d3cbec4507633df5a45b11713"
+url = "https://github.com/dalance/procs/releases/download/v0.14.12/procs-v0.14.12-x86_64-linux.zip"
 
 [tools."aqua:dalance/procs"."platforms.macos-arm64"]
-checksum = "sha256:72e45a61660e1c586afff64b3a8a393fed06f3a133df8e716ade68b00190ea87"
-url = "https://github.com/dalance/procs/releases/download/v0.14.11/procs-v0.14.11-x86_64-mac.zip"
+checksum = "sha256:2c276f40c99051984942a5b135b74ce4bc9184984a1543dddfcf275bde71d8d4"
+url = "https://github.com/dalance/procs/releases/download/v0.14.12/procs-v0.14.12-x86_64-mac.zip"
 
 [tools."aqua:dalance/procs"."platforms.macos-x64"]
-checksum = "sha256:72e45a61660e1c586afff64b3a8a393fed06f3a133df8e716ade68b00190ea87"
-url = "https://github.com/dalance/procs/releases/download/v0.14.11/procs-v0.14.11-x86_64-mac.zip"
+checksum = "sha256:2c276f40c99051984942a5b135b74ce4bc9184984a1543dddfcf275bde71d8d4"
+url = "https://github.com/dalance/procs/releases/download/v0.14.12/procs-v0.14.12-x86_64-mac.zip"
 
 [tools."aqua:dalance/procs"."platforms.windows-x64"]
-checksum = "sha256:1b1fef6dfc46ce2f2fe33a678cf865bea35234febe42c3921b06ab41024cda01"
-url = "https://github.com/dalance/procs/releases/download/v0.14.11/procs-v0.14.11-x86_64-windows.zip"
+checksum = "sha256:4928c399ae78ee82f99139a5629077b8d90a58599d834584dd4e613cb60c83d0"
+url = "https://github.com/dalance/procs/releases/download/v0.14.12/procs-v0.14.12-x86_64-windows.zip"
 
 [[tools."aqua:dandavison/delta"]]
 version = "0.19.2"
@@ -241,6 +276,34 @@ provenance = "github-attestations"
 version = "0.73.1"
 backend = "aqua:junegunn/fzf"
 
+[tools."aqua:junegunn/fzf"."platforms.linux-arm64"]
+checksum = "sha256:a408b0b6c08d486307b8f1554f967b8b50ee1b3ea8b4035e3161bab31fdfc28d"
+url = "https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-linux_arm64.tar.gz"
+
+[tools."aqua:junegunn/fzf"."platforms.linux-arm64-musl"]
+checksum = "sha256:a408b0b6c08d486307b8f1554f967b8b50ee1b3ea8b4035e3161bab31fdfc28d"
+url = "https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-linux_arm64.tar.gz"
+
+[tools."aqua:junegunn/fzf"."platforms.linux-x64"]
+checksum = "sha256:f3252c2c366bc1700d3c85781ec8c9695998927ac127870eb049ceea2d540f8a"
+url = "https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-linux_amd64.tar.gz"
+
+[tools."aqua:junegunn/fzf"."platforms.linux-x64-musl"]
+checksum = "sha256:f3252c2c366bc1700d3c85781ec8c9695998927ac127870eb049ceea2d540f8a"
+url = "https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-linux_amd64.tar.gz"
+
+[tools."aqua:junegunn/fzf"."platforms.macos-arm64"]
+checksum = "sha256:d27fd68c04fb9b42f7c73a3f7d38069a74d308e40174f64a072c747213e97286"
+url = "https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-darwin_arm64.tar.gz"
+
+[tools."aqua:junegunn/fzf"."platforms.macos-x64"]
+checksum = "sha256:75bbf15248d1cf0a13eafc75b8a55f5075c437e2ba6d76899afc53f4f3e1b38c"
+url = "https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-darwin_amd64.tar.gz"
+
+[tools."aqua:junegunn/fzf"."platforms.windows-x64"]
+checksum = "sha256:521a974dc32e93404265e55bffaf71a59e05e80abdf8ca4afb21a6030dc76f5f"
+url = "https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-windows_amd64.zip"
+
 [[tools."aqua:sharkdp/bat"]]
 version = "0.26.1"
 backend = "aqua:sharkdp/bat"
@@ -334,42 +397,42 @@ checksum = "sha256:a07cf3e428afab09324e510fb786041ebcc491a68b1ca6fba044c5a461f9b
 url = "https://github.com/starship/starship/releases/download/v1.25.1/starship-x86_64-pc-windows-msvc.zip"
 
 [[tools."aqua:suzuki-shunsuke/ghtkn"]]
-version = "0.2.6"
+version = "0.3.0"
 backend = "aqua:suzuki-shunsuke/ghtkn"
 
 [tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-arm64"]
-checksum = "sha256:5c4202bc7d5a8837bef881ee9f29841828e0e81df1c2e6b44addb27662eb7c9d"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_linux_arm64.tar.gz"
+checksum = "sha256:5555b5f84acce0d0ac3806fa5379d0a10006865d790aad72c69ec809e9865db0"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_linux_arm64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-arm64-musl"]
-checksum = "sha256:5c4202bc7d5a8837bef881ee9f29841828e0e81df1c2e6b44addb27662eb7c9d"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_linux_arm64.tar.gz"
+checksum = "sha256:5555b5f84acce0d0ac3806fa5379d0a10006865d790aad72c69ec809e9865db0"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_linux_arm64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-x64"]
-checksum = "sha256:08a4d4d50de5cebeaa7c9594a91123aa90b73e0838886ee27ffdb5e00aa8eeb2"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_linux_amd64.tar.gz"
+checksum = "sha256:6ad54702bdbf1623d7203023f6517a006904bfa208e935fb7012bd3df7d9bb2a"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_linux_amd64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-x64-musl"]
-checksum = "sha256:08a4d4d50de5cebeaa7c9594a91123aa90b73e0838886ee27ffdb5e00aa8eeb2"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_linux_amd64.tar.gz"
+checksum = "sha256:6ad54702bdbf1623d7203023f6517a006904bfa208e935fb7012bd3df7d9bb2a"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_linux_amd64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:suzuki-shunsuke/ghtkn"."platforms.macos-arm64"]
-checksum = "sha256:e8a6780b6dbd4aeb296fdd077909c10a8506cee3211bfeb544342d4c404308dd"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_darwin_arm64.tar.gz"
+checksum = "sha256:3b34338604a822af0f80dbed5f37ec50e0078ae3295b2f1e2cb3c02d028f1231"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_darwin_arm64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:suzuki-shunsuke/ghtkn"."platforms.macos-x64"]
-checksum = "sha256:24f2f621ed8a85c89e8167f3084c48e4c231f34ed2b26e750c660848f3cd06d0"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_darwin_amd64.tar.gz"
+checksum = "sha256:24d161c0dbd05d708854473e6df5b5532c364d311f6fa207750fcd10665002ef"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_darwin_amd64.tar.gz"
 provenance = "github-attestations"
 
 [tools."aqua:suzuki-shunsuke/ghtkn"."platforms.windows-x64"]
-checksum = "sha256:82761a99b97336a671fff16da4950b4d76e969d386fbc5237361eb00d504cb3f"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.2.6/ghtkn_windows_amd64.zip"
+checksum = "sha256:9ac6ae945df5d8e52e21e72e131e5cb8f09361d4d5e074cd381986ff9a10ad6e"
+url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_windows_amd64.zip"
 provenance = "github-attestations"
 
 [[tools."aqua:sxyazi/yazi"]]
@@ -404,13 +467,37 @@ url = "https://github.com/sxyazi/yazi/releases/download/v26.5.6/yazi-x86_64-appl
 checksum = "sha256:6c6c52a4b2648e179f917bdaa7c57e793d18561b380a8bfa025f10cd1b9b2ad1"
 url = "https://github.com/sxyazi/yazi/releases/download/v26.5.6/yazi-x86_64-pc-windows-msvc.zip"
 
+[[tools."aqua:tmux/tmux-builds"]]
+version = "3.6a"
+backend = "aqua:tmux/tmux-builds"
+
+[tools."aqua:tmux/tmux-builds"."platforms.linux-arm64"]
+checksum = "sha256:bb5afd9d646df54a7d7c66e198aa22c7d293c7453534f1670f7c540534db8b5e"
+url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-linux-arm64.tar.gz"
+
+[tools."aqua:tmux/tmux-builds"."platforms.linux-arm64-musl"]
+checksum = "sha256:bb5afd9d646df54a7d7c66e198aa22c7d293c7453534f1670f7c540534db8b5e"
+url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-linux-arm64.tar.gz"
+
+[tools."aqua:tmux/tmux-builds"."platforms.linux-x64"]
+checksum = "sha256:c0a772a5e6ca8f129b0111d10029a52e02bcbc8352d5a8c0d3de8466a1e59c2e"
+url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-linux-x86_64.tar.gz"
+
+[tools."aqua:tmux/tmux-builds"."platforms.linux-x64-musl"]
+checksum = "sha256:c0a772a5e6ca8f129b0111d10029a52e02bcbc8352d5a8c0d3de8466a1e59c2e"
+url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-linux-x86_64.tar.gz"
+
+[tools."aqua:tmux/tmux-builds"."platforms.macos-arm64"]
+checksum = "sha256:12b5b9f8696e1286897d946649c0a80d0169dd76e018d34476a1fbd34de89a0f"
+url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-macos-arm64.tar.gz"
+
+[tools."aqua:tmux/tmux-builds"."platforms.macos-x64"]
+checksum = "sha256:b9b12eaeba43acf5671acf3857d947525440b544185a8db34ea557199a090251"
+url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-macos-x86_64.tar.gz"
+
 [[tools."asdf:mise-plugins/mise-eza"]]
 version = "0.23.4"
 backend = "asdf:mise-plugins/mise-eza"
-
-[[tools."asdf:mise-plugins/mise-tmux"]]
-version = "3.6a"
-backend = "asdf:mise-plugins/mise-tmux"
 
 [[tools.node]]
 version = "24.16.0"
