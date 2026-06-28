@@ -25,8 +25,14 @@
   pushh = push origin HEAD
   pushf = push -f origin HEAD
 
-# GitHub への HTTPS 認証は ghtkn の短命トークンを使う（gh auth setup-git の代替）。
-# 最初の空 helper で既定（osxkeychain 等）をリセットしてから ghtkn を登録する。
+# GitHub への HTTPS 認証は既定で gh auth login（gh auth git-credential）を使う。
+# 最初の空 helper で既定（osxkeychain 等）をリセットしてから gh を登録する。
 [credential "https://github.com"]
 	helper =
-	helper = !ghtkn git-credential
+	helper = !gh auth git-credential
+
+# 環境別のローカル上書き（任意・非追跡）。~/.gitconfig.ghtkn があれば後勝ちで取り込み、
+# 中の空 helper が上の gh を打ち消して ghtkn の短命トークンに切り替える。無ければ gh のまま。
+# このファイルの有無は mise / postinstall も認証系統の判定に使う。
+[include]
+	path = ~/.gitconfig.ghtkn

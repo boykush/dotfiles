@@ -16,18 +16,17 @@ miseを中心とした開発環境の設定ファイル群です。
 mise install
 ```
 
-### 3. GitHub 認証（ghtkn）
+### 3. GitHub 認証
 
-`gh auth login`は使わず、[ghtkn](https://github.com/suzuki-shunsuke/ghtkn)が発行する短命（8時間）のGitHub App User Access Tokenに統一する。
+既定は `gh auth login`。ghtkn を使わない環境は `gh auth login` するだけ（git も gh も gh の保存トークンを利用）。
 
-事前にdevice flowを有効にしたGitHub Appを1つ用意し、そのClient IDを`ghtkn/ghtkn.yaml`に記入しておく（Client IDは機密ではないためコミット可）。
+GitHub App の短命トークン（8時間／[ghtkn](https://github.com/suzuki-shunsuke/ghtkn)）を使う環境は:
 
-`mise install`時（postinstall）に、`ghtkn auth`（device flow＝ブラウザ承認）と旧 gh ログインの破棄が自動実行される（対話端末のみ。CI/非対話ではスキップ）。これで認証とフォールバック遮断が揃い ghtkn に一本化される。
-
-トークンは8時間で失効する。再`mise install`は不要で、対話端末で `ghtkn auth` を打ち直せば復帰する（コーディングエージェント等の非対話環境では暴発防止のため device flow を無効化しており、自動再取得はされない）。
+1. device flow を有効にした GitHub App を用意し、Client ID を `ghtkn/ghtkn.yaml` に記入（機密ではないためコミット可）。
+2. `mise run ghtkn:on` で切り替え（`~/.gitconfig.ghtkn` 作成＋`ghtkn auth`＝device flow）。トークン失効後も `mise run ghtkn:on` か `ghtkn auth` で復帰。戻すときは `mise run ghtkn:off`。
 
 ## パッケージ管理
 
 - **Homebrew**: `Brewfile`で宣言的に管理
 - **mise**: `mise/config.toml`で管理
-- **GitHubトークン**: `ghtkn`で発行（git の credential helper / gh が利用）
+- **GitHub認証**: 既定は `gh auth login`、任意で `ghtkn`（GitHub App 短命トークン）に切替可
