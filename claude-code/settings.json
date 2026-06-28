@@ -10,7 +10,7 @@
     "skill-creator@claude-plugins-official": true
   },
   "effortLevel": "xhigh",
-  "skipDangerousModePermissionPrompt": true,
+  "autoMemoryEnabled": false,
   "skipWorkflowUsageWarning": true,
   "enableRemoteControl": true,
   "env": {
