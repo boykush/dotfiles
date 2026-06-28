@@ -9,6 +9,19 @@
     "claude-md-management@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true
   },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1 && git pull --ff-only 2>&1 || true"
+          }
+        ]
+      }
+    ]
+  },
   "effortLevel": "xhigh",
   "autoMemoryEnabled": false,
   "skipWorkflowUsageWarning": true,
