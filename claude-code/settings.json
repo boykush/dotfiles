@@ -14,6 +14,7 @@
   "skipWorkflowUsageWarning": true,
   "enableRemoteControl": true,
   "env": {
-    "GHTKN_ENABLE_DEVICE_FLOW": "false"
+    "GHTKN_ENABLE_DEVICE_FLOW": "false",
+    "CLAUDE_CODE_EFFORT_LEVEL": "xhigh"
   }
 }
