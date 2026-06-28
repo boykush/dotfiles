@@ -29,4 +29,5 @@ GitHub App の短命トークン（8時間／[ghtkn](https://github.com/suzuki-s
 
 - **Homebrew**: `Brewfile`で宣言的に管理
 - **mise**: `mise/config.toml`で管理
+- **npm**: `mise/config.toml`の`NPM_CONFIG_REGISTRY`で既定レジストリを [Takumi Guard](https://shisho.dev/docs/t/guard/quickstart/)（悪意あるパッケージのブロックプロキシ）に設定
 - **GitHub認証**: 既定は `gh auth login`、任意で `ghtkn`（GitHub App 短命トークン）に切替可
