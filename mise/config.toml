@@ -12,6 +12,10 @@ XDG_CONFIG_HOME = "{{env.HOME}}/.config"
 LANG = "ja_JP.UTF-8"
 EDITOR = "hx"
 BAT_THEME = "Nord"
+# Takumi Guard (Flatt Security) の悪意あるパッケージブロックプロキシを npm の既定レジストリにする。
+# 匿名利用でもブロックは有効（識別子付与トークンは任意かつ秘密情報のためコミットしない）。env 設定のため
+# registry に限りプロジェクト直下 .npmrc の registry も上書きする（@scope:registry= は別キーで影響なし）。
+NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 # GitHub 認証の既定は gh auth login。その場合 GH_TOKEN は空で、gh は自身の保存トークンを使う。
 # ~/.gitconfig.ghtkn がある環境のみ ghtkn の短命トークンを GH_TOKEN に供給する（git も同
 # ファイルの include で ghtkn git-credential に切り替わり認証系統が揃う）。実環境変数なので、
