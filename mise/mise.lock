@@ -495,9 +495,9 @@ url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-mac
 checksum = "sha256:b9b12eaeba43acf5671acf3857d947525440b544185a8db34ea557199a090251"
 url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-macos-x86_64.tar.gz"
 
-[[tools."asdf:mise-plugins/mise-eza"]]
+[[tools."cargo:eza"]]
 version = "0.23.4"
-backend = "asdf:mise-plugins/mise-eza"
+backend = "cargo:eza"
 
 [[tools.node]]
 version = "24.16.0"

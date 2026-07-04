@@ -5,7 +5,7 @@ min_version = "2026.6.7"
 [settings]
 experimental = true
 lockfile = true
-disable_backends = ["npm", "vfox"]
+disable_backends = ["npm", "vfox", "asdf"]
 
 [env]
 XDG_CONFIG_HOME = "{{env.HOME}}/.config"
@@ -30,7 +30,7 @@ node = "24"
 "aqua:sharkdp/bat" = "0.26.1"
 "aqua:sharkdp/fd" = "10.4.2"
 "aqua:dandavison/delta" = "0.19.2"
-"asdf:mise-plugins/mise-eza" = "0.23.4"
+"cargo:eza" = "0.23.4"
 "aqua:junegunn/fzf" = "0.73.1"
 "aqua:jqlang/jq" = "1.8.1"
 "aqua:extrawurst/gitui" = "0.28.1"
