@@ -24,8 +24,6 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/null || true') }}"
 
 [tools]
-node = "24"
-
 # CLI tools (migrated from brew)
 "aqua:sharkdp/bat" = "0.26.1"
 "aqua:sharkdp/fd" = "10.4.2"
