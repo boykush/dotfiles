@@ -2,6 +2,8 @@
 #MISE description="Start tmux with Claude Code in a worktree (parallel work)"
 #MISE dir="{{cwd}}"
 
+set -euo pipefail
+
 SESSION_NAME="claude-dev"
 
 # Select repository directory via zoxide
@@ -9,19 +11,26 @@ TARGET_DIR=$(zoxide query -i) || exit 0
 REPO_NAME=$(basename "$TARGET_DIR")
 
 # Generate random window name suffix
-WINDOW_SUFFIX="wt-$(LC_ALL=C tr -dc 'a-z0-9' < /dev/urandom | head -c 4)"
+# head が閉じると tr が SIGPIPE で死ぬため、pipefail 下でも落ちないよう || true で握る
+WINDOW_SUFFIX="wt-$(LC_ALL=C tr -dc 'a-z0-9' < /dev/urandom | head -c 4)" || true
 
 WINDOW_NAME="${REPO_NAME}-${WINDOW_SUFFIX}"
 CLAUDE_CMD="mise run claude:dev-wt"
 
-if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${WINDOW_NAME}$"; then
-        tmux select-window -t "$SESSION_NAME:$WINDOW_NAME"
-    else
-        tmux new-window -t "$SESSION_NAME" -n "$WINDOW_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
-    fi
-    [ -z "$TMUX" ] && tmux attach-session -t "$SESSION_NAME"
-else
-    tmux new-session -d -s "$SESSION_NAME" -n "$WINDOW_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+open_or_attach() {
+  if [ -z "${TMUX:-}" ]; then
     tmux attach-session -t "$SESSION_NAME"
+  fi
+}
+
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+  if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${WINDOW_NAME}$"; then
+    tmux select-window -t "$SESSION_NAME:$WINDOW_NAME"
+  else
+    tmux new-window -t "$SESSION_NAME" -n "$WINDOW_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+  fi
+  open_or_attach
+else
+  tmux new-session -d -s "$SESSION_NAME" -n "$WINDOW_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+  tmux attach-session -t "$SESSION_NAME"
 fi

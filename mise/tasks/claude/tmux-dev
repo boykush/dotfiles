@@ -2,6 +2,8 @@
 #MISE description="Start tmux with Claude Code + helix preview pane"
 #MISE dir="{{cwd}}"
 
+set -euo pipefail
+
 SESSION_NAME="claude-dev"
 
 # Select repository directory via zoxide
@@ -10,16 +12,20 @@ REPO_NAME=$(basename "$TARGET_DIR")
 
 CLAUDE_CMD="mise run claude:dev"
 
-if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    # Switch to existing window or create new one
-    if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${REPO_NAME}$"; then
-        tmux select-window -t "$SESSION_NAME:$REPO_NAME"
-    else
-        tmux new-window -t "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
-    fi
-    # Attach only if not already inside tmux
-    [ -z "$TMUX" ] && tmux attach-session -t "$SESSION_NAME"
-else
-    tmux new-session -d -s "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+open_or_attach() {
+  if [ -z "${TMUX:-}" ]; then
     tmux attach-session -t "$SESSION_NAME"
+  fi
+}
+
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+  if tmux list-windows -t "$SESSION_NAME" -F '#{window_name}' | grep -q "^${REPO_NAME}$"; then
+    tmux select-window -t "$SESSION_NAME:$REPO_NAME"
+  else
+    tmux new-window -t "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+  fi
+  open_or_attach
+else
+  tmux new-session -d -s "$SESSION_NAME" -n "$REPO_NAME" -c "$TARGET_DIR" "$CLAUDE_CMD"
+  tmux attach-session -t "$SESSION_NAME"
 fi
