@@ -50,7 +50,7 @@ GitHub App の短命トークン（8時間／[ghtkn](https://github.com/suzuki-s
 
 ## パッケージ管理
 
-- **mise 本体**: `bin/mise`（`mise generate bootstrap` 出力）で導入。brew 管理をやめたので `mise self-update` で最新化できる。版数は renovate が `min_version` と埋込版を lockstep で追従（[更新](#更新)参照）
+- **mise 本体**: `bin/mise`（`mise generate bootstrap` 出力）で導入し、`mise self-update` で最新化。版数は renovate が `min_version` と埋込版を lockstep で追従（[更新](#更新)参照）
 - **CLI ツール**: `mise/config.toml`の`[tools]`（aqua backend、checksum 検証あり）で宣言的に管理。renovate が追従
 - **Homebrew**: `Brewfile`で宣言的に管理（GUI cask / フォントのみ）
 - **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンクを宣言的に管理（`mise dotfiles apply`で適用）

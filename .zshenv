@@ -1,7 +1,6 @@
-# mise 本体は brew 管理をやめ bin/mise（bootstrap ラッパー）へ移行したため、bare `mise`
-# が ~/dotfiles/bin/mise に解決されるよう全シェル種別で PATH を通す。.zshenv は全 zsh
-# 起動で読まれるので、非対話エージェント（下の mise env 取り込み）からも解決できる。
-# ネストシェルでの重複防止のため既に含まれていれば追加しない。
+# bare `mise` を bin/mise（bootstrap ラッパー）に解決させるため、全シェル種別で
+# ~/dotfiles/bin を PATH に通す。.zshenv は全 zsh 起動で読まれるので、非対話エージェント
+# （下の mise env 取り込み）からも解決できる。重複防止のため既に含まれていれば追加しない。
 case ":$PATH:" in
   *":$HOME/dotfiles/bin:"*) ;;
   *) export PATH="$HOME/dotfiles/bin:$PATH" ;;

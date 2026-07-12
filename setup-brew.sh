@@ -14,6 +14,5 @@ fi
 # install packages from Brewfile（GUI アプリ / フォントのみ）
 brew bundle --file=~/dotfiles/Brewfile
 
-# 注: CLI ツールの導入は `./bin/mise install`、~/.config/mise を含む dotfiles の
-# シンボリックリンクは `./bin/mise dotfiles apply` が行う（従来ここにあった手動
-# `ln -nfs ~/dotfiles/mise ~/.config/mise` は mise の [dotfiles] へ移設した）。
+# CLI ツールの導入は `./bin/mise install`、~/.config/mise を含む dotfiles の
+# シンボリックリンクは `./bin/mise dotfiles apply` が行う（README 参照）。
