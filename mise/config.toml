@@ -1,6 +1,9 @@
-# mise 自身の下限バージョン。これ未満の mise で実行するとエラーになる（自動更新ではない）。
-# 更新は brew upgrade mise。上げたら必要に応じてこの値も追従させる。
-min_version = "2026.6.7"
+# mise 自身の下限バージョン。これ未満の mise で実行するとエラーになる（version と
+# self-update だけは例外的に通る）。renovate が minimum release age 付きで追従し、同じ PR で
+# bin/mise の埋込版も一緒に上がる（lockstep。renovate.json 参照）ため、埋込版がこの floor を
+# 下回ることはない。本体は bin/mise（`mise generate bootstrap` 出力）で導入し、日常の最新化は
+# `mise self-update`（brew 管理下だと拒否されるが bootstrap 導入なら可能）。
+min_version = "2026.7.5"
 
 [settings]
 experimental = true
@@ -68,9 +71,12 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # dotfiles のシンボリックリンク定義（従来 mise/hooks/postinstall.sh の ln -nfs を移設）。
 # `[tools]` と違い自動では張られず、`mise dotfiles apply` の明示実行時のみ適用される。
 # 値はソースパス（~ 展開あり）。ディレクトリ指定はそのディレクトリごと symlink する。
-# 注: ~/.config/mise -> ~/dotfiles/mise の1本だけは mise が config を読む前提のため
-# ここでは扱えず、ブートストラップとして setup-brew.sh 側に残している。
 [dotfiles]
+# mise 設定自身（global config の実体）。従来「mise が config を読む前提のため
+# ここでは扱えない」として setup-brew.sh の手動 ln に残していたが、新環境では bin/mise
+# をリポジトリ内で実行すると mise/config.toml がローカル config として読まれるため、
+# この [dotfiles] を apply して自己リンクを張れる（鶏卵問題が解ける）。
+"~/.config/mise" = "~/dotfiles/mise"
 # ホーム直下
 "~/.zprofile"  = "~/dotfiles/.zprofile"
 "~/.zshrc"     = "~/dotfiles/.zshrc"
