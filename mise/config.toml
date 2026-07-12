@@ -28,7 +28,9 @@ GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/n
 "aqua:sharkdp/bat" = "0.26.1"
 "aqua:sharkdp/fd" = "10.4.2"
 "aqua:dandavison/delta" = "0.19.2"
-"cargo:eza" = "0.23.4"
+# ls 代替。aqua backend で macOS 向けプリビルドバイナリが入る（他ツールと同様、checksum 検証あり）。
+# cargo backend は cargo-binstall の無い環境だと Rust ソースビルドに落ち、新環境で失敗しうるため使わない。
+"aqua:lsd-rs/lsd" = "1.2.0"
 "aqua:junegunn/fzf" = "0.73.1"
 "aqua:jqlang/jq" = "1.8.1"
 "aqua:extrawurst/gitui" = "0.28.1"
@@ -46,19 +48,17 @@ GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/n
 [shell_alias]
 cat = "bat"
 vi = "hx"
-e = "eza --icons"
-ls = "eza --icons"
-ea = "eza -a --icons"
-la = "eza -a --icons"
-ee = "eza -aal --icons -hl --git"
-ll = "eza -aal --icons -hl --git"
-et = "eza -T -L 3 -a -I 'node_modules|.git|.cache' --icons"
-lt = "eza -T -L 3 -a -I 'node_modules|.git|.cache' --icons"
-eta = "eza -T -a -I 'node_modules|.git|.cache' --color=always --icons | less -r"
-lta = "eza -T -a -I 'node_modules|.git|.cache' --color=always --icons | less -r"
+# lsd は既定で icon=auto（TTY 時のみアイコン表示）なのでアイコン用フラグは明示しない。
+# 除外は -I 'a|b|c'（パイプ区切り）が使えないため -I を個別に列挙する。
+la = "lsd -a"
+ll = "lsd -al --git"
+lt = "lsd --tree --depth 3 -a -I node_modules -I .git -I .cache"
+lta = "lsd --tree -a -I node_modules -I .git -I .cache --color always | less -r"
 fbr = "mise run fbr"
 fkill = "mise run fkill"
-gst = "git status -s | awk '{print $2}' | xargs -I {} eza -l --git --icons --no-permissions --no-filesize --no-user --no-time {}"
+# 特定の表示列だけを無効化するオプションが無いため、--blocks で表示する列
+# （git ステータスと名前のみ）を明示する。
+gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,name {}"
 
 [hooks]
 postinstall = "~/.config/mise/hooks/postinstall.sh"
