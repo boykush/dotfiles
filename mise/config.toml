@@ -6,6 +6,11 @@ min_version = "2026.6.7"
 experimental = true
 lockfile = true
 disable_backends = ["npm", "vfox", "asdf"]
+# dotfiles 機能（実験的）。従来 postinstall フックで実行していた ln -nfs を代替する。
+# root は `mise dotfiles add` で新規ソースを配置する基準。default_mode=symlink により
+# 各エントリは既定でシンボリックリンク（従来の ln -s と同じ挙動）になる。
+dotfiles.root = "~/dotfiles"
+dotfiles.default_mode = "symlink"
 
 [env]
 XDG_CONFIG_HOME = "{{env.HOME}}/.config"
@@ -60,5 +65,29 @@ fkill = "mise run fkill"
 # （git ステータスと名前のみ）を明示する。
 gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,name {}"
 
-[hooks]
-postinstall = "~/.config/mise/hooks/postinstall.sh"
+# dotfiles のシンボリックリンク定義（従来 mise/hooks/postinstall.sh の ln -nfs を移設）。
+# `[tools]` と違い自動では張られず、`mise dotfiles apply` の明示実行時のみ適用される。
+# 値はソースパス（~ 展開あり）。ディレクトリ指定はそのディレクトリごと symlink する。
+# 注: ~/.config/mise -> ~/dotfiles/mise の1本だけは mise が config を読む前提のため
+# ここでは扱えず、ブートストラップとして setup-brew.sh 側に残している。
+[dotfiles]
+# ホーム直下
+"~/.zprofile"  = "~/dotfiles/.zprofile"
+"~/.zshrc"     = "~/dotfiles/.zshrc"
+"~/.zshenv"    = "~/dotfiles/.zshenv"
+"~/.gitconfig" = "~/dotfiles/.gitconfig"
+"~/.tmux.conf" = "~/dotfiles/tmux/tmux.conf"
+# ~/.config 配下（ディレクトリごと）
+"~/.config/git"     = "~/dotfiles/git"
+"~/.config/ghostty" = "~/dotfiles/ghostty"
+"~/.config/gitui"   = "~/dotfiles/gitui"
+"~/.config/helix"   = "~/dotfiles/helix"
+"~/.config/ghtkn"   = "~/dotfiles/ghtkn"
+# ~/.claude 配下（Claude Code。hooks はディレクトリごと）
+# 注: 旧スクリプトには skills の行もあったが、ソース ~/dotfiles/claude-code/skills が
+# 実在せず（＝旧 ln は dangling を生むだけで機能していなかった）、~/.claude/skills は
+# Claude Code 自身が管理する実ディレクトリのため dotfiles では扱わない。
+"~/.claude/settings.json"   = "~/dotfiles/claude-code/settings.json"
+"~/.claude/statusline.sh"   = "~/dotfiles/claude-code/statusline.sh"
+"~/.claude/claude-dev.json" = "~/dotfiles/claude-code/claude-dev.json"
+"~/.claude/hooks"           = "~/dotfiles/claude-code/hooks"

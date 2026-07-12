@@ -16,7 +16,17 @@ miseを中心とした開発環境の設定ファイル群です。
 mise install
 ```
 
-### 3. GitHub 認証
+### 3. dotfiles の適用
+
+`mise/config.toml` の `[dotfiles]` に定義したシンボリックリンクを張る（`~/.zshrc` や `~/.config/*` など）。`[tools]` と違い自動では張られないため明示実行する。冪等なので再実行しても既存の正しいリンクはそのまま。
+
+```bash
+mise dotfiles apply
+```
+
+適用状況は `mise dotfiles status` で確認できる。
+
+### 4. GitHub 認証
 
 既定は `gh auth login`。ghtkn を使わない環境は `gh auth login` するだけ（git も gh も gh の保存トークンを利用）。
 
@@ -29,5 +39,6 @@ GitHub App の短命トークン（8時間／[ghtkn](https://github.com/suzuki-s
 
 - **Homebrew**: `Brewfile`で宣言的に管理
 - **mise**: `mise/config.toml`で管理
+- **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンクを宣言的に管理（`mise dotfiles apply`で適用）
 - **npm**: `mise/config.toml`の`NPM_CONFIG_REGISTRY`で既定レジストリを [Takumi Guard](https://shisho.dev/docs/t/guard/quickstart/)（悪意あるパッケージのブロックプロキシ）に設定
 - **GitHub認証**: 既定は `gh auth login`、任意で `ghtkn`（GitHub App 短命トークン）に切替可
