@@ -304,6 +304,10 @@ url = "https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-darw
 checksum = "sha256:521a974dc32e93404265e55bffaf71a59e05e80abdf8ca4afb21a6030dc76f5f"
 url = "https://github.com/junegunn/fzf/releases/download/v0.73.1/fzf-0.73.1-windows_amd64.zip"
 
+[[tools."aqua:lsd-rs/lsd"]]
+version = "1.2.0"
+backend = "aqua:lsd-rs/lsd"
+
 [[tools."aqua:sharkdp/bat"]]
 version = "0.26.1"
 backend = "aqua:sharkdp/bat"
@@ -494,7 +498,3 @@ url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-mac
 [tools."aqua:tmux/tmux-builds"."platforms.macos-x64"]
 checksum = "sha256:b9b12eaeba43acf5671acf3857d947525440b544185a8db34ea557199a090251"
 url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-macos-x86_64.tar.gz"
-
-[[tools."cargo:eza"]]
-version = "0.23.4"
-backend = "cargo:eza"
