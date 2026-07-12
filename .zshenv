@@ -1,3 +1,11 @@
+# bare `mise` を bin/mise（bootstrap ラッパー）に解決させるため、全シェル種別で
+# ~/dotfiles/bin を PATH に通す。.zshenv は全 zsh 起動で読まれるので、非対話エージェント
+# （下の mise env 取り込み）からも解決できる。重複防止のため既に含まれていれば追加しない。
+case ":$PATH:" in
+  *":$HOME/dotfiles/bin:"*) ;;
+  *) export PATH="$HOME/dotfiles/bin:$PATH" ;;
+esac
+
 # 非対話シェル（Claude Code / Codex CLI 等のエージェント）は .zshrc(=mise activate)を
 # 読まないため mise [env] が丸ごと未適用になる（GH_TOKEN/EDITOR/LANG 等が空）。結果
 # gh(PR作成など)が未認証になる。非対話のときだけ mise の env を取り込み揃える。

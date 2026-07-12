@@ -11,12 +11,8 @@ else
   echo "[INFO] brew is already installed"
 fi
 
-# install packages from Brewfile
+# install packages from Brewfile（GUI アプリ / フォントのみ）
 brew bundle --file=~/dotfiles/Brewfile
 
-# setup config
-## make directory .config
-mkdir -p ~/.config
-
-## link mise config
-ln -nfs ~/dotfiles/mise ~/.config/mise
+# CLI ツールの導入は `./bin/mise install`、~/.config/mise を含む dotfiles の
+# シンボリックリンクは `./bin/mise dotfiles apply` が行う（README 参照）。

@@ -1,14 +1,16 @@
-# mise 自身の下限バージョン。これ未満の mise で実行するとエラーになる（自動更新ではない）。
-# 更新は brew upgrade mise。上げたら必要に応じてこの値も追従させる。
-min_version = "2026.6.7"
+# mise 自身の下限バージョン。これ未満の mise で実行するとエラーになる（version と
+# self-update だけは例外的に通る）。renovate が minimum release age 付きで追従し、同じ PR で
+# bin/mise の埋込版も一緒に上がる（lockstep。renovate.json 参照）ため、埋込版がこの floor を
+# 下回ることはない。日常の最新化は `mise self-update`。
+min_version = "2026.7.5"
 
 [settings]
 experimental = true
 lockfile = true
 disable_backends = ["npm", "vfox", "asdf"]
-# dotfiles 機能（実験的）。従来 postinstall フックで実行していた ln -nfs を代替する。
+# dotfiles 機能（実験的）。[dotfiles] のシンボリックリンクを宣言的に管理する。
 # root は `mise dotfiles add` で新規ソースを配置する基準。default_mode=symlink により
-# 各エントリは既定でシンボリックリンク（従来の ln -s と同じ挙動）になる。
+# 各エントリは既定でシンボリックリンクになる。
 dotfiles.root = "~/dotfiles"
 dotfiles.default_mode = "symlink"
 
@@ -29,7 +31,7 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/null || true') }}"
 
 [tools]
-# CLI tools (migrated from brew)
+# CLI tools
 "aqua:sharkdp/bat" = "0.26.1"
 "aqua:sharkdp/fd" = "10.4.2"
 "aqua:dandavison/delta" = "0.19.2"
@@ -65,12 +67,14 @@ fkill = "mise run fkill"
 # （git ステータスと名前のみ）を明示する。
 gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,name {}"
 
-# dotfiles のシンボリックリンク定義（従来 mise/hooks/postinstall.sh の ln -nfs を移設）。
-# `[tools]` と違い自動では張られず、`mise dotfiles apply` の明示実行時のみ適用される。
-# 値はソースパス（~ 展開あり）。ディレクトリ指定はそのディレクトリごと symlink する。
-# 注: ~/.config/mise -> ~/dotfiles/mise の1本だけは mise が config を読む前提のため
-# ここでは扱えず、ブートストラップとして setup-brew.sh 側に残している。
+# dotfiles のシンボリックリンク定義。`[tools]` と違い自動では張られず、
+# `mise dotfiles apply` の明示実行時のみ適用される。値はソースパス（~ 展開あり）。
+# ディレクトリ指定はそのディレクトリごと symlink する。
 [dotfiles]
+# mise 設定自身（global config の実体）。bin/mise をリポジトリ内で実行すると
+# mise/config.toml がローカル config として読まれるので、この自己リンクも
+# `mise dotfiles apply` で張れる。
+"~/.config/mise" = "~/dotfiles/mise"
 # ホーム直下
 "~/.zprofile"  = "~/dotfiles/.zprofile"
 "~/.zshrc"     = "~/dotfiles/.zshrc"

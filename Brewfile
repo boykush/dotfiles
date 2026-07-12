@@ -1,5 +1,4 @@
-# CLI tools
-brew "mise"
+# GUI アプリ / フォントのみ宣言する。CLI ツールと mise 本体は mise 管理（本体は bin/mise）。
 
 # GUI apps
 cask "arc"

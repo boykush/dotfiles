@@ -6,12 +6,15 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "mise 本体の min_version を追従（組み込み mise manager は [tools] のみ対象）",
+      "description": "mise 本体を lockstep 追従: config.toml の min_version(floor) と bin/mise(bootstrap) の版数決定2箇所(install path / install version)。同一 depName なので1 PR で一括 bump され min_version と埋込版が常に揃う。bin/mise は生成物だが install する版だけを上げる（current_version と埋込 checksum(146-161行) は baked baseline のまま据え置き。install版 != baseline なので checksum は GitHub から都度取得され検証は保たれる）。綺麗に作り直すときだけ手動 `mise generate bootstrap -w bin/mise`。組み込み mise manager は [tools] のみ対象。",
       "managerFilePatterns": [
-        "/^mise/config\\.toml$/"
+        "/^mise/config\\.toml$/",
+        "/^bin/mise$/"
       ],
       "matchStrings": [
-        "min_version\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+        "min_version\\s*=\\s*\"(?<currentValue>[^\"]+)\"",
+        "mise-(?<currentValue>\\d+\\.\\d+\\.\\d+)\"",
+        "MISE_VERSION:-v(?<currentValue>\\d+\\.\\d+\\.\\d+)\\}"
       ],
       "depNameTemplate": "jdx/mise",
       "datasourceTemplate": "github-releases"
