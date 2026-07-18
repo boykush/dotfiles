@@ -29,6 +29,15 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 # 終了するため `|| true` で空にする。再評価は shell 起動/cd/設定変更時のみ。
 GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/null || true') }}"
 
+# claude shorthand をレジストリ既定（先頭 aqua）ではなく http バックエンドに固定する。
+# http:claude は Anthropic 公式の per-version manifest.json から各 platform の sha256 を取得して
+# 検証するため、mise.lock に checksum が入る（aqua レジストリ側に checksum 情報が無く、
+# lockfile=true でもこのツールだけダウンロード検証が効いていなかった）。
+# ※ [tools] に直接 "http:claude" = ... と書くのは不可。レジストリのバックエンドオプション
+# （url / checksum_url）が引き継がれず「no URL configured」で lock がスキップされる。
+[tool_alias]
+claude = "http:claude"
+
 [tools]
 # CLI tools
 "aqua:sharkdp/bat" = "0.26.1"
@@ -48,7 +57,7 @@ GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/n
 "aqua:cli/cli" = "2.94.0"
 "aqua:suzuki-shunsuke/ghtkn" = "0.3.0" # GitHub App の短命トークン発行（gh auth login の代替）
 "aqua:sxyazi/yazi" = "26.5.6"
-"aqua:anthropics/claude-code" = "2.1.195"
+claude = "2.1.195" # 実体は http:claude（上の [tool_alias] 参照）
 "aqua:tmux/tmux-builds" = "3.6a"
 
 # GUI アプリ・フォントを brew-cask backend で宣言的に管理する。`[tools]` と違い自動では入らず、
