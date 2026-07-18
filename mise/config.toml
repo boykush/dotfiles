@@ -64,6 +64,11 @@ GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/n
 # フォント（ghostty 主フォント）
 "brew-cask:font-hack-nerd-font" = "latest"
 
+# dotfiles リポジトリ自身。`mise bootstrap` の repos ステップで clone / 更新する（self-managing。
+# 未 clone なら取得、既にあれば ref=main に追従）。dotfiles 適用より前に走る。
+[bootstrap.repos]
+"~/dotfiles" = { url = "git@github.com:boykush/dotfiles.git", ref = "main" }
+
 [shell_alias]
 cat = "bat"
 vi = "hx"
