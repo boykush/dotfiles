@@ -22,12 +22,6 @@ BAT_THEME = "Nord"
 # 匿名利用でもブロックは有効（識別子付与トークンは任意かつ秘密情報のためコミットしない）。env 設定のため
 # registry に限りプロジェクト直下 .npmrc の registry も上書きする（@scope:registry= は別キーで影響なし）。
 NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
-# GitHub 認証の既定は gh auth login。その場合 GH_TOKEN は空で、gh は自身の保存トークンを使う。
-# ~/.gitconfig.ghtkn がある環境のみ ghtkn の短命トークンを GH_TOKEN に供給する（git も同
-# ファイルの include で ghtkn git-credential に切り替わり認証系統が揃う）。実環境変数なので、
-# alias を展開しない gh 呼び出し（子プロセス経由）にも伝播する。失効時は ghtkn get が非ゼロ
-# 終了するため `|| true` で空にする。再評価は shell 起動/cd/設定変更時のみ。
-GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/null || true') }}"
 
 [tools]
 # CLI tools
@@ -46,7 +40,6 @@ GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/n
 "aqua:ajeetdsouza/zoxide" = "0.9.9"
 "aqua:dalance/procs" = "0.14.12"
 "aqua:cli/cli" = "2.94.0"
-"aqua:suzuki-shunsuke/ghtkn" = "0.3.0" # GitHub App の短命トークン発行（gh auth login の代替）
 "aqua:sxyazi/yazi" = "26.5.6"
 "aqua:anthropics/claude-code" = "2.1.195"
 "aqua:tmux/tmux-builds" = "3.6a"
@@ -98,24 +91,15 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # interactive shell でも効かせるため。※ mise 純正の [bootstrap.mise_shell_activate] は使わない
 # （activate 行しか書けず zoxide/starship を管理できない上、bootstrap のステップ順で activate が
 # 末尾に回り順序が壊れるため。block-edit なら宣言順で activate を先頭に固定できる）。
-"~/.zshrc/activate" = { block = 'eval "$(mise activate zsh)"' }
+# activate は bin/mise（bootstrap ラッパー）を絶対パスで参照する（mise 公式の
+# `eval "$(~/.local/bin/mise activate zsh)"` と同型）。PATH の事前設定が不要になるため
+# ~/.zshenv は管理しない。効果範囲: 対話シェルでは mise は関数・ツールは実 PATH に入り、
+# 子プロセス（Claude Code 等）へはツールの PATH だけ継承される（bare `mise` は不可視）。
+# シェル初期化を経ないスクリプト・エージェントが mise を呼ぶときは ~/dotfiles/bin/mise を
+# 絶対パスで叩く（[env] も適用される）。mise 純正の非対話サポートが入ったら移行する。
+"~/.zshrc/activate" = { block = 'eval "$(~/dotfiles/bin/mise activate zsh)"' }
 "~/.zshrc/zoxide"   = { block = 'eval "$(zoxide init zsh)"' }
 "~/.zshrc/starship" = { block = 'eval "$(starship init zsh)"' }
-# --- 全シェル共通（~/.zshenv。全 zsh 起動で読まれる）---
-# (1) bare `mise` を bin/mise（bootstrap ラッパー）へ解決させるため ~/dotfiles/bin を PATH 先頭へ（重複防止ガード付き）。
-"~/.zshenv/path" = { block = '''
-case ":$PATH:" in
-  *":$HOME/dotfiles/bin:"*) ;;
-  *) export PATH="$HOME/dotfiles/bin:$PATH" ;;
-esac''' }
-# (2) 非対話シェル（Claude Code / Codex CLI 等のエージェント）は .zshrc(=mise activate)を読まず
-#     GH_TOKEN/EDITOR/LANG 等が空になる（gh 等が未認証に）。非対話のときだけ mise env を取り込み
-#     環境を揃える（shims では env 変数を export できないためここは mise env が必須）。対話シェルは
-#     .zshrc の activate に任せる（このブロックは素通り）。
-"~/.zshenv/noninteractive-env" = { block = '''
-if [[ ! -o interactive ]] && command -v mise >/dev/null 2>&1; then
-  eval "$(mise env -s zsh 2>/dev/null)"
-fi''' }
 "~/.gitconfig" = "~/dotfiles/.gitconfig"
 "~/.tmux.conf" = "~/dotfiles/tmux/tmux.conf"
 # ~/.config 配下（ディレクトリごと）
@@ -123,7 +107,6 @@ fi''' }
 "~/.config/ghostty" = "~/dotfiles/ghostty"
 "~/.config/gitui"   = "~/dotfiles/gitui"
 "~/.config/helix"   = "~/dotfiles/helix"
-"~/.config/ghtkn"   = "~/dotfiles/ghtkn"
 # ~/.claude 配下（Claude Code。hooks はディレクトリごと）
 # 注: 旧スクリプトには skills の行もあったが、ソース ~/dotfiles/claude-code/skills が
 # 実在せず（＝旧 ln は dangling を生むだけで機能していなかった）、~/.claude/skills は

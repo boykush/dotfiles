@@ -11,8 +11,10 @@ if [ "$SOURCE" != "startup" ] || [ -z "$TMUX" ]; then
 fi
 
 # Trust mise config in worktree
+# mise は bin/mise（bootstrap ラッパー）を絶対パスで呼ぶ。対話シェルの mise は関数のため
+# 子プロセスであるこの hook には継承されず、bare mise は解決しない。
 case "$CWD" in
-    */.claude/worktrees/*) mise trust "$CWD" >&2 2>/dev/null ;;
+    */.claude/worktrees/*) "$HOME/dotfiles/bin/mise" trust "$CWD" >&2 2>/dev/null ;;
 esac
 
 # Set up tmux panes

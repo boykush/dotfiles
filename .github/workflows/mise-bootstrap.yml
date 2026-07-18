@@ -60,9 +60,8 @@ jobs:
         run: |
           cd "$HOME/dotfiles"
           ./bin/mise bootstrap --skip packages,repos --force-dotfiles
-          # .zshrc/.zshenv は block-edit で管理する通常ファイル。マーカーの存在で適用を確認。
+          # .zshrc は block-edit で管理する通常ファイル。マーカーの存在で適用を確認。
           grep -q '>>> mise:activate >>>' "$HOME/.zshrc"
-          grep -q '>>> mise:noninteractive-env >>>' "$HOME/.zshenv"
           test -L "$HOME/.config/mise"
           ./bin/mise ls
           ./bin/mise exec -- jq --version

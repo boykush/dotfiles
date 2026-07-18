@@ -1,8 +1,0 @@
-# ghtkn - GitHub App User Access Token（短命/8時間）を発行する設定。
-# client_id は機密ではないためコミットして良い（private key / client secret は不要）。
-# client_id は GitHub App の Settings → General の "Client ID"。App は Device Flow 有効が前提。
-# https://github.com/suzuki-shunsuke/ghtkn
-apps:
-  - name: boykush/local
-    client_id: Iv23lic8bbIPXCa4YXmA
-    git_owner: boykush
