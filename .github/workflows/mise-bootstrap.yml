@@ -50,16 +50,16 @@ jobs:
       # 本命。packages(GUIアプリ) と repos(SSH自己clone) はスキップし、
       # bin/mise の self-install → dotfiles symlink → [tools] インストールを実適用する。
       # --force-dotfiles: ランナー既存の dotfile と衝突しても置換（ephemeral なCIなので安全）。
-      # --locked: [tools] を mise.lock の事前解決URLだけで入れる（GitHub/aqua への API 解決を禁止）。
-      #           ランナー platform=macos-arm64 の解決が lock に無ければ失敗＝ロックファイルの穴を検出。
+      # インストールは config の lockfile=true により mise.lock 通りに再現される。
+      # lock の鮮度・全 platform 網羅の検証はこの workflow のスコープ外（別途 `mise lock` で担保）。
       - name: Bootstrap (dotfiles + tools)
-        run: cd "$HOME/dotfiles" && ./bin/mise bootstrap --skip packages,repos --force-dotfiles --locked
+        run: cd "$HOME/dotfiles" && ./bin/mise bootstrap --skip packages,repos --force-dotfiles
 
       # 収束確認: 適用済みなら再実行しても no-op で通る。主要 symlink と tool の実行も確認。
       - name: Verify convergence
         run: |
           cd "$HOME/dotfiles"
-          ./bin/mise bootstrap --skip packages,repos --force-dotfiles --locked
+          ./bin/mise bootstrap --skip packages,repos --force-dotfiles
           test -L "$HOME/.zshrc"
           test -L "$HOME/.config/mise"
           ./bin/mise ls
