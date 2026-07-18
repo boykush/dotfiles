@@ -1,0 +1,66 @@
+name: mise bootstrap
+
+# 新環境セットアップ（`./bin/mise bootstrap`）が壊れていないかを macOS で検証する。
+# GUI アプリ（brew-cask）と SSH 自己 clone は CI 向きでないため applied 対象から外し、
+# 実マシンで実際に走る主要部分（bin/mise の self-install → dotfiles symlink → [tools]）を
+# 実適用して収束まで確認する。
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# 既定は権限なし。ジョブに checkout 用の contents: read だけ与える。
+permissions: {}
+
+# 同一 ref の実行は最新だけ残す。
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bootstrap:
+    name: bootstrap (macOS)
+    runs-on: macos-latest # Apple Silicon。mise.lock の macos-arm64 解決を使う
+    timeout-minutes: 20
+    permissions:
+      contents: read # checkout
+    env:
+      # bootstrap / dotfiles は実験的機能。config の experimental=true に加え保険で明示。
+      MISE_EXPERIMENTAL: "1"
+      # 非対話。確認プロンプトを自動 yes に。
+      MISE_YES: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false # トークンを作業ツリーに残さない（zizmor: artipacked）
+
+      # config / dotfiles の参照先は絶対パス ~/dotfiles 前提のため、
+      # チェックアウトを実マシンと同じ ~/dotfiles に配置してから実行する。
+      - name: Place repo at ~/dotfiles
+        run: cp -R "$GITHUB_WORKSPACE" "$HOME/dotfiles"
+
+      # GUIアプリ(brew-cask)は入れないが、[bootstrap.packages] が brew-cask backend で
+      # 解決できるかだけ確認する（--missing を付けないので未インストールでも exit 0。app DL なし）。
+      # ランナーには brew が同梱。cask 名の typo や backend 無効化などの設定崩れをここで検出。
+      - name: Check packages config resolves (no install)
+        run: cd "$HOME/dotfiles" && ./bin/mise bootstrap packages status
+
+      # 本命。packages(GUIアプリ) と repos(SSH自己clone) はスキップし、
+      # bin/mise の self-install → dotfiles symlink → [tools] インストールを実適用する。
+      # --force-dotfiles: ランナー既存の dotfile と衝突しても置換（ephemeral なCIなので安全）。
+      # インストールは config の lockfile=true により mise.lock 通りに再現される。
+      # lock の鮮度・全 platform 網羅の検証はこの workflow のスコープ外（別途 `mise lock` で担保）。
+      - name: Bootstrap (dotfiles + tools)
+        run: cd "$HOME/dotfiles" && ./bin/mise bootstrap --skip packages,repos --force-dotfiles
+
+      # 収束確認: 適用済みなら再実行しても no-op で通る。主要 symlink と tool の実行も確認。
+      - name: Verify convergence
+        run: |
+          cd "$HOME/dotfiles"
+          ./bin/mise bootstrap --skip packages,repos --force-dotfiles
+          test -L "$HOME/.zshrc"
+          test -L "$HOME/.config/mise"
+          ./bin/mise ls
+          ./bin/mise exec -- jq --version
