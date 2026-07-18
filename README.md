@@ -33,11 +33,13 @@ cd ~/dotfiles
 
 ### 4. GUI アプリ / フォント
 
-```bash
-./setup-brew.sh
-```
+GUI アプリ（arc / claude / codex-app / ghostty）は宣言的管理をやめ、各自手動でインストールする。頻繁に入れ替えず更新もアプリ自身が持つため管理の意義が薄く、設定ファイルは dotfiles（`mise dotfiles apply`）で管理される。
 
-Homebrew を導入し、`Brewfile` の cask（ghostty 等）とフォントを入れる。CLI ツールと mise 本体は mise 管理のため Brewfile には含めない。
+ghostty が主フォントに使う Hack Nerd Font のみ mise task で導入する（フォントは実行ファイルではなく `[tools]` では扱えないため task 化。`~/Library/Fonts` に配置）:
+
+```bash
+./bin/mise run setup:font
+```
 
 ### 5. GitHub 認証
 
@@ -52,7 +54,8 @@ GitHub App の短命トークン（8時間／[ghtkn](https://github.com/suzuki-s
 
 - **mise 本体**: `bin/mise`（`mise generate bootstrap` 出力）で導入し、`mise self-update` で最新化。版数は renovate が `min_version` と埋込版を lockstep で追従（[更新](#更新)参照）
 - **CLI ツール**: `mise/config.toml`の`[tools]`（aqua backend、checksum 検証あり）で宣言的に管理。renovate が追従
-- **Homebrew**: `Brewfile`で宣言的に管理（GUI cask / フォントのみ）
+- **GUI アプリ**: 宣言的管理はせず手動導入（arc / claude / codex-app / ghostty。設定は dotfiles 管理）
+- **フォント**: `mise/tasks/setup/font`（`mise run setup:font`）で Hack Nerd Font を `~/Library/Fonts` に導入
 - **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンクを宣言的に管理（`mise dotfiles apply`で適用）
 - **npm**: `mise/config.toml`の`NPM_CONFIG_REGISTRY`で既定レジストリを [Takumi Guard](https://shisho.dev/docs/t/guard/quickstart/)（悪意あるパッケージのブロックプロキシ）に設定
 - **GitHub認証**: 既定は `gh auth login`、任意で `ghtkn`（GitHub App 短命トークン）に切替可

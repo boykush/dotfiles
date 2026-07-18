@@ -76,7 +76,6 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # `mise dotfiles apply` で張れる。
 "~/.config/mise" = "~/dotfiles/mise"
 # ホーム直下
-"~/.zprofile"  = "~/dotfiles/.zprofile"
 "~/.zshrc"     = "~/dotfiles/.zshrc"
 "~/.zshenv"    = "~/dotfiles/.zshenv"
 "~/.gitconfig" = "~/dotfiles/.gitconfig"
