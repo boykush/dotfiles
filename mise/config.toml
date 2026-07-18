@@ -5,10 +5,9 @@
 min_version = "2026.7.5"
 
 [settings]
-experimental = true
 lockfile = true
 disable_backends = ["npm", "vfox", "asdf"]
-# dotfiles 機能（実験的）。[dotfiles] のシンボリックリンクを宣言的に管理する。
+# dotfiles 機能。[dotfiles] のシンボリックリンクを宣言的に管理する。
 # root は `mise dotfiles add` で新規ソースを配置する基準。default_mode=symlink により
 # 各エントリは既定でシンボリックリンクになる。
 dotfiles.root = "~/dotfiles"
