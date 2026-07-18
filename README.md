@@ -13,35 +13,28 @@ git clone git@github.com:boykush/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ```
 
-### 2. CLI ツールのインストール（mise 本体も bootstrap で自動取得）
+### 2. マシンのセットアップ（GUI アプリ + CLI ツール + dotfiles を一括）
 
 ```bash
-./bin/mise install
+./bin/mise bootstrap
 ```
 
-`bin/mise` は初回に mise 本体を `~/.cache/mise` へ取得してから実行する（mise 未導入でも動く）。リポジトリ内で実行するため `mise/config.toml` がローカル config として読まれ、`[tools]` の CLI ツールが入る。埋込版は renovate が `min_version` と lockstep で追従するため floor を下回らない（任意で最新化するなら `./bin/mise self-update`）。
+`mise bootstrap` は現行 config に対して宣言的なセットアップを順に流す1コマンドで、この repo では **`[bootstrap.packages]` の GUI アプリ（brew-cask で `/Applications` へ）**・**`[tools]` の CLI ツール**・**`[dotfiles]` のシンボリックリンク**を一括適用する（他の `[bootstrap.*]` セクションは未定義なので no-op）。宣言的ステップは収束するため再実行は安全で、状況は `./bin/mise bootstrap status` で確認できる。
 
-### 3. dotfiles の適用
+- `bin/mise` は初回に mise 本体を `~/.cache/mise` へ取得してから実行する（mise 未導入でも動く）。リポジトリ内で実行するため `mise/config.toml` がローカル config として読まれる。埋込版は renovate が `min_version` と lockstep で追従するため floor を下回らない（任意で最新化するなら `./bin/mise self-update`）。
+- 適用される dotfiles は `~/.zshrc` や `~/.config/*` など。mise 設定自身の `~/.config/mise` -> `~/dotfiles/mise` もここで張る。以降は新しいシェルで `~/dotfiles/bin` が PATH に入り、`mise` はこのラッパーに解決される。
 
-`[dotfiles]` に定義したシンボリックリンク（`~/.zshrc` や `~/.config/*` など。mise 設定自身の `~/.config/mise` -> `~/dotfiles/mise` もここで張る）を適用する。`[tools]` と違い自動では張られないため明示実行する。冪等なので再実行しても既存の正しいリンクはそのまま。
+> 個別に実行したいときは `./bin/mise dotfiles apply`（dotfiles のみ）／ `./bin/mise install`（tools のみ）／ `./bin/mise bootstrap packages`（GUI アプリのみ）も使える。なお `mise bootstrap` コマンドは、ラッパー `bin/mise` を生成する `mise generate bootstrap`（下記「更新」）とは別物。
 
-```bash
-./bin/mise dotfiles apply
-```
+### 3. フォント
 
-適用状況は `./bin/mise dotfiles status` で確認できる。以降は新しいシェルで `~/dotfiles/bin` が PATH に入り、`mise` はこのラッパーに解決される。
-
-### 4. GUI アプリ / フォント
-
-GUI アプリ（arc / claude / codex-app / ghostty）は宣言的管理をやめ、各自手動でインストールする。頻繁に入れ替えず更新もアプリ自身が持つため管理の意義が薄く、設定ファイルは dotfiles（`mise dotfiles apply`）で管理される。
-
-ghostty が主フォントに使う Hack Nerd Font のみ mise task で導入する（フォントは実行ファイルではなく `[tools]` では扱えないため task 化。`~/Library/Fonts` に配置）:
+ghostty が主フォントに使う Hack Nerd Font を導入する（フォントは実行ファイルではなく `[tools]` では扱えないため task 化。`~/Library/Fonts` に配置）:
 
 ```bash
 ./bin/mise run setup:font
 ```
 
-### 5. GitHub 認証
+### 4. GitHub 認証
 
 既定は `gh auth login`。ghtkn を使わない環境は `gh auth login` するだけ（git も gh も gh の保存トークンを利用）。
 
@@ -54,9 +47,9 @@ GitHub App の短命トークン（8時間／[ghtkn](https://github.com/suzuki-s
 
 - **mise 本体**: `bin/mise`（`mise generate bootstrap` 出力）で導入し、`mise self-update` で最新化。版数は renovate が `min_version` と埋込版を lockstep で追従（[更新](#更新)参照）
 - **CLI ツール**: `mise/config.toml`の`[tools]`（aqua backend、checksum 検証あり）で宣言的に管理。renovate が追従
-- **GUI アプリ**: 宣言的管理はせず手動導入（arc / claude / codex-app / ghostty。設定は dotfiles 管理）
+- **GUI アプリ**: `mise/config.toml`の`[bootstrap.packages]`（brew-cask backend）で宣言的に管理。`mise bootstrap`で`/Applications`へ導入（brew バイナリが前提）
 - **フォント**: `mise/tasks/setup/font`（`mise run setup:font`）で Hack Nerd Font を `~/Library/Fonts` に導入
-- **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンクを宣言的に管理（`mise dotfiles apply`で適用）
+- **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンクを宣言的に管理（`mise bootstrap`で適用。`mise dotfiles apply`で個別適用も可）
 - **npm**: `mise/config.toml`の`NPM_CONFIG_REGISTRY`で既定レジストリを [Takumi Guard](https://shisho.dev/docs/t/guard/quickstart/)（悪意あるパッケージのブロックプロキシ）に設定
 - **GitHub認証**: 既定は `gh auth login`、任意で `ghtkn`（GitHub App 短命トークン）に切替可
 

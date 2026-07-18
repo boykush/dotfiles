@@ -52,6 +52,16 @@ GH_TOKEN = "{{ exec(command='[ -f $HOME/.gitconfig.ghtkn ] && ghtkn get 2>/dev/n
 "aqua:anthropics/claude-code" = "2.1.195"
 "aqua:tmux/tmux-builds" = "3.6a"
 
+# GUI アプリを brew-cask backend で宣言的に管理する。`[tools]` と違い自動では入らず、
+# `mise bootstrap` 実行時に /Applications へインストールされる（内部で brew cask を叩くため
+# brew バイナリが前提）。cask はバージョンを名前で表現し、これらは自身で自動更新するため
+# latest 固定でよい。
+[bootstrap.packages]
+"brew-cask:arc"       = "latest"
+"brew-cask:claude"    = "latest"
+"brew-cask:codex-app" = "latest"
+"brew-cask:ghostty"   = "latest"
+
 [shell_alias]
 cat = "bat"
 vi = "hx"
