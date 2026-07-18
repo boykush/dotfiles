@@ -26,8 +26,6 @@ jobs:
     permissions:
       contents: read # checkout
     env:
-      # bootstrap / dotfiles は実験的機能。config の experimental=true に加え保険で明示。
-      MISE_EXPERIMENTAL: "1"
       # 非対話。確認プロンプトを自動 yes に。
       MISE_YES: "1"
     steps:
