@@ -92,8 +92,30 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # `mise dotfiles apply` で張れる。
 "~/.config/mise" = "~/dotfiles/mise"
 # ホーム直下
-"~/.zshrc"     = "~/dotfiles/.zshrc"
-"~/.zshenv"    = "~/dotfiles/.zshenv"
+# --- 対話シェル初期化（~/.zshrc）: whole-file symlink ではなく block-edit で宣言管理する ---
+# 順序が重要: activate が mise のツールを PATH に通すので必ず先頭。zoxide/starship はその後で
+# ないとバイナリが未解決になる。login(.zprofile) でなく rc に置くのは Codex.app 等の non-login
+# interactive shell でも効かせるため。※ mise 純正の [bootstrap.mise_shell_activate] は使わない
+# （activate 行しか書けず zoxide/starship を管理できない上、bootstrap のステップ順で activate が
+# 末尾に回り順序が壊れるため。block-edit なら宣言順で activate を先頭に固定できる）。
+"~/.zshrc/activate" = { block = 'eval "$(mise activate zsh)"' }
+"~/.zshrc/zoxide"   = { block = 'eval "$(zoxide init zsh)"' }
+"~/.zshrc/starship" = { block = 'eval "$(starship init zsh)"' }
+# --- 全シェル共通（~/.zshenv。全 zsh 起動で読まれる）---
+# (1) bare `mise` を bin/mise（bootstrap ラッパー）へ解決させるため ~/dotfiles/bin を PATH 先頭へ（重複防止ガード付き）。
+"~/.zshenv/path" = { block = '''
+case ":$PATH:" in
+  *":$HOME/dotfiles/bin:"*) ;;
+  *) export PATH="$HOME/dotfiles/bin:$PATH" ;;
+esac''' }
+# (2) 非対話シェル（Claude Code / Codex CLI 等のエージェント）は .zshrc(=mise activate)を読まず
+#     GH_TOKEN/EDITOR/LANG 等が空になる（gh 等が未認証に）。非対話のときだけ mise env を取り込み
+#     環境を揃える（shims では env 変数を export できないためここは mise env が必須）。対話シェルは
+#     .zshrc の activate に任せる（このブロックは素通り）。
+"~/.zshenv/noninteractive-env" = { block = '''
+if [[ ! -o interactive ]] && command -v mise >/dev/null 2>&1; then
+  eval "$(mise env -s zsh 2>/dev/null)"
+fi''' }
 "~/.gitconfig" = "~/dotfiles/.gitconfig"
 "~/.tmux.conf" = "~/dotfiles/tmux/tmux.conf"
 # ~/.config 配下（ディレクトリごと）
