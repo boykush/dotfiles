@@ -55,13 +55,14 @@ jobs:
       - name: Bootstrap (dotfiles + tools)
         run: cd "$HOME/dotfiles" && ./bin/mise bootstrap --skip packages,repos --force-dotfiles
 
-      # 収束確認: 適用済みなら再実行しても no-op で通る。主要 symlink と tool の実行も確認。
+      # 収束確認: 適用済みなら再実行しても no-op で通る。tool の実行も確認。
       - name: Verify convergence
         run: |
           cd "$HOME/dotfiles"
           ./bin/mise bootstrap --skip packages,repos --force-dotfiles
-          # .zshrc は block-edit で管理する通常ファイル。マーカーの存在で適用を確認。
-          grep -q '>>> mise:activate >>>' "$HOME/.zshrc"
-          test -L "$HOME/.config/mise"
+          # 全 [dotfiles] エントリ（symlink / block 両モード）を機械検証する
+          # （missing / source missing / differs があれば exit 1）。config が検証の
+          # 単一真実源になり、エントリの追加・変更に CI 側の手動追随が不要になる。
+          ./bin/mise bootstrap dotfiles status --missing
           ./bin/mise ls
           ./bin/mise exec -- jq --version
