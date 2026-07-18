@@ -435,45 +435,6 @@ url = "https://github.com/starship/starship/releases/download/v1.25.1/starship-x
 checksum = "sha256:a07cf3e428afab09324e510fb786041ebcc491a68b1ca6fba044c5a461f9b017"
 url = "https://github.com/starship/starship/releases/download/v1.25.1/starship-x86_64-pc-windows-msvc.zip"
 
-[[tools."aqua:suzuki-shunsuke/ghtkn"]]
-version = "0.3.0"
-backend = "aqua:suzuki-shunsuke/ghtkn"
-
-[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-arm64"]
-checksum = "sha256:5555b5f84acce0d0ac3806fa5379d0a10006865d790aad72c69ec809e9865db0"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_linux_arm64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-arm64-musl"]
-checksum = "sha256:5555b5f84acce0d0ac3806fa5379d0a10006865d790aad72c69ec809e9865db0"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_linux_arm64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-x64"]
-checksum = "sha256:6ad54702bdbf1623d7203023f6517a006904bfa208e935fb7012bd3df7d9bb2a"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_linux_amd64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.linux-x64-musl"]
-checksum = "sha256:6ad54702bdbf1623d7203023f6517a006904bfa208e935fb7012bd3df7d9bb2a"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_linux_amd64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.macos-arm64"]
-checksum = "sha256:3b34338604a822af0f80dbed5f37ec50e0078ae3295b2f1e2cb3c02d028f1231"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_darwin_arm64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.macos-x64"]
-checksum = "sha256:24d161c0dbd05d708854473e6df5b5532c364d311f6fa207750fcd10665002ef"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_darwin_amd64.tar.gz"
-provenance = "github-attestations"
-
-[tools."aqua:suzuki-shunsuke/ghtkn"."platforms.windows-x64"]
-checksum = "sha256:9ac6ae945df5d8e52e21e72e131e5cb8f09361d4d5e074cd381986ff9a10ad6e"
-url = "https://github.com/suzuki-shunsuke/ghtkn/releases/download/v0.3.0/ghtkn_windows_amd64.zip"
-provenance = "github-attestations"
-
 [[tools."aqua:sxyazi/yazi"]]
 version = "26.5.6"
 backend = "aqua:sxyazi/yazi"
