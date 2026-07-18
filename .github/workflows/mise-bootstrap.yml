@@ -62,5 +62,6 @@ jobs:
           # （missing / source missing / differs があれば exit 1）。config が検証の
           # 単一真実源になり、エントリの追加・変更に CI 側の手動追随が不要になる。
           ./bin/mise bootstrap dotfiles status --missing
+          ./bin/mise bootstrap macos defaults status --missing
           ./bin/mise ls
           ./bin/mise exec -- jq --version
