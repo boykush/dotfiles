@@ -7,6 +7,10 @@ min_version = "2026.7.5"
 [settings]
 lockfile = true
 disable_backends = ["npm", "vfox", "asdf"]
+# 新規バージョン解決（mise upgrade 等）をリリース経過日数でフィルタし、リリース直後の版を
+# 掴まないようにする。renovate（self-hosted）の release age 3d と同値で、手動経路にも同じ
+# クールダウンを効かせる。pin 済み・インストール済みの版はそのまま有効（v2026.7.6 で担保）。
+minimum_release_age = "3d"
 # dotfiles 機能。[dotfiles] のシンボリックリンクを宣言的に管理する。
 # root は `mise dotfiles add` で新規ソースを配置する基準。default_mode=symlink により
 # 各エントリは既定でシンボリックリンクになる。
