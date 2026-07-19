@@ -44,5 +44,5 @@ cd ~/dotfiles
 ## 更新
 
 - **mise 本体**: renovate が `min_version` と `bin/mise` の埋込版を lockstep で追従（minimum release age 付き、同じ depName なので1 PR で一括）。日常で最新にしたいときは `mise self-update`。`bin/mise` を綺麗に作り直したいときだけ手動再生成する: `mise generate bootstrap -w bin/mise`（checksum baseline も最新化される）
-- **CLI ツール**: renovate の PR で `[tools]` と `mise.lock` を追従。手動なら `mise upgrade`
+- **CLI ツール**: renovate の PR で `[tools]` を追従し、`mise.lock` は CI（[mise-lock workflow](.github/workflows/mise-lock.yml)）が `mise lock` を実行して同じ PR に自動コミット。手動なら `mise upgrade`
 - **dotfiles リポジトリ**: `mise bootstrap` の repos ステップが `~/dotfiles` を `main` へ追従（clean な作業ツリー時のみ。dirty なら停止）
