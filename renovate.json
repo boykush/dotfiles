@@ -3,6 +3,10 @@
   "extends": [
     "config:recommended"
   ],
+  "description": "gitIgnoredAuthors: mise-lock workflow が github-actions bot として renovate ブランチへ mise.lock を auto-commit するため、その author を無視する。無視しないと renovate がブランチを user-modified 扱いして rebase・更新を停止する（bot コミットは rebase 時に捨てられ、workflow が再生成する）",
+  "gitIgnoredAuthors": [
+    "41898282+github-actions[bot]@users.noreply.github.com"
+  ],
   "customManagers": [
     {
       "customType": "regex",

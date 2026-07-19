@@ -1,0 +1,79 @@
+name: mise lock
+
+# mise/config.toml の変更に mise.lock を追従させる。renovate は [tools] の版だけ bump して
+# lock（全 platform の checksum / URL）は再生成しないため、この workflow が PR 上で
+# `mise lock` を実行し、差分があれば PR の head ブランチへ自動コミットする。
+# 手動編集の PR にも同様に効く。workflow 自身も paths に含め、変更 PR で自己検証する。
+on:
+  pull_request:
+    paths:
+      - mise/config.toml
+      - .github/workflows/mise-lock.yml
+  # lock がズレたブランチでの手動復旧用（実行した ref に対して同じ追従を行う）
+  workflow_dispatch:
+
+# 既定は権限なし。ジョブに commit & push 用の contents: write だけ与える。
+permissions: {}
+
+# 同一 ref の実行は最新だけ残す。
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lock:
+    name: mise lock
+    # `mise lock` は既定で lockfile 内の既存 platform 全てを再解決するため、
+    # Linux ランナー 1 台で macos-* / windows-* のエントリも更新できる。
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write # mise.lock の commit & push
+    env:
+      # 非対話。確認プロンプトを自動 yes に。
+      MISE_YES: "1"
+      # aqua backend の release 解決で GitHub API を多数叩くため、匿名 rate limit を避ける
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false # トークンを作業ツリーに残さない（zizmor: artipacked）。push はステップ内で明示認証
+          # push 先になる PR の head ブランチを checkout する（既定の merge ref への push は不可）。
+          # fork PR はブランチが base repo に無く GITHUB_TOKEN でも push できないため、
+          # '' で既定（merge ref）のままにして後段は stale チェックのみ行う。
+          ref: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.head_ref || '' }}
+
+      # bin/mise が pin 版の mise を self-install してから実行する（bootstrap CI と同じ経路）。
+      # リポジトリ直下で実行するため mise/config.toml がローカル config として読まれ、
+      # 隣の mise/mise.lock が更新対象になる。
+      - name: Run mise lock
+        run: ./bin/mise lock
+
+      - name: Commit & push mise.lock
+        # fork PR には push できないのでスキップし、次ステップの stale チェックに委ねる
+        if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          git add mise/mise.lock
+          if git diff --cached --quiet; then
+            echo "mise.lock is up to date"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(mise): update mise.lock"
+          # persist-credentials: false のため GITHUB_TOKEN で明示 push（トークンはジョブ終了で失効）。
+          # GITHUB_TOKEN の push は後続 workflow を起動しない（無限ループ防止の GitHub 仕様。
+          # 代償として lock コミットには zizmor / bootstrap の check が付かない）。
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${BRANCH}"
+
+      # fork PR 向け: 自動コミットできないため、stale なら fail して手元実行を促す
+      - name: Fail if mise.lock is stale (fork PR)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+        run: |
+          if ! git diff --exit-code -- mise/mise.lock; then
+            echo "::error::mise.lock が mise/config.toml に追従していません。手元で ./bin/mise lock を実行してコミットしてください"
+            exit 1
+          fi
