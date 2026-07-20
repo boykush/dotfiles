@@ -45,4 +45,10 @@ cd ~/dotfiles
 
 - **mise 本体**: renovate が `min_version` と `bin/mise` の埋込版を lockstep で追従（minimum release age 付き、同じ depName なので1 PR で一括）。日常で最新にしたいときは `mise self-update`。`bin/mise` を綺麗に作り直したいときだけ手動再生成する: `mise generate bootstrap -w bin/mise`（checksum baseline も最新化される）
 - **CLI ツール**: renovate の PR で `[tools]` を追従し、`mise.lock` は CI（[mise-lock workflow](.github/workflows/mise-lock.yml)）が `mise lock` を実行して同じ PR に自動コミット。手動なら `mise upgrade`
-- **dotfiles リポジトリ**: `mise bootstrap` の repos ステップが `~/dotfiles` を `main` へ追従（clean な作業ツリー時のみ。dirty なら停止）
+- **dotfiles リポジトリ**: `mise bootstrap` の repos ステップが `~/dotfiles` を `main` へ追従。毎回 `git ls-remote` でローカル HEAD と origin/main を照合し、差分があれば `git fetch` → `checkout main` → `pull --ff-only` で更新する（dirty なら適用前に停止。push 前のローカル commit で diverge していても ff-only が失敗するだけで履歴は書き換えない）
+
+### main の変更が反映されるまで
+
+各マシンは `./bin/mise bootstrap` の再実行で main に収束する。bootstrap は dotfiles ステップ直後に config をディスクから再読込するため、repos ステップが pull した変更のうち **symlink 先ファイルの中身・`[bootstrap.macos.defaults]`・`[tools]` は同じ run で反映**される。一方、再読込より前に評価される **`[bootstrap.packages]` と `[dotfiles]` のエントリ増減・block 本文は次の run 送り**になる。これらを含む変更を取り込むときは bootstrap を続けて2回流すか、先に `git pull` してから流す（checkout が既に main 先端なら lag は出ない）。収束の機械確認は `./bin/mise bootstrap status --missing`（CI と同じ検証）。
+
+`min_version` の bump（renovate が `bin/mise` 埋込版と lockstep で追従）を bootstrap 自身の pull で取り込んだ回は、config 再読込時の min_version チェックで一度停止するが、次回は pull 済みの新 `bin/mise` が新しい mise を self-install して通る（自己修復）。
