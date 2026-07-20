@@ -50,8 +50,10 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 
 # GUI アプリ・フォントを brew-cask backend で宣言的に管理する。`[tools]` と違い自動では入らず、
 # `mise bootstrap` 実行時にインストールされる（アプリは /Applications、フォントは ~/Library/Fonts。
-# 内部で brew cask を叩くため brew バイナリが前提）。cask はバージョンを名前で表現し、GUI アプリは
-# 自身で自動更新するため latest 固定でよい（フォントも cask 追従で足りる）。
+# mise 組み込みのインストーラーが Homebrew cask API からメタデータを取得して直接インストールする
+# ため brew バイナリは不要。非対応 artifact の cask は brew に委譲されず明確なエラーになる）。
+# cask はバージョンを名前で表現し、GUI アプリは自身で自動更新するため latest 固定でよい
+# （フォントも cask 追従で足りる）。
 [bootstrap.packages]
 "brew-cask:arc"       = "latest"
 "brew-cask:claude"    = "latest"

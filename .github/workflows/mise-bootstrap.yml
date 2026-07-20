@@ -41,7 +41,8 @@ jobs:
 
       # GUIアプリ(brew-cask)は入れないが、[bootstrap.packages] が brew-cask backend で
       # 解決できるかだけ確認する（--missing を付けないので未インストールでも exit 0。app DL なし）。
-      # ランナーには brew が同梱。cask 名の typo や backend 無効化などの設定崩れをここで検出。
+      # 解決は mise が Homebrew cask API を直接参照するため brew バイナリ不要。cask 名の typo や
+      # backend 無効化などの設定崩れをここで検出。
       - name: Check packages config resolves (no install)
         run: cd "$HOME/dotfiles" && ./bin/mise bootstrap packages status
 
