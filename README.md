@@ -35,7 +35,7 @@ cd ~/dotfiles
 
 - **mise 本体**: `bin/mise`（`mise generate bootstrap` 出力）で導入し、`mise self-update` で最新化。版数は renovate が `min_version` と埋込版を lockstep で追従（[更新](#更新)参照）
 - **CLI ツール**: `mise/config.toml`の`[tools]`（aqua backend、checksum 検証あり）で宣言的に管理。renovate が追従
-- **GUI アプリ**: `mise/config.toml`の`[bootstrap.packages]`（brew-cask backend）で宣言的に管理。`mise bootstrap`で`/Applications`へ導入（brew バイナリが前提）
+- **GUI アプリ**: `mise/config.toml`の`[bootstrap.packages]`（brew-cask backend）で宣言的に管理。`mise bootstrap`で`/Applications`へ導入（mise 組み込みのインストーラーが Homebrew cask API から直接取得するため brew バイナリは不要）
 - **フォント**: `mise/config.toml`の`[bootstrap.packages]`（`brew-cask:font-hack-nerd-font`）で Hack Nerd Font を `~/Library/Fonts` に導入（GUI アプリと同じ brew-cask backend）
 - **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンク（設定ファイル）とファイル内ブロック編集（`~/.zshrc` のシェル初期化）を宣言的に管理（`mise bootstrap`で適用。`mise dotfiles apply`で個別適用も可）
 - **npm**: `mise/config.toml`の`NPM_CONFIG_REGISTRY`で既定レジストリを [Takumi Guard](https://shisho.dev/docs/t/guard/quickstart/)（悪意あるパッケージのブロックプロキシ）に設定
