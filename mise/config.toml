@@ -45,7 +45,7 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 "aqua:dalance/procs" = "0.14.12"
 "aqua:cli/cli" = "2.96.0"
 "aqua:sxyazi/yazi" = "26.5.6"
-"aqua:anthropics/claude-code" = "2.1.211"
+"aqua:anthropics/claude-code" = "2.1.216"
 "aqua:tmux/tmux-builds" = "3.6a"
 
 # GUI アプリ・フォントを brew-cask backend で宣言的に管理する。`[tools]` と違い自動では入らず、
