@@ -3,7 +3,7 @@ set -eu
 
 __mise_bootstrap() {
     local cache_home="${XDG_CACHE_HOME:-$HOME/.cache}/mise"
-    export MISE_INSTALL_PATH="$cache_home/mise-2026.7.7"
+    export MISE_INSTALL_PATH="$cache_home/mise-2026.7.11"
     install() {
         local initial_working_dir="$PWD"
         #!/bin/sh
@@ -280,7 +280,7 @@ __mise_bootstrap() {
         }
 
         install_mise() {
-          version="${MISE_VERSION:-v2026.7.7}"
+          version="${MISE_VERSION:-v2026.7.11}"
           version="${version#v}"
           current_version="v2026.7.5"
           current_version="${current_version#v}"
