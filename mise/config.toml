@@ -136,3 +136,8 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 "~/.claude/statusline.sh"   = "~/dotfiles/claude-code/statusline.sh"
 "~/.claude/claude-dev.json" = "~/dotfiles/claude-code/claude-dev.json"
 "~/.claude/hooks"           = "~/dotfiles/claude-code/hooks"
+# エージェント共通の個人ルール。実体は agents/AGENTS.md の1本で、Claude Code が読む
+# ~/.claude/CLAUDE.md と Codex が読む ~/.codex/AGENTS.md の両方から同じファイルを指す
+# （Claude Code は AGENTS.md を読まないため、名前を変えて2箇所に張る必要がある）。
+"~/.claude/CLAUDE.md" = "~/dotfiles/agents/AGENTS.md"
+"~/.codex/AGENTS.md"  = "~/dotfiles/agents/AGENTS.md"
