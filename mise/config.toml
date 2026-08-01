@@ -129,9 +129,6 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 "~/.config/gitui"   = "~/dotfiles/gitui"
 "~/.config/helix"   = "~/dotfiles/helix"
 # ~/.claude 配下（Claude Code。hooks はディレクトリごと）
-# 注: 旧スクリプトには skills の行もあったが、ソース ~/dotfiles/claude-code/skills が
-# 実在せず（＝旧 ln は dangling を生むだけで機能していなかった）、~/.claude/skills は
-# Claude Code 自身が管理する実ディレクトリのため dotfiles では扱わない。
 "~/.claude/settings.json"   = "~/dotfiles/claude-code/settings.json"
 "~/.claude/statusline.sh"   = "~/dotfiles/claude-code/statusline.sh"
 "~/.claude/claude-dev.json" = "~/dotfiles/claude-code/claude-dev.json"
