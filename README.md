@@ -47,7 +47,7 @@ Scraps MCP は `mise run --quiet --raw scraps:mcp` を共通の起動入口に�
 
 各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink し、ホーム配下のセッションから `.mcp.json` project config として参照させる。
 
-いつ引くか（固有名詞の指示対象を確定させる用途）は [agents/AGENTS.md](agents/AGENTS.md) の「個人ナレッジの参照」に書いてある。
+エージェントがいつ wiki を引くかは [agents/AGENTS.md](agents/AGENTS.md) の「私のナレッジ（Scraps wiki）を引く」に書いてある。
 
 ## 更新
 
