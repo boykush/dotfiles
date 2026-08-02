@@ -9,11 +9,14 @@
   ],
   "packageRules": [
     {
-      "description": "mise の [tools] で管理する CLI ツール更新を、必須 CI の成功後に自動マージする。mise 本体は custom.regex manager で管理しているため対象外。",
+      "description": "mise の [tools] で管理する CLI ツール更新を、必須 CI の成功後に自動マージする。mise 本体は custom.regex manager で管理しているため対象外。addLabels は automerge と対で必須: このリポジトリは承認レビュー1件を要求し、Renovate は自分の PR を承認できない。代わりに承認する renovate-runner の approve-bot-prs ワークフローが automerge ラベルで対象を絞るため、ラベルが無いと承認が来ず automerge が永久に待つ。",
       "matchManagers": [
         "mise"
       ],
-      "automerge": true
+      "automerge": true,
+      "addLabels": [
+        "automerge"
+      ]
     }
   ],
   "customManagers": [
