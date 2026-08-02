@@ -592,35 +592,35 @@ url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-mac
 url_api = "https://api.github.com/repos/tmux/tmux-builds/releases/assets/331787045"
 
 [[tools."github:boykush/scraps"]]
-version = "0.33.0"
+version = "1.0.1"
 backend = "github:boykush/scraps"
 
 [tools."github:boykush/scraps"."platforms.linux-arm64"]
-checksum = "sha256:1ee498859810d9c68edb698a50bc104442419d3f98d5b2c38d1dfb311066d1d3"
-url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-aarch64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975636"
+checksum = "sha256:265ec0d3af100418dbbc0084993a91460b0e7941cc85aeff80e572b60d814992"
+url = "https://github.com/boykush/scraps/releases/download/v1.0.1/scraps-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/432943221"
 
 [tools."github:boykush/scraps"."platforms.linux-arm64-musl"]
-checksum = "sha256:1ee498859810d9c68edb698a50bc104442419d3f98d5b2c38d1dfb311066d1d3"
-url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-aarch64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975636"
+checksum = "sha256:265ec0d3af100418dbbc0084993a91460b0e7941cc85aeff80e572b60d814992"
+url = "https://github.com/boykush/scraps/releases/download/v1.0.1/scraps-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/432943221"
 
 [tools."github:boykush/scraps"."platforms.linux-x64"]
-checksum = "sha256:259d2bd2215c750ef7e273805d0a585d084f773da5971c95889a9f43a33d9671"
-url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975198"
+checksum = "sha256:169bde364173328312da5bb0daf79a1e834067e3ad5ad56f7cf6b337a1fe6a48"
+url = "https://github.com/boykush/scraps/releases/download/v1.0.1/scraps-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/432942601"
 
 [tools."github:boykush/scraps"."platforms.linux-x64-musl"]
-checksum = "sha256:93ac1e9fe86b7e77970cb58e96a35a287d6c6d0fae432c322f7ef416f68bf539"
-url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975659"
+checksum = "sha256:5e3542da3ea9576ee3f262de3e32b78c2af280db1582703dcd20444780eaf78c"
+url = "https://github.com/boykush/scraps/releases/download/v1.0.1/scraps-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/432943159"
 
 [tools."github:boykush/scraps"."platforms.macos-arm64"]
-checksum = "sha256:c406ad9edd4a813c19d5d3744acc92cb6e1385236e8678e822e169a050fb65d3"
-url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975134"
+checksum = "sha256:2620b7d1f1691cb11396df4a776cd5eb68b853f447ba4abc263cfb66824c9a54"
+url = "https://github.com/boykush/scraps/releases/download/v1.0.1/scraps-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/432942782"
 
 [tools."github:boykush/scraps"."platforms.macos-x64"]
-checksum = "sha256:a7fc407dd1c3c312f7ebbe22331d2c9e8b66ba15c7d9abd525d73937c4c82eeb"
-url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-x86_64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975230"
+checksum = "sha256:41c183163e98f636e621c47c9729a1d4a3c0564239f4748859e32e0f04eff050"
+url = "https://github.com/boykush/scraps/releases/download/v1.0.1/scraps-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/432942409"
