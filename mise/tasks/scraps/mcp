@@ -1,0 +1,9 @@
+#!/bin/bash
+#MISE description="Run Scraps MCP server for the personal wiki"
+#MISE dir="{{config_root}}"
+
+set -euo pipefail
+
+export SCRAPS_PROJECT_PATH="${SCRAPS_PROJECT_PATH:-$HOME/dotfiles/wiki/scraps}"
+
+exec scraps mcp serve

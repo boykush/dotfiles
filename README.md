@@ -19,11 +19,11 @@ cd ~/dotfiles
 ./bin/mise bootstrap
 ```
 
-`mise bootstrap` は現行 config に対して宣言的なセットアップを順に流す1コマンドで、この repo では **`[bootstrap.packages]` の GUI アプリ・フォント（brew-cask。アプリは `/Applications`、フォントは `~/Library/Fonts`）**・**`[bootstrap.repos]` の dotfiles リポジトリ自身（`~/dotfiles` を `main` に追従）**・**`[tools]` の CLI ツール**・**`[dotfiles]` のシンボリックリンク／ファイル内ブロック編集**を一括適用する（他の `[bootstrap.*]` は未定義なので no-op）。宣言的ステップは収束するため再実行は安全で、状況は `./bin/mise bootstrap status` で確認できる。
+`mise bootstrap` は現行 config に対して宣言的なセットアップを順に流す1コマンドで、この repo では **`[bootstrap.packages]` の GUI アプリ・フォント（brew-cask。アプリは `/Applications`、フォントは `~/Library/Fonts`）**・**`[bootstrap.repos]` の dotfiles リポジトリ自身（`~/dotfiles` を `main` に追従）と個人 wiki（`~/dotfiles/wiki` を `main` に追従）**・**`[tools]` の CLI ツール**・**`[dotfiles]` のシンボリックリンク／ファイル内ブロック編集**を一括適用する（他の `[bootstrap.*]` は未定義なので no-op）。宣言的ステップは収束するため再実行は安全で、状況は `./bin/mise bootstrap status` で確認できる。
 
 - `bin/mise` は初回に mise 本体を `~/.cache/mise` へ取得してから実行する（mise 未導入でも動く）。リポジトリ内で実行するため `mise/config.toml` がローカル config として読まれる。埋込版は renovate が `min_version` と lockstep で追従するため floor を下回らない（任意で最新化するなら `./bin/mise self-update`）。
 - 適用される dotfiles は `~/.zshrc` や `~/.config/*` など。mise 設定自身の `~/.config/mise` -> `~/dotfiles/mise` もここで張る。以降は新しい対話シェルで `.zshrc` の activate（`~/dotfiles/bin/mise` を絶対パス参照）が mise とツール群を使えるようにする。シェル初期化を経ないスクリプト等からは `~/dotfiles/bin/mise` を絶対パスで呼ぶ。
-- `[bootstrap.repos]` を含むため `mise bootstrap` は `~/dotfiles` が clean であることを要求する（ローカル変更があると repos ステップで安全のため停止するので、コミット / stash してから実行する）。
+- `[bootstrap.repos]` を含むため `mise bootstrap` は管理対象リポジトリが clean であることを要求する（ローカル変更があると repos ステップで安全のため停止するので、コミット / stash してから実行する）。
 
 > 個別に実行したいときは `./bin/mise dotfiles apply`（dotfiles のみ）／ `./bin/mise install`（tools のみ）／ `./bin/mise bootstrap packages`（GUI アプリ・フォントのみ）／ `./bin/mise bootstrap repos`（dotfiles リポジトリのみ）も使える。なお `mise bootstrap` コマンドは、ラッパー `bin/mise` を生成する `mise generate bootstrap`（下記「更新」）とは別物。
 
@@ -41,11 +41,17 @@ cd ~/dotfiles
 - **npm**: `mise/config.toml`の`NPM_CONFIG_REGISTRY`で既定レジストリを [Takumi Guard](https://shisho.dev/docs/t/guard/quickstart/)（悪意あるパッケージのブロックプロキシ）に設定
 - **GitHub認証**: `gh auth login`（gh は保存トークン、git は `.gitconfig` の `gh auth git-credential` ヘルパー経由で認証）
 
+## AI MCP サーバー
+
+Scraps MCP は `mise run --quiet --raw scraps:mcp` を共通の起動入口にする。対象 Scraps project は task 起動時だけ `SCRAPS_PROJECT_PATH` で `~/dotfiles/wiki/scraps` に固定し、この repo の `[bootstrap.repos]` が `boykush/wiki` を dotfiles 配下へ clone / 更新する。
+
+各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink し、ホーム配下のセッションから `.mcp.json` project config として参照させる。
+
 ## 更新
 
 - **mise 本体**: renovate が `min_version` と `bin/mise` の埋込版を lockstep で追従（minimum release age 付き、同じ depName なので1 PR で一括）。日常で最新にしたいときは `mise self-update`。`bin/mise` を綺麗に作り直したいときだけ手動再生成する: `mise generate bootstrap -w bin/mise`（checksum baseline も最新化される）
 - **CLI ツール**: renovate の PR で `[tools]` を追従し、`mise.lock` は CI（[mise-lock workflow](.github/workflows/mise-lock.yml)）が `mise lock` を実行して同じ PR に自動コミット。手動なら `mise upgrade`
-- **dotfiles リポジトリ**: `mise bootstrap` の repos ステップが `~/dotfiles` を `main` へ追従。毎回 `git ls-remote` でローカル HEAD と origin/main を照合し、差分があれば `git fetch` → `checkout main` → `pull --ff-only` で更新する（dirty なら適用前に停止。push 前のローカル commit で diverge していても ff-only が失敗するだけで履歴は書き換えない）
+- **管理対象リポジトリ**: `mise bootstrap` の repos ステップが `~/dotfiles` と `~/dotfiles/wiki` を `main` へ追従。毎回 `git ls-remote` でローカル HEAD と origin/main を照合し、差分があれば `git fetch` → `checkout main` → `pull --ff-only` で更新する（dirty なら適用前に停止。push 前のローカル commit で diverge していても ff-only が失敗するだけで履歴は書き換えない）
 
 ### main の変更が反映されるまで
 

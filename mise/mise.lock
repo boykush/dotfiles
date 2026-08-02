@@ -590,3 +590,37 @@ url_api = "https://api.github.com/repos/tmux/tmux-builds/releases/assets/3317870
 checksum = "sha256:b9b12eaeba43acf5671acf3857d947525440b544185a8db34ea557199a090251"
 url = "https://github.com/tmux/tmux-builds/releases/download/v3.6a/tmux-3.6a-macos-x86_64.tar.gz"
 url_api = "https://api.github.com/repos/tmux/tmux-builds/releases/assets/331787045"
+
+[[tools."github:boykush/scraps"]]
+version = "0.33.0"
+backend = "github:boykush/scraps"
+
+[tools."github:boykush/scraps"."platforms.linux-arm64"]
+checksum = "sha256:1ee498859810d9c68edb698a50bc104442419d3f98d5b2c38d1dfb311066d1d3"
+url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975636"
+
+[tools."github:boykush/scraps"."platforms.linux-arm64-musl"]
+checksum = "sha256:1ee498859810d9c68edb698a50bc104442419d3f98d5b2c38d1dfb311066d1d3"
+url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975636"
+
+[tools."github:boykush/scraps"."platforms.linux-x64"]
+checksum = "sha256:259d2bd2215c750ef7e273805d0a585d084f773da5971c95889a9f43a33d9671"
+url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975198"
+
+[tools."github:boykush/scraps"."platforms.linux-x64-musl"]
+checksum = "sha256:93ac1e9fe86b7e77970cb58e96a35a287d6c6d0fae432c322f7ef416f68bf539"
+url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975659"
+
+[tools."github:boykush/scraps"."platforms.macos-arm64"]
+checksum = "sha256:c406ad9edd4a813c19d5d3744acc92cb6e1385236e8678e822e169a050fb65d3"
+url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975134"
+
+[tools."github:boykush/scraps"."platforms.macos-x64"]
+checksum = "sha256:a7fc407dd1c3c312f7ebbe22331d2c9e8b66ba15c7d9abd525d73937c4c82eeb"
+url = "https://github.com/boykush/scraps/releases/download/v0.33.0/scraps-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/boykush/scraps/releases/assets/372975230"
