@@ -28,6 +28,8 @@ jobs:
     env:
       # 非対話。確認プロンプトを自動 yes に。
       MISE_YES: "1"
+      # GitHub backend と artifact attestation の API 呼び出しを認証し、共有 IP の rate limit を回避する。
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
