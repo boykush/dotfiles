@@ -7,6 +7,15 @@
   "gitIgnoredAuthors": [
     "41898282+github-actions[bot]@users.noreply.github.com"
   ],
+  "packageRules": [
+    {
+      "description": "mise の [tools] で管理する CLI ツール更新を、必須 CI の成功後に自動マージする。mise 本体は custom.regex manager で管理しているため対象外。",
+      "matchManagers": [
+        "mise"
+      ],
+      "automerge": true
+    }
+  ],
   "customManagers": [
     {
       "customType": "regex",
