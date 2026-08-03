@@ -47,6 +47,8 @@ Scraps MCP は `mise run --quiet --raw scraps:mcp` を共通の起動入口に�
 
 各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink し、ホーム配下のセッションから `.mcp.json` project config として参照させる。
 
+エージェントがいつ wiki を引くかは [agents/AGENTS.md](agents/AGENTS.md) の「私のナレッジ（Scraps wiki）を引く」に書いてある。
+
 ## 更新
 
 - **mise 本体**: renovate が `min_version` と `bin/mise` の埋込版を lockstep で追従（minimum release age 付き、同じ depName なので1 PR で一括）。日常で最新にしたいときは `mise self-update`。`bin/mise` を綺麗に作り直したいときだけ手動再生成する: `mise generate bootstrap -w bin/mise`（checksum baseline も最新化される）
