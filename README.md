@@ -43,9 +43,9 @@ cd ~/dotfiles
 
 ## AI MCP サーバー
 
-Scraps MCP は `mise run --quiet --raw scraps:mcp` を共通の起動入口にする。対象 Scraps project は task 起動時だけ `SCRAPS_PROJECT_PATH` で `~/dotfiles/wiki/scraps` に固定し、この repo の `[bootstrap.repos]` が `boykush/wiki` を dotfiles 配下へ clone / 更新する。
+Scraps MCP は `mise run --quiet --raw scraps:mcp` を共通の起動入口にする。対象 Scraps project は task 起動時に `SCRAPS_DIRECTORY` で `~/dotfiles/wiki/scraps` に固定し（呼び出し元の env は継がない。他の Scraps project 内から起動しても同じ wiki を指すため）、この repo の `[bootstrap.repos]` が `boykush/wiki` を dotfiles 配下へ clone / 更新する。
 
-各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink し、ホーム配下のセッションから `.mcp.json` project config として参照させる。
+各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink する。Claude Code は cwd から親を遡って `.mcp.json` を集める（複数あればマージ）ので、ホーム配下のセッションならどのディレクトリからでも拾う。ただし `.mcp.json` 由来のサーバーは project ごとに承認プロンプトが出るため、`claude-code/settings.json` の `enabledMcpjsonServers` で `scraps` だけを事前承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。
 
 エージェントがいつ wiki を引くかは [agents/AGENTS.md](agents/AGENTS.md) の「私のナレッジ（Scraps wiki）を引く」に書いてある。
 
