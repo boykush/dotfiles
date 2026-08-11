@@ -4,6 +4,8 @@
 
 set -euo pipefail
 
-export SCRAPS_PROJECT_PATH="${SCRAPS_PROJECT_PATH:-$HOME/dotfiles/wiki/scraps}"
+# scraps が読むのは SCRAPS_DIRECTORY（= -C）。呼び出し元の env を継がず固定するのは、
+# どのディレクトリから起動しても同じ個人 wiki を指すサーバーにするため。
+export SCRAPS_DIRECTORY="$HOME/dotfiles/wiki/scraps"
 
 exec scraps mcp serve
