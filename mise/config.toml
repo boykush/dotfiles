@@ -49,7 +49,7 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 "aqua:dalance/procs" = "0.14.12"
 "aqua:cli/cli" = "2.97.0"
 "aqua:sxyazi/yazi" = "26.5.6"
-"aqua:anthropics/claude-code" = "2.1.226"
+"aqua:anthropics/claude-code" = "2.1.227"
 "aqua:tmux/tmux-builds" = "3.6a"
 "github:boykush/scraps" = "1.1.0"
 
