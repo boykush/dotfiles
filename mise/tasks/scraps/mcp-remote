@@ -1,0 +1,8 @@
+#!/bin/bash
+#MISE description="Forward the cluster-hosted Scraps MCP server to 127.0.0.1:1113"
+
+set -euo pipefail
+
+# scraps の MCP サーバーは Host ヘッダを loopback に限定している（DNS rebinding 対策）。
+# Service 名やホスト名で直接叩くと 403 になるので、参照側は port-forward で 127.0.0.1 に落とす。
+exec kubectl --namespace remote-mcp-server port-forward svc/remote-mcp-server 1113:1113
