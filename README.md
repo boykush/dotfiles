@@ -43,7 +43,11 @@ cd ~/dotfiles
 
 ## AI MCP サーバー
 
-Scraps MCP は `mise run --quiet --raw scraps:mcp` を共通の起動入口にする。対象 Scraps project は task 起動時に `SCRAPS_DIRECTORY` で `~/dotfiles/wiki/scraps` に固定し（呼び出し元の env は継がない。他の Scraps project 内から起動しても同じ wiki を指すため）、この repo の `[bootstrap.repos]` が `boykush/wiki` を dotfiles 配下へ clone / 更新する。
+Scraps MCP はクラスタ上の remote MCP サーバーを参照する。manifest は [boykush/infrastructure-as-code](https://github.com/boykush/infrastructure-as-code)、image は `boykush/wiki` の CI が wiki の内容ごとビルドして GHCR へ push する。したがって MCP から引ける内容は **main に push 済みのもの**で、手元の未 push な編集は含まれない。
+
+サーバーは認証を持たないためクラスタ内に閉じており（ClusterIP）、参照側は `mise run scraps:mcp-remote` の port-forward で `127.0.0.1:1113` に落とす。scraps 側が Host ヘッダを loopback に限定している（DNS rebinding 対策）ので、Service 名やホスト名で直接叩くことはできない。
+
+`mise run --quiet --raw scraps:mcp` はローカルの stdio サーバーを起動する task として残してある。未 push の編集を引きたいときや、クラスタに繋げない環境ではこちらに切り替える（クライアント側の config も stdio 起動に戻す必要がある）。読む先は `~/dotfiles/wiki/scraps` 固定で、この repo の `[bootstrap.repos]` が `boykush/wiki` を dotfiles 配下へ clone / 更新する。
 
 各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink する。Claude Code は cwd から親を遡って `.mcp.json` を集める（複数あればマージ）ので、ホーム配下のセッションならどのディレクトリからでも拾う。ただし `.mcp.json` 由来のサーバーは project ごとに承認プロンプトが出るため、`claude-code/settings.json` の `enabledMcpjsonServers` で `scraps` だけを事前承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。
 
