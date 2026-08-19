@@ -1,8 +1,11 @@
 {
   "mcpServers": {
     "scraps": {
-      "type": "http",
-      "url": "http://127.0.0.1:1113/mcp"
+      "command": "/bin/sh",
+      "args": [
+        "-lc",
+        "exec \"$HOME/dotfiles/bin/mise\" run --quiet --raw scraps:mcp"
+      ]
     }
   }
 }
