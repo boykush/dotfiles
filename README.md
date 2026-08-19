@@ -47,7 +47,7 @@ Scraps MCP はクラスタ上の remote MCP サーバーを参照する。manife
 
 サーバーは認証を持たないためクラスタ内に閉じており（ClusterIP）、参照側は `mise run scraps:mcp-remote` の port-forward で `127.0.0.1:1113` に落とす。scraps 側が Host ヘッダを loopback に限定している（DNS rebinding 対策）ので、Service 名やホスト名で直接叩くことはできない。
 
-ローカルで scraps を起動する経路と、そのための wiki の複製（`~/dotfiles/wiki`）は持たない。参照先を1つに保つためで、繋がらないときは port-forward を立て直すか、公開サイト <https://boykush.github.io/wiki/> を見る。
+ローカルで scraps を動かす経路は持たない——stdio サーバーの task も、それに読ませていた wiki の複製（`~/dotfiles/wiki`）も、`[tools]` の scraps 本体も置かない。参照先を1つに保つためで、繋がらないときは port-forward を立て直すか、公開サイト <https://boykush.github.io/wiki/> を見る。
 
 各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink する。Claude Code は cwd から親を遡って `.mcp.json` を集める（複数あればマージ）ので、ホーム配下のセッションならどのディレクトリからでも拾う。ただし `.mcp.json` 由来のサーバーは project ごとに承認プロンプトが出るため、`claude-code/settings.json` の `enabledMcpjsonServers` で `scraps` だけを事前承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。
 

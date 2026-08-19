@@ -51,7 +51,6 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 "aqua:sxyazi/yazi" = "26.5.6"
 "aqua:anthropics/claude-code" = "2.1.226"
 "aqua:tmux/tmux-builds" = "3.6a"
-"github:boykush/scraps" = "1.1.0"
 # Scraps MCP はクラスタ上のサーバーを port-forward して使うため kubectl が要る。
 # クラスタの minor に追従させる（skew は ±1 minor まで）。
 "aqua:kubernetes/kubernetes/kubectl" = "1.36.3"
