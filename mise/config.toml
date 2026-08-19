@@ -74,7 +74,6 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 # 未 clone なら取得、既にあれば ref=main に追従）。dotfiles 適用より前に走る。
 [bootstrap.repos]
 "~/dotfiles" = { url = "git@github.com:boykush/dotfiles.git", ref = "main" }
-"~/dotfiles/wiki" = { url = "git@github.com:boykush/wiki.git", ref = "main" }
 
 # macOS の defaults も宣言管理する。`mise bootstrap` の macos ステップで値の型に応じた
 # `defaults write`（-bool / -int 等）が適用され、`mise bootstrap macos defaults status --missing`
