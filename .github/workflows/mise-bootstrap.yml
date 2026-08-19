@@ -21,7 +21,7 @@ concurrency:
 jobs:
   bootstrap:
     name: bootstrap (macOS)
-    runs-on: macos-latest # Apple Silicon。mise.lock の macos-arm64 解決を使う
+    runs-on: macos-latest # Apple Silicon。実マシンと同じ macos-arm64 向けの解決を通す
     timeout-minutes: 20
     permissions:
       contents: read # checkout
@@ -51,8 +51,8 @@ jobs:
       # 本命。packages(GUIアプリ) と repos(SSH自己clone) はスキップし、
       # bin/mise の self-install → dotfiles symlink → [tools] インストールを実適用する。
       # --force-dotfiles: ランナー既存の dotfile と衝突しても置換（ephemeral なCIなので安全）。
-      # インストールは config の lockfile=true により mise.lock 通りに再現される。
-      # lock の鮮度・全 platform 網羅の検証はこの workflow のスコープ外（別途 `mise lock` で担保）。
+      # lockfile は使わないため、インストールは [tools] の pin 済み版数を都度解決して行う
+      # （取得物は aqua registry の checksum で検証される）。
       - name: Bootstrap (dotfiles + tools)
         run: cd "$HOME/dotfiles" && ./bin/mise bootstrap --skip packages,repos --force-dotfiles
 
