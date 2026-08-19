@@ -13,7 +13,7 @@ Claude Code / Codex 共通の個人ルール（`~/.claude/CLAUDE.md` と `~/.cod
 - 手順は `search_scraps` → 当たりを `get_scrap` で読む → 関連を辿るなら `lookup_scrap_links` / `lookup_scrap_backlinks`。私が何を蓄えているかの地図が要るときは `list_tags`、タグ起点で並べるなら `lookup_tag_backlinks`。
 - wiki の内容に乗って話すときは `[[Title]]`（ctx 付きなら `[[Ctx/Title]]`）を添える。どの scrap の話をしているか私と揃えるため。
 - wiki は私の理解のスナップショットで、リポジトリの現状ではない。食い違ったらコードを正とし、食い違ったこと自体を報告する。
-- MCP はクラスタ上の remote サーバーを見ている。繋がっていないセッションでは私に `mise run scraps:mcp-remote`（port-forward）を頼む。ローカルに wiki の複製は置いていないので、Grep / Read での代用はできない。公開サイト <https://boykush.github.io/wiki/> は読める。
+- MCP が繋がっていないセッションでは、wiki 本体が `~/dotfiles/wiki/scraps` 配下に markdown で置いてあるので Grep / Read で代用する。
 
 ## コードコメント
 
