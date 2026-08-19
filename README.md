@@ -19,7 +19,7 @@ cd ~/dotfiles
 ./bin/mise bootstrap
 ```
 
-`mise bootstrap` は現行 config に対して宣言的なセットアップを順に流す1コマンドで、この repo では **`[bootstrap.packages]` の GUI アプリ・フォント（brew-cask。アプリは `/Applications`、フォントは `~/Library/Fonts`）**・**`[bootstrap.repos]` の dotfiles リポジトリ自身（`~/dotfiles` を `main` に追従）と個人 wiki（`~/dotfiles/wiki` を `main` に追従）**・**`[tools]` の CLI ツール**・**`[dotfiles]` のシンボリックリンク／ファイル内ブロック編集**を一括適用する（他の `[bootstrap.*]` は未定義なので no-op）。宣言的ステップは収束するため再実行は安全で、状況は `./bin/mise bootstrap status` で確認できる。
+`mise bootstrap` は現行 config に対して宣言的なセットアップを順に流す1コマンドで、この repo では **`[bootstrap.packages]` の GUI アプリ・フォント（brew-cask。アプリは `/Applications`、フォントは `~/Library/Fonts`）**・**`[bootstrap.repos]` の dotfiles リポジトリ自身（`~/dotfiles` を `main` に追従）**・**`[tools]` の CLI ツール**・**`[dotfiles]` のシンボリックリンク／ファイル内ブロック編集**を一括適用する（他の `[bootstrap.*]` は未定義なので no-op）。宣言的ステップは収束するため再実行は安全で、状況は `./bin/mise bootstrap status` で確認できる。
 
 - `bin/mise` は初回に mise 本体を `~/.cache/mise` へ取得してから実行する（mise 未導入でも動く）。リポジトリ内で実行するため `mise/config.toml` がローカル config として読まれる。埋込版は renovate が `min_version` と lockstep で追従するため floor を下回らない（任意で最新化するなら `./bin/mise self-update`）。
 - 適用される dotfiles は `~/.zshrc` や `~/.config/*` など。mise 設定自身の `~/.config/mise` -> `~/dotfiles/mise` もここで張る。以降は新しい対話シェルで `.zshrc` の activate（`~/dotfiles/bin/mise` を絶対パス参照）が mise とツール群を使えるようにする。シェル初期化を経ないスクリプト等からは `~/dotfiles/bin/mise` を絶対パスで呼ぶ。
@@ -43,7 +43,11 @@ cd ~/dotfiles
 
 ## AI MCP サーバー
 
-Scraps MCP は `mise run --quiet --raw scraps:mcp` を共通の起動入口にする。対象 Scraps project は task 起動時に `SCRAPS_DIRECTORY` で `~/dotfiles/wiki/scraps` に固定し（呼び出し元の env は継がない。他の Scraps project 内から起動しても同じ wiki を指すため）、この repo の `[bootstrap.repos]` が `boykush/wiki` を dotfiles 配下へ clone / 更新する。
+Scraps MCP はクラスタ上の remote MCP サーバーを参照する。manifest は [boykush/infrastructure-as-code](https://github.com/boykush/infrastructure-as-code)、image は `boykush/wiki` の CI が wiki の内容ごとビルドして GHCR へ push する。したがって MCP から引ける内容は **main に push 済みのもの**で、手元の未 push な編集は含まれない。
+
+サーバーは認証を持たないためクラスタ内に閉じており（ClusterIP）、参照側は `mise run scraps:mcp-remote` の port-forward で `127.0.0.1:1113` に落とす。scraps 側が Host ヘッダを loopback に限定している（DNS rebinding 対策）ので、Service 名やホスト名で直接叩くことはできない。
+
+ローカルで scraps を動かす経路は持たない——stdio サーバーの task も、それに読ませていた wiki の複製（`~/dotfiles/wiki`）も、`[tools]` の scraps 本体も置かない。参照先を1つに保つためで、繋がらないときは port-forward を立て直すか、公開サイト <https://boykush.github.io/wiki/> を見る。
 
 各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink する。Claude Code は cwd から親を遡って `.mcp.json` を集める（複数あればマージ）ので、ホーム配下のセッションならどのディレクトリからでも拾う。ただし `.mcp.json` 由来のサーバーは project ごとに承認プロンプトが出るため、`claude-code/settings.json` の `enabledMcpjsonServers` で `scraps` だけを事前承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。
 
@@ -53,7 +57,7 @@ Scraps MCP は `mise run --quiet --raw scraps:mcp` を共通の起動入口に�
 
 - **mise 本体**: renovate が `min_version` と `bin/mise` の埋込版を lockstep で追従（minimum release age 付き、同じ depName なので1 PR で一括）。日常で最新にしたいときは `mise self-update`。`bin/mise` を綺麗に作り直したいときだけ手動再生成する: `mise generate bootstrap -w bin/mise`（checksum baseline も最新化される）
 - **CLI ツール**: renovate の PR で `[tools]` の版数を追従（lockfile は使わないので PR は config.toml の1行差分だけ）。手動なら `mise upgrade`
-- **管理対象リポジトリ**: `mise bootstrap` の repos ステップが `~/dotfiles` と `~/dotfiles/wiki` を `main` へ追従。毎回 `git ls-remote` でローカル HEAD と origin/main を照合し、差分があれば `git fetch` → `checkout main` → `pull --ff-only` で更新する（dirty なら適用前に停止。push 前のローカル commit で diverge していても ff-only が失敗するだけで履歴は書き換えない）
+- **管理対象リポジトリ**: `mise bootstrap` の repos ステップが `~/dotfiles` を `main` へ追従。毎回 `git ls-remote` でローカル HEAD と origin/main を照合し、差分があれば `git fetch` → `checkout main` → `pull --ff-only` で更新する（dirty なら適用前に停止。push 前のローカル commit で diverge していても ff-only が失敗するだけで履歴は書き換えない）
 
 ### main の変更が反映されるまで
 
