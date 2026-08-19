@@ -5,11 +5,15 @@
 min_version = "2026.8.3"
 
 [settings]
-lockfile = true
+# lockfile は使わない（既定の false のまま）。[tools] は全て版数を pin しており、aqua backend が
+# aqua registry の checksum で取得物を検証するため、lock が上乗せする保証は全 platform 分の
+# URL / checksum 固定に留まる。一方で単一マシン運用には、renovate の bump ごとに lock を
+# 再生成する CI・その auto-commit を renovate に無視させる設定・lock 追従待ちという運用コストが
+# 割に合わなかったため取りやめた。必要になったら `lockfile = true` + `mise lock` で復活できる。
 # aqua に無いツールを入れる経路として vfox を許容する。mise 公式が推奨する plugin system で、
-# tool plugin は lockfile と attestation 検証（GitHub artifact attestations / cosign /
-# SLSA provenance）に対応する。ただし plugin 本体は Lua スクリプトとして実行されるため、
-# 実際に足すときは plugin の出所を確認する。
+# tool plugin は attestation 検証（GitHub artifact attestations / cosign / SLSA provenance）に
+# 対応する。ただし plugin 本体は Lua スクリプトとして実行されるため、実際に足すときは plugin の
+# 出所を確認する。
 disable_backends = ["npm", "asdf"]
 # 新規バージョン解決（mise upgrade 等）をリリース経過日数でフィルタし、リリース直後の版を
 # 掴まないようにする。renovate（self-hosted）の release age 3d と同値で、手動経路にも同じ

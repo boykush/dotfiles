@@ -34,7 +34,7 @@ cd ~/dotfiles
 ## パッケージ管理
 
 - **mise 本体**: `bin/mise`（`mise generate bootstrap` 出力）で導入し、`mise self-update` で最新化。版数は renovate が `min_version` と埋込版を lockstep で追従（[更新](#更新)参照）
-- **CLI ツール**: `mise/config.toml`の`[tools]`（aqua backend、checksum 検証あり）で宣言的に管理。renovate が追従
+- **CLI ツール**: `mise/config.toml`の`[tools]`（aqua backend。版数を pin し、aqua registry の checksum で検証）で宣言的に管理。renovate が追従
 - **GUI アプリ**: `mise/config.toml`の`[bootstrap.packages]`（brew-cask backend）で宣言的に管理。`mise bootstrap`で`/Applications`へ導入（mise 組み込みのインストーラーが Homebrew cask API から直接取得するため brew バイナリは不要）
 - **フォント**: `mise/config.toml`の`[bootstrap.packages]`（`brew-cask:font-hack-nerd-font`）で Hack Nerd Font を `~/Library/Fonts` に導入（GUI アプリと同じ brew-cask backend）
 - **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンク（設定ファイル）とファイル内ブロック編集（`~/.zshrc` のシェル初期化）を宣言的に管理（`mise bootstrap`で適用。`mise dotfiles apply`で個別適用も可）
@@ -52,7 +52,7 @@ Scraps MCP は `mise run --quiet --raw scraps:mcp` を共通の起動入口に�
 ## 更新
 
 - **mise 本体**: renovate が `min_version` と `bin/mise` の埋込版を lockstep で追従（minimum release age 付き、同じ depName なので1 PR で一括）。日常で最新にしたいときは `mise self-update`。`bin/mise` を綺麗に作り直したいときだけ手動再生成する: `mise generate bootstrap -w bin/mise`（checksum baseline も最新化される）
-- **CLI ツール**: renovate の PR で `[tools]` を追従し、`mise.lock` は CI（[mise-lock workflow](.github/workflows/mise-lock.yml)）が `mise lock` を実行して同じ PR に自動コミット。手動なら `mise upgrade`
+- **CLI ツール**: renovate の PR で `[tools]` の版数を追従（lockfile は使わないので PR は config.toml の1行差分だけ）。手動なら `mise upgrade`
 - **管理対象リポジトリ**: `mise bootstrap` の repos ステップが `~/dotfiles` と `~/dotfiles/wiki` を `main` へ追従。毎回 `git ls-remote` でローカル HEAD と origin/main を照合し、差分があれば `git fetch` → `checkout main` → `pull --ff-only` で更新する（dirty なら適用前に停止。push 前のローカル commit で diverge していても ff-only が失敗するだけで履歴は書き換えない）
 
 ### main の変更が反映されるまで
