@@ -1,11 +1,8 @@
 {
   "mcpServers": {
     "scraps": {
-      "command": "/bin/sh",
-      "args": [
-        "-lc",
-        "exec \"$HOME/dotfiles/bin/mise\" run --quiet --raw scraps:mcp"
-      ]
+      "type": "http",
+      "url": "https://wiki-mcp.boykush.com/mcp"
     }
   }
 }
