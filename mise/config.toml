@@ -141,6 +141,8 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 "~/.claude/statusline.sh"   = "~/dotfiles/claude-code/statusline.sh"
 "~/.claude/claude-dev.json" = "~/dotfiles/claude-code/claude-dev.json"
 "~/.claude/hooks"           = "~/dotfiles/claude-code/hooks"
+# wiki の MCP サーバー定義の正は ai-plugins の apm package。ここに残すのは apm 未導入の
+# リポジトリとリポジトリ外セッション向けの fallback（README「AI MCP サーバー」参照）。
 "~/.mcp.json"               = "~/dotfiles/claude-code/mcp.json"
 # エージェント共通の個人ルール。実体は agents/AGENTS.md の1本で、Claude Code が読む
 # ~/.claude/CLAUDE.md と Codex が読む ~/.codex/AGENTS.md の両方から同じファイルを指す
@@ -148,6 +150,7 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 "~/.claude/CLAUDE.md" = "~/dotfiles/agents/AGENTS.md"
 "~/.codex/AGENTS.md"  = "~/dotfiles/agents/AGENTS.md"
 # Codex global config はアプリ状態も含むため、MCP server 定義だけ block-edit する。
+# 内容は `~/.mcp.json` と同じ fallback で、正は ai-plugins の apm package。
 "~/.codex/config.toml/mcp-scraps" = { block = '''
 [mcp_servers.scraps]
 url = "https://wiki-mcp.boykush.com/mcp"

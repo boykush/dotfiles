@@ -43,11 +43,28 @@ cd ~/dotfiles
 
 ## AI MCP サーバー
 
-Scraps MCP は `https://wiki-mcp.boykush.com/mcp` の remote サーバーを参照する。manifest は [boykush/infrastructure-as-code](https://github.com/boykush/infrastructure-as-code)、image は `boykush/wiki` の CI が wiki の内容ごとビルドして GHCR へ push する。したがって MCP から引ける内容は **main に push 済みのもの**で、手元の未 push な編集は含まれない。
+リポジトリ横断で使う MCP サーバーの定義は [boykush/ai-plugins](https://github.com/boykush/ai-plugins) が apm package として配り、各リポジトリが `apm.yml` で依存を宣言する。`apm install` が project scope の `.mcp.json`（Claude Code）と `.codex/config.toml`（Codex）を生成し、生成物ごと commit するので apm を持たないセッションでもそのまま効く。**サーバー定義の正は ai-plugins** で、dotfiles には書き写さない。
+
+| package | サーバー名 | URL |
+| --- | --- | --- |
+| `wiki-remote-mcp` | `scraps` | `https://wiki-mcp.boykush.com/mcp` |
+| `adr-remote-mcp` | `adr` | `https://adr-mcp.boykush.com/mcp` |
+
+### dotfiles 側に残すもの
+
+**global に置くのは `scraps` だけで、役割は fallback**。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink し、Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。wiki は [agents/AGENTS.md](agents/AGENTS.md) がセッションを問わず引かせる1次ソースで、apm 未導入のリポジトリや、そもそもリポジトリの外で始めたセッションからも引ける必要があるため。リポジトリ単位の知識である `adr` に fallback は置かず、宣言したリポジトリだけで効かせる。
+
+同名サーバーが両方にあるときは **cwd に近い project scope が勝つ**（Claude Code は cwd から親を遡って `.mcp.json` を集めてマージする）。apm を導入したリポジトリでは package 側の定義が効き、global の写しが古くても shadow はしない。裏を返せば fallback が効くのは project scope に無いときだけなので、URL が変わったら ai-plugins を直した上でこちらも直す。
+
+`.mcp.json` 由来のサーバーは project ごとに承認プロンプトが出るため、`claude-code/settings.json` の `enabledMcpjsonServers` で `scraps` と `adr` を事前承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。事前承認はサーバー名でのマッチなので、clone してきた repo が同名で別 URL を宣言していれば通ってしまう点だけは残る。
+
+`~/.apm`（apm の user scope）は dotfiles で管理しない。置くものが無いのに加えて、symlink になっていると apm が `Refusing symlinked lifecycle lock path` で起動を拒否するため。実ディレクトリとして apm 自身が作る。apm 本体も `[tools]` には無い。生成物を commit する運用では依存を更新するときしか要らないので、必要になったら `mise install github:microsoft/apm` で入れる。
+
+### remote サーバーの実体
+
+`scraps` の manifest は [boykush/infrastructure-as-code](https://github.com/boykush/infrastructure-as-code)、image は `boykush/wiki` の CI が wiki の内容ごとビルドして GHCR へ push する。したがって MCP から引ける内容は **main に push 済みのもの**で、手元の未 push な編集は含まれない。
 
 ローカルで scraps を動かす経路は持たない。stdio サーバーの task、それに読ませる wiki の複製（`~/dotfiles/wiki`）、`[tools]` の scraps 本体を置かず、参照先を remote の1つに保つ。繋がらないときは公開サイト <https://boykush.github.io/wiki/> を見る。
-
-各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink する。Claude Code は cwd から親を遡って `.mcp.json` を集める（複数あればマージ）ので、ホーム配下のセッションならどのディレクトリからでも拾う。ただし `.mcp.json` 由来のサーバーは project ごとに承認プロンプトが出るため、`claude-code/settings.json` の `enabledMcpjsonServers` で `scraps` だけを事前承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。
 
 エージェントがいつ wiki を引くかは [agents/AGENTS.md](agents/AGENTS.md) の「私のナレッジ（Scraps wiki）を引く」に書いてある。
 

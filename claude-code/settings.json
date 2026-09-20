@@ -22,7 +22,7 @@
       }
     ]
   },
-  "enabledMcpjsonServers": ["scraps"],
+  "enabledMcpjsonServers": ["scraps", "adr"],
   "effortLevel": "max",
   "autoMemoryEnabled": false,
   "skipWorkflowUsageWarning": true,
