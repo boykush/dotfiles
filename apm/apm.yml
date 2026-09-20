@@ -1,0 +1,13 @@
+name: dotfiles
+version: 0.1.0
+description: MCP servers deployed to this machine's user scope
+author: boykush
+# 自動検出に任せず名指しする。検出は ~/.codex や ~/.claude.json の有無を見るので、
+# 新環境の初回適用で Codex だけ落ちるような差が出る。
+targets:
+  - claude
+  - codex
+dependencies:
+  apm:
+    - boykush/ai-plugins/plugins/wiki-remote-mcp
+  mcp: []

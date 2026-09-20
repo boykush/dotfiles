@@ -54,6 +54,9 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 "aqua:cli/cli" = "2.101.0"
 "aqua:sxyazi/yazi" = "26.9.1"
 "aqua:anthropics/claude-code" = "2.1.274"
+# aqua registry に無いので github backend。mise が release の artifact attestation と
+# SLSA provenance を検証して入れる。MCP サーバーの宣言を各クライアントへ展開する役。
+"github:microsoft/apm" = "0.31.0"
 "aqua:tmux/tmux-builds" = "3.6a"
 
 # GUI アプリ・フォントを brew-cask backend で宣言的に管理する。`[tools]` と違い自動では入らず、
@@ -141,12 +144,16 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 "~/.claude/statusline.sh"   = "~/dotfiles/claude-code/statusline.sh"
 "~/.claude/claude-dev.json" = "~/dotfiles/claude-code/claude-dev.json"
 "~/.claude/hooks"           = "~/dotfiles/claude-code/hooks"
-"~/.mcp.json"               = "~/dotfiles/claude-code/mcp.json"
 # エージェント共通の個人ルール。実体は agents/AGENTS.md の1本で、Claude Code が読む
 # ~/.claude/CLAUDE.md と Codex が読む ~/.codex/AGENTS.md の両方から同じファイルを指す
 # （Claude Code は AGENTS.md を読まないため、名前を変えて2箇所に張る必要がある）。
 "~/.claude/CLAUDE.md" = "~/dotfiles/agents/AGENTS.md"
 "~/.codex/AGENTS.md"  = "~/dotfiles/agents/AGENTS.md"
+# MCP サーバーの宣言（apm の user scope manifest）。~/.apm 自体を張らないのは、apm が
+# lifecycle lock を symlink 配下に置くことを拒否して起動しなくなるため。manifest だけなら
+# symlink でも読み書きされる。展開先の ~/.claude.json と ~/.codex/config.toml は
+# アプリ状態なので管理せず、`mise run apm:apply` が apm に書かせる。
+"~/.apm/apm.yml" = "~/dotfiles/apm/apm.yml"
 # ~/.codex/config.toml はここで管理しない。Codex 自身が同じファイルを読み書きして再整形するため、
 # block-edit だとアプリの追記がマーカー内側に入り込んで次の apply で消え、`codex mcp add` は
 # マーカー行ごと落として重複定義を作る（どちらも再現確認済み）。戻すなら block-edit 以外の手段で。
