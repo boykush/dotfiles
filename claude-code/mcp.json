@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "scraps": {
-      "type": "http",
-      "url": "https://wiki-mcp.boykush.com/mcp"
-    }
-  }
-}

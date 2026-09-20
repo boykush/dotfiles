@@ -43,11 +43,36 @@ cd ~/dotfiles
 
 ## AI MCP サーバー
 
-Scraps MCP は `https://wiki-mcp.boykush.com/mcp` の remote サーバーを参照する。manifest は [boykush/infrastructure-as-code](https://github.com/boykush/infrastructure-as-code)、image は `boykush/wiki` の CI が wiki の内容ごとビルドして GHCR へ push する。したがって MCP から引ける内容は **main に push 済みのもの**で、手元の未 push な編集は含まれない。
+リポジトリ横断で使う MCP サーバーの定義は [boykush/ai-plugins](https://github.com/boykush/ai-plugins) が apm package として配る。**サーバー定義の正は ai-plugins** で、dotfiles が持つのは「このマシンの user scope へ何を展開するか」の宣言（`apm/apm.yml`）だけ。
 
-ローカルで scraps を動かす経路は持たない。stdio サーバーの task、それに読ませる wiki の複製（`~/dotfiles/wiki`）、`[tools]` の scraps 本体を置かず、参照先を remote の1つに保つ。繋がらないときは公開サイト <https://boykush.github.io/wiki/> を見る。
+| package | サーバー名 | URL | どこで効かせるか |
+| --- | --- | --- | --- |
+| `wiki-remote-mcp` | `scraps` | `https://wiki-mcp.boykush.com/mcp` | **global**（ここで宣言） |
+| `adr-remote-mcp` | `adr` | `https://adr-mcp.boykush.com/mcp` | 宣言したリポジトリだけ |
 
-各 AI セッションからの参照はクライアント側の config に置く。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink する。Claude Code は cwd から親を遡って `.mcp.json` を集める（複数あればマージ）ので、ホーム配下のセッションならどのディレクトリからでも拾う。ただし `.mcp.json` 由来のサーバーは project ごとに承認プロンプトが出るため、`claude-code/settings.json` の `enabledMcpjsonServers` で `scraps` だけを事前承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。
+**global に載せるのは wiki だけ**。wiki は [agents/AGENTS.md](agents/AGENTS.md) がセッションを問わず引かせる1次ソースで、リポジトリの外で始めたセッションからも引ける必要がある。`adr` はリポジトリ単位の知識なので、必要なリポジトリが自分の `apm.yml` で宣言する。
+
+### 適用
+
+```bash
+mise run apm:apply
+```
+
+`apm install -g` が走り、Claude Code は `~/.claude.json`、Codex は `~/.codex/config.toml` に入る。どちらもアプリ状態なので dotfiles では管理せず、apm に書かせる。`~/.apm/apm.lock.yaml` も同様にマシン側に残す（symlink 越しでも apm が書けることは確認済みなので、pin をマシン間で共有したくなったら `[dotfiles]` に足せる）。
+
+`~/.apm` 自体を symlink にすると apm が `Refusing symlinked lifecycle lock path` で起動を拒否するため、張るのは `~/.apm/apm.yml` だけ。ai-plugins は private なので、apm が引くときに git 認証を要求する（`gh auth login` 済みなら通る）。
+
+### project scope との関係
+
+リポジトリ側が自分の `apm.yml` で package を宣言すれば、`apm install` が project scope の `.mcp.json`（Claude Code）と `.codex/config.toml`（Codex）を生成する。同名サーバーが両方にあるときは **cwd に近い project scope が勝つ**ので、wiki を宣言したリポジトリでは package 側の定義が効き、global の写しが古くても shadow はしない。
+
+project scope の `.mcp.json` 由来のサーバーは repo ごとに承認プロンプトが出る。`claude-code/settings.json` の `enabledMcpjsonServers` で事前承認しているのは `scraps` だけなので、`adr` を宣言したリポジトリでは初回に1度承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。事前承認はサーバー名でのマッチなので、増やすほど clone してきた repo の同名・別 URL を通す口が広がる。
+
+### remote サーバーの実体
+
+`scraps` は wiki の内容を焼いた image、`adr` は決定を焼いた image で、どちらも各アプリ repo の CI が GHCR へ push し、manifest は [boykush/infrastructure-as-code](https://github.com/boykush/infrastructure-as-code) が持つ。したがって MCP から引ける内容は **main に push 済みのもの**で、手元の未 push な編集は含まれない。
+
+ローカルで scraps を動かす経路は持たない。stdio サーバーの task、それに読ませる wiki の複製（`~/dotfiles/wiki`）、`[tools]` の scraps 本体を置かず、参照先を remote に保つ。繋がらないときは公開サイト <https://boykush.github.io/wiki/> を見る。
 
 エージェントがいつ wiki を引くかは [agents/AGENTS.md](agents/AGENTS.md) の「私のナレッジ（Scraps wiki）を引く」に書いてある。
 
