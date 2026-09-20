@@ -47,7 +47,7 @@ Scraps MCP は `https://wiki-mcp.boykush.com/mcp` の remote サーバーを参�
 
 ローカルで scraps を動かす経路は持たない。stdio サーバーの task、それに読ませる wiki の複製（`~/dotfiles/wiki`）、`[tools]` の scraps 本体を置かず、参照先を remote の1つに保つ。繋がらないときは公開サイト <https://boykush.github.io/wiki/> を見る。
 
-各 AI セッションからの参照はクライアント側の config に置く。Codex は `mise bootstrap dotfiles apply` が `~/.codex/config.toml` へ `[mcp_servers.scraps]` ブロックを適用する。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink する。Claude Code は cwd から親を遡って `.mcp.json` を集める（複数あればマージ）ので、ホーム配下のセッションならどのディレクトリからでも拾う。ただし `.mcp.json` 由来のサーバーは project ごとに承認プロンプトが出るため、`claude-code/settings.json` の `enabledMcpjsonServers` で `scraps` だけを事前承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。
+各 AI セッションからの参照はクライアント側の config に置く。Claude Code は `~/.mcp.json` を `claude-code/mcp.json` へ symlink する。Claude Code は cwd から親を遡って `.mcp.json` を集める（複数あればマージ）ので、ホーム配下のセッションならどのディレクトリからでも拾う。ただし `.mcp.json` 由来のサーバーは project ごとに承認プロンプトが出るため、`claude-code/settings.json` の `enabledMcpjsonServers` で `scraps` だけを事前承認する（`enableAllProjectMcpServers` は clone してきた repo の `.mcp.json` まで無条件に通すので使わない）。
 
 エージェントがいつ wiki を引くかは [agents/AGENTS.md](agents/AGENTS.md) の「私のナレッジ（Scraps wiki）を引く」に書いてある。
 
