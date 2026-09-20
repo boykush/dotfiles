@@ -147,8 +147,6 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # （Claude Code は AGENTS.md を読まないため、名前を変えて2箇所に張る必要がある）。
 "~/.claude/CLAUDE.md" = "~/dotfiles/agents/AGENTS.md"
 "~/.codex/AGENTS.md"  = "~/dotfiles/agents/AGENTS.md"
-# Codex global config はアプリ状態も含むため、MCP server 定義だけ block-edit する。
-"~/.codex/config.toml/mcp-scraps" = { block = '''
-[mcp_servers.scraps]
-url = "https://wiki-mcp.boykush.com/mcp"
-''' }
+# ~/.codex/config.toml はここで管理しない。Codex 自身が同じファイルを読み書きして再整形するため、
+# block-edit だとアプリの追記がマーカー内側に入り込んで次の apply で消え、`codex mcp add` は
+# マーカー行ごと落として重複定義を作る（どちらも再現確認済み）。戻すなら block-edit 以外の手段で。
