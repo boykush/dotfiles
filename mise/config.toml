@@ -20,8 +20,8 @@ disable_backends = ["npm", "asdf"]
 # クールダウンを効かせる。pin 済み・インストール済みの版はそのまま有効（v2026.7.6 で担保）。
 minimum_release_age = "3d"
 # dotfiles 機能。[dotfiles] のシンボリックリンクを宣言的に管理する。
-# root は `mise dotfiles add` で新規ソースを配置する基準。default_mode=symlink により
-# 各エントリは既定でシンボリックリンクになる。
+# root は `mise bootstrap dotfiles add` で新規ソースを配置する基準。
+# default_mode=symlink により各エントリは既定でシンボリックリンクになる。
 dotfiles.root = "~/dotfiles"
 dotfiles.default_mode = "symlink"
 
@@ -106,12 +106,12 @@ fkill = "mise run fkill"
 gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,name {}"
 
 # dotfiles のシンボリックリンク定義。`[tools]` と違い自動では張られず、
-# `mise dotfiles apply` の明示実行時のみ適用される。値はソースパス（~ 展開あり）。
+# `mise bootstrap dotfiles apply` の明示実行時のみ適用される。値はソースパス（~ 展開あり）。
 # ディレクトリ指定はそのディレクトリごと symlink する。
 [dotfiles]
 # mise 設定自身（global config の実体）。bin/mise をリポジトリ内で実行すると
 # mise/config.toml がローカル config として読まれるので、この自己リンクも
-# `mise dotfiles apply` で張れる。
+# `mise bootstrap dotfiles apply` で張れる。
 "~/.config/mise" = "~/dotfiles/mise"
 # ホーム直下
 # --- 対話シェル初期化（~/.zshrc）: whole-file symlink ではなく block-edit で宣言管理する ---
