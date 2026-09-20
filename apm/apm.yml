@@ -9,5 +9,5 @@ targets:
   - codex
 dependencies:
   apm:
-    - boykush/ai-plugins/plugins/wiki-remote-mcp
+    - boykush/ai-plugins/plugins/wiki-remote-mcp#main
   mcp: []
