@@ -25,7 +25,7 @@ cd ~/dotfiles
 - 適用される dotfiles は `~/.zshrc` や `~/.config/*` など。mise 設定自身の `~/.config/mise` -> `~/dotfiles/mise` もここで張る。以降は新しい対話シェルで `.zshrc` の activate（`~/dotfiles/bin/mise` を絶対パス参照）が mise とツール群を使えるようにする。シェル初期化を経ないスクリプト等からは `~/dotfiles/bin/mise` を絶対パスで呼ぶ。
 - `[bootstrap.repos]` を含むため `mise bootstrap` は管理対象リポジトリが clean であることを要求する（ローカル変更があると repos ステップで安全のため停止するので、コミット / stash してから実行する）。
 
-> 個別に実行したいときは `./bin/mise dotfiles apply`（dotfiles のみ）／ `./bin/mise install`（tools のみ）／ `./bin/mise bootstrap packages`（GUI アプリ・フォントのみ）／ `./bin/mise bootstrap repos`（dotfiles リポジトリのみ）も使える。なお `mise bootstrap` コマンドは、ラッパー `bin/mise` を生成する `mise generate bootstrap`（下記「更新」）とは別物。
+> 個別に実行したいときは `./bin/mise bootstrap dotfiles apply`（dotfiles のみ）／ `./bin/mise install`（tools のみ）／ `./bin/mise bootstrap packages apply`（GUI アプリ・フォントのみ）／ `./bin/mise bootstrap repos apply`（dotfiles リポジトリのみ）も使える。`mise bootstrap <part>` はサブコマンド必須なので `apply`（状況確認なら `status`）まで書く。なお `mise bootstrap` コマンドは、ラッパー `bin/mise` を生成する `mise generate bootstrap`（下記「更新」）とは別物。
 
 ### 3. GitHub 認証
 
@@ -37,7 +37,7 @@ cd ~/dotfiles
 - **CLI ツール**: `mise/config.toml`の`[tools]`（aqua backend。版数を pin し、aqua registry の checksum で検証）で宣言的に管理。renovate が追従
 - **GUI アプリ**: `mise/config.toml`の`[bootstrap.packages]`（brew-cask backend）で宣言的に管理。`mise bootstrap`で`/Applications`へ導入（mise 組み込みのインストーラーが Homebrew cask API から直接取得するため brew バイナリは不要）
 - **フォント**: `mise/config.toml`の`[bootstrap.packages]`（`brew-cask:font-hack-nerd-font`）で Hack Nerd Font を `~/Library/Fonts` に導入（GUI アプリと同じ brew-cask backend）
-- **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンク（設定ファイル）とファイル内ブロック編集（`~/.zshrc` のシェル初期化）を宣言的に管理（`mise bootstrap`で適用。`mise dotfiles apply`で個別適用も可）
+- **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンク（設定ファイル）とファイル内ブロック編集（`~/.zshrc` のシェル初期化）を宣言的に管理（`mise bootstrap`で適用。`mise bootstrap dotfiles apply`で個別適用も可）
 - **npm**: `mise/config.toml`の`NPM_CONFIG_REGISTRY`で既定レジストリを [Takumi Guard](https://shisho.dev/docs/t/guard/quickstart/)（悪意あるパッケージのブロックプロキシ）に設定
 - **GitHub認証**: `gh auth login`（gh は保存トークン、git は `.gitconfig` の `gh auth git-credential` ヘルパー経由で認証）
 
