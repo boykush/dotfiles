@@ -50,7 +50,9 @@ cd ~/dotfiles
 | `wiki-remote-mcp` | `scraps` | `https://wiki-mcp.boykush.com/mcp` | **global**（ここで宣言） |
 | `adr-remote-mcp` | `adr` | `https://adr-mcp.boykush.com/mcp` | 宣言したリポジトリだけ |
 
-**global に載せるのは wiki だけ**。wiki は [agents/AGENTS.md](agents/AGENTS.md) がセッションを問わず引かせる1次ソースで、リポジトリの外で始めたセッションからも引ける必要がある。`adr` はリポジトリ単位の知識なので、必要なリポジトリが自分の `apm.yml` で宣言する。
+**global に載せるのは wiki だけ**。wiki は [agents/AGENTS.md](agents/AGENTS.md) がセッションを問わず引かせる1次ソースで、リポジトリの外で始めたセッションからも引ける必要がある。
+
+[boykush/adr](https://github.com/boykush/adr) は `boykush` 配下のリポジトリに横断する決定の置き場で、適用範囲も `boykush` 配下と明記している。一方 dotfiles はこのマシンの全セッションに効き、`boykush` 配下以外のリポジトリにも及ぶので、adr を扱うときは**範囲外へ決定を持ち込まないよう注意する**。global に載せていないのはこのためで、`adr` は必要なリポジトリが自分の `apm.yml` で宣言する。
 
 ### 適用
 
