@@ -60,7 +60,9 @@ mise run apm:apply
 
 `apm install -g` が走り、Claude Code は `~/.claude.json`、Codex は `~/.codex/config.toml` に入る。どちらもアプリ状態なので dotfiles では管理せず、apm に書かせる。`~/.apm/apm.lock.yaml` も同様にマシン側に残す（symlink 越しでも apm が書けることは確認済みなので、pin をマシン間で共有したくなったら `[dotfiles]` に足せる）。
 
-`~/.apm` 自体を symlink にすると apm が `Refusing symlinked lifecycle lock path` で起動を拒否するため、張るのは `~/.apm/apm.yml` だけ。ai-plugins は private なので、apm が引くときに git 認証を要求する（`gh auth login` 済みなら通る）。
+`~/.apm` 自体を symlink にすると apm が `Refusing symlinked lifecycle lock path` で起動を拒否するため、張るのは `~/.apm/apm.yml` だけ。
+
+依存は SHA で pin する。ref を省くと apm が `1 dependency unpinned` と警告し、`#main` では Renovate に上げる値が無い。main の HEAD への追従は [renovate-runner](https://github.com/boykush/renovate-runner) の `config.js` にあるグローバルな customManager（`git-refs` datasource）が digest 更新として運ぶ。PR がマージ されても手元の展開は動かないので、`mise run apm:apply` を回して初めて新しい commit の定義になる。ai-plugins は private なので、apm が引くときに git 認証を要求する（`gh auth login` 済みなら通る）。
 
 ### project scope との関係
 
