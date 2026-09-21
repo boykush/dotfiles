@@ -53,7 +53,7 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 "aqua:dalance/procs" = "0.14.12"
 "aqua:cli/cli" = "2.101.0"
 "aqua:sxyazi/yazi" = "26.9.1"
-"aqua:anthropics/claude-code" = "2.1.276"
+"aqua:anthropics/claude-code" = "2.1.277"
 # aqua registry に無いので github backend。mise が release の artifact attestation と
 # SLSA provenance を検証して入れる。MCP サーバーの宣言を各クライアントへ展開する役。
 "github:microsoft/apm" = "0.31.0"
