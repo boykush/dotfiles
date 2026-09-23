@@ -1,5 +1,6 @@
 #!/bin/bash
-#MISE description="Deploy the MCP servers declared in apm/apm.yml to this machine's user scope"
+#MISE description="Deploy the MCP servers and plugins declared in apm/apm.yml to this machine's user scope"
 
-# -g は cwd を見ず ~/.apm/apm.yml を読む。展開先は ~/.claude.json と ~/.codex/config.toml。
+# -g は cwd を見ず ~/.apm/apm.yml を読む。展開先は MCP が ~/.claude.json と
+# ~/.codex/config.toml、skill が ~/.claude/skills と ~/.agents/skills、command が ~/.claude/commands。
 mise exec -- apm install -g

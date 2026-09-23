@@ -41,9 +41,13 @@ cd ~/dotfiles
 - **npm**: `mise/config.toml`の`NPM_CONFIG_REGISTRY`で既定レジストリを [Takumi Guard](https://shisho.dev/docs/t/guard/quickstart/)（悪意あるパッケージのブロックプロキシ）に設定
 - **GitHub認証**: `gh auth login`（gh は保存トークン、git は `.gitconfig` の `gh auth git-credential` ヘルパー経由で認証）
 
-## AI MCP サーバー
+## AI エージェントへの配布物
 
-リポジトリ横断で使う MCP サーバーの定義は [boykush/ai-plugins](https://github.com/boykush/ai-plugins) が apm package として配る。**サーバー定義の正は ai-plugins** で、dotfiles が持つのは「このマシンの user scope へ何を展開するか」の宣言（`apm/apm.yml`）だけ。
+リポジトリ横断で使う MCP サーバーとスキルは apm package として配る。dotfiles が持つのは「このマシンの user scope へ何を展開するか」の宣言（`apm/apm.yml`）だけで、Claude Code と Codex の両方へ同じ宣言から展開する。
+
+### MCP サーバー
+
+サーバーの定義は [boykush/ai-plugins](https://github.com/boykush/ai-plugins) が apm package として配る。**サーバー定義の正は ai-plugins**。
 
 | package | サーバー名 | URL | どこで効かせるか |
 | --- | --- | --- | --- |
@@ -54,17 +58,31 @@ cd ~/dotfiles
 
 [boykush/adr](https://github.com/boykush/adr) は `boykush` 配下のリポジトリに横断する決定の置き場で、適用範囲も `boykush` 配下と明記している。一方 dotfiles はこのマシンの全セッションに効き、`boykush` 配下以外のリポジトリにも及ぶので、adr を扱うときは**範囲外へ決定を持ち込まないよう注意する**。global に載せていないのはこのためで、`adr` は必要なリポジトリが自分の `apm.yml` で宣言する。
 
+### プラグイン
+
+外から来る plugin は apm だけで宣言し、Claude Code の `enabledPlugins`（[claude-code/settings.json](claude-code/settings.json)）には書かない。あれは Claude Code にしか効かず、入っている版もアプリの runtime しか知らないので、宣言からは何が効いているか分からない。
+
+| package | 中身 | 届く先 |
+| --- | --- | --- |
+| [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) の `skill-creator` | skill `skill-creator` | Claude Code / Codex |
+
+展開先は skill が `~/.claude/skills/<name>` と `~/.agents/skills/<name>`（Codex の user scope は `$HOME/.agents/skills`）、command が `~/.claude/commands/<name>.md`。**command は Codex へ届かない**（apm から見て Claude Code は skill も command も native だが、Codex は skill だけ）。
+
+Codex にも同じ plugin を marketplace から入れる口が `~/.codex/config.toml` にあり、**このファイルは dotfiles の管理外**なので、apm で配るものは向こうで無効化する。二重に有効だと同じ `~/.agents/skills/<name>` をプラグインと apm が取り合う。
+
+クライアントが自分で同梱するものは宣言しない。Claude Code はバイナリに `anthropic-skills`（docx / pdf / pptx / xlsx / claude-api ほか）を、Codex は `~/.codex/skills/.system`（skill-creator / skill-installer / plugin-creator / openai-docs / imagegen）を持つ。Codex では system の `skill-creator` と apm の `skill-creator` が同名で並ぶが、Codex は同名を統合せず両方見せる仕様で、プラグイン経由だった移行前と同じ状態になる。
+
 ### 適用
 
 ```bash
 mise run apm:apply
 ```
 
-`apm install -g` が走り、Claude Code は `~/.claude.json`、Codex は `~/.codex/config.toml` に入る。どちらもアプリ状態なので dotfiles では管理せず、apm に書かせる。`~/.apm/apm.lock.yaml` も同様にマシン側に残す（symlink 越しでも apm が書けることは確認済みなので、pin をマシン間で共有したくなったら `[dotfiles]` に足せる）。
+`apm install -g` が走り、MCP サーバーは Claude Code が `~/.claude.json`・Codex が `~/.codex/config.toml`、skill は `~/.claude/skills` と `~/.agents/skills`、command は `~/.claude/commands` に入る。どれもアプリ状態なので dotfiles では管理せず、apm に書かせる。`~/.apm/apm.lock.yaml` も同様にマシン側に残す（symlink 越しでも apm が書けることは確認済みなので、pin をマシン間で共有したくなったら `[dotfiles]` に足せる）。
 
 `~/.apm` 自体を symlink にすると apm が `Refusing symlinked lifecycle lock path` で起動を拒否するため、張るのは `~/.apm/apm.yml` だけ。
 
-依存は SHA で pin する。ref を省くと apm が `1 dependency unpinned` と警告し、`#main` では Renovate に上げる値が無い。main の HEAD への追従は [renovate-runner](https://github.com/boykush/renovate-runner) の `config.js` にあるグローバルな customManager（`git-refs` datasource）が digest 更新として運ぶ。PR がマージ されても手元の展開は動かないので、`mise run apm:apply` を回して初めて新しい commit の定義になる。ai-plugins は private なので、apm が引くときに git 認証を要求する（`gh auth login` 済みなら通る）。
+依存は SHA で pin する。ref を省くと apm が `1 dependency unpinned` と警告し、`#main` では Renovate に上げる値が無い。main の HEAD への追従は [renovate-runner](https://github.com/boykush/renovate-runner) の `config.js` にあるグローバルな customManager（`github-digest` datasource）が digest 更新として運ぶ。第三者の package には commit date が releaseTimestamp として付くので、グローバルの `minimumReleaseAge` がそのまま効く。PR がマージされても手元の展開は動かないので、`mise run apm:apply` を回して初めて新しい commit の定義になる。
 
 ### project scope との関係
 
