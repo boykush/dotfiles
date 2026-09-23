@@ -1,6 +1,6 @@
 name: dotfiles
 version: 0.1.0
-description: MCP servers deployed to this machine's user scope
+description: MCP servers and plugins deployed to this machine's user scope
 author: boykush
 # 自動検出に任せず名指しする。検出は ~/.codex や ~/.claude.json の有無を見るので、
 # 新環境の初回適用で Codex だけ落ちるような差が出る。
@@ -10,4 +10,6 @@ targets:
 dependencies:
   apm:
     - boykush/ai-plugins/plugins/wiki-remote-mcp#c18cde4e315ad146c72592fcb1192a1ab4086d50
+    # 外から来る plugin はここだけで宣言する。
+    - anthropics/claude-plugins-official/plugins/skill-creator#db467cc56673fc963ca418b4165c688dfbe77007
   mcp: []
