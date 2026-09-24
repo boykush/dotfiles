@@ -140,7 +140,10 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 "~/.config/gitui"   = "~/dotfiles/gitui"
 "~/.config/helix"   = "~/dotfiles/helix"
 # ~/.claude 配下（Claude Code）
-"~/.claude/settings.json" = "~/dotfiles/claude-code/settings.json"
+# settings.json だけは copy。Claude Code（CLI / デスクトップアプリ）が設定変更のたびに書き換えるため、
+# symlink だと書き込みがリポジトリを dirty にし `mise bootstrap` が repos ステップで止まる。アプリ側の
+# 変更は次の bootstrap で宣言内容に戻るので、残すなら先に `mise bootstrap dotfiles add` で取り込む。
+"~/.claude/settings.json" = { source = "~/dotfiles/claude-code/settings.json", mode = "copy" }
 "~/.claude/statusline.sh" = "~/dotfiles/claude-code/statusline.sh"
 # エージェント共通の個人ルール。実体は agents/AGENTS.md の1本で、Claude Code が読む
 # ~/.claude/CLAUDE.md と Codex が読む ~/.codex/AGENTS.md の両方から同じファイルを指す

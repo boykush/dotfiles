@@ -23,7 +23,7 @@ cd ~/dotfiles
 
 - `bin/mise` は初回に mise 本体を `~/.cache/mise` へ取得してから実行する（mise 未導入でも動く）。リポジトリ内で実行するため `mise/config.toml` がローカル config として読まれる。埋込版は renovate が `min_version` と lockstep で追従するため floor を下回らない（任意で最新化するなら `./bin/mise self-update`）。
 - 適用される dotfiles は `~/.zshrc` や `~/.config/*` など。mise 設定自身の `~/.config/mise` -> `~/dotfiles/mise` もここで張る。以降は新しい対話シェルで `.zshrc` の activate（`~/dotfiles/bin/mise` を絶対パス参照）が mise とツール群を使えるようにする。シェル初期化を経ないスクリプト等からは `~/dotfiles/bin/mise` を絶対パスで呼ぶ。
-- `[bootstrap.repos]` を含むため `mise bootstrap` は管理対象リポジトリが clean であることを要求する（ローカル変更があると repos ステップで安全のため停止するので、コミット / stash してから実行する）。
+- `[bootstrap.repos]` を含むため `mise bootstrap` は管理対象リポジトリが clean であることを要求する（ローカル変更があると repos ステップで安全のため停止するので、コミット / stash してから実行する）。Claude Code が書き換える `~/.claude/settings.json` は copy で置いているので、アプリ側の設定変更では dirty にならない（取り込み方は[更新](#更新)）。
 
 > 個別に実行したいときは `./bin/mise bootstrap dotfiles apply`（dotfiles のみ）／ `./bin/mise install`（tools のみ）／ `./bin/mise bootstrap packages apply`（GUI アプリ・フォントのみ）／ `./bin/mise bootstrap repos apply`（dotfiles リポジトリのみ）も使える。`mise bootstrap <part>` はサブコマンド必須なので `apply`（状況確認なら `status`）まで書く。なお `mise bootstrap` コマンドは、ラッパー `bin/mise` を生成する `mise generate bootstrap`（下記「更新」）とは別物。
 
@@ -37,7 +37,7 @@ cd ~/dotfiles
 - **CLI ツール**: `mise/config.toml`の`[tools]`（aqua backend。版数を pin し、aqua registry の checksum で検証）で宣言的に管理。renovate が追従
 - **GUI アプリ**: `mise/config.toml`の`[bootstrap.packages]`（brew-cask backend）で宣言的に管理。`mise bootstrap`で`/Applications`へ導入（mise 組み込みのインストーラーが Homebrew cask API から直接取得するため brew バイナリは不要）
 - **フォント**: `mise/config.toml`の`[bootstrap.packages]`（`brew-cask:font-hack-nerd-font`）で Hack Nerd Font を `~/Library/Fonts` に導入（GUI アプリと同じ brew-cask backend）
-- **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンク（設定ファイル）とファイル内ブロック編集（`~/.zshrc` のシェル初期化）を宣言的に管理（`mise bootstrap`で適用。`mise bootstrap dotfiles apply`で個別適用も可）
+- **dotfiles**: `mise/config.toml`の`[dotfiles]`でシンボリックリンク（設定ファイル。アプリ自身が書き換える `~/.claude/settings.json` だけは copy）とファイル内ブロック編集（`~/.zshrc` のシェル初期化）を宣言的に管理（`mise bootstrap`で適用。`mise bootstrap dotfiles apply`で個別適用も可）
 - **npm**: `mise/config.toml`の`NPM_CONFIG_REGISTRY`で既定レジストリを [Takumi Guard](https://shisho.dev/docs/t/guard/quickstart/)（悪意あるパッケージのブロックプロキシ）に設定
 - **GitHub認証**: `gh auth login`（gh は保存トークン、git は `.gitconfig` の `gh auth git-credential` ヘルパー経由で認証）
 
@@ -103,9 +103,10 @@ project scope の `.mcp.json` 由来のサーバーは repo ごとに承認プ�
 - **mise 本体**: renovate が `min_version` と `bin/mise` の埋込版を lockstep で追従（minimum release age 付き、同じ depName なので1 PR で一括）。日常で最新にしたいときは `mise self-update`。`bin/mise` を綺麗に作り直したいときだけ手動再生成する: `mise generate bootstrap -w bin/mise`（checksum baseline も最新化される）
 - **CLI ツール**: renovate の PR で `[tools]` の版数を追従（lockfile は使わないので PR は config.toml の1行差分だけ）。手動なら `mise upgrade`
 - **管理対象リポジトリ**: `mise bootstrap` の repos ステップが `~/dotfiles` を `main` へ追従。毎回 `git ls-remote` でローカル HEAD と origin/main を照合し、差分があれば `git fetch` → `checkout main` → `pull --ff-only` で更新する（dirty なら適用前に停止。push 前のローカル commit で diverge していても ff-only が失敗するだけで履歴は書き換えない）
+- **アプリが書き換える設定**: `~/.claude/settings.json` は copy なので、Claude Code（CLI / デスクトップアプリ）での設定変更はマシン側のファイルにだけ入り、次の `mise bootstrap` で宣言内容に戻る。`./bin/mise bootstrap status --missing` がこのファイルを `differs` と報告したら `./bin/mise bootstrap dotfiles diff ~/.claude/settings.json` で中身を確認し、残す変更は `./bin/mise bootstrap dotfiles add ~/.claude/settings.json` でソースに取り込んでコミットする
 
 ### main の変更が反映されるまで
 
-各マシンは `./bin/mise bootstrap` の再実行で main に収束する。bootstrap は dotfiles ステップ直後に config をディスクから再読込するため、repos ステップが pull した変更のうち **symlink 先ファイルの中身・`[bootstrap.macos.defaults]`・`[tools]` は同じ run で反映**される。一方、再読込より前に評価される **`[bootstrap.packages]` と `[dotfiles]` のエントリ増減・block 本文は次の run 送り**になる。これらを含む変更を取り込むときは bootstrap を続けて2回流すか、先に `git pull` してから流す（checkout が既に main 先端なら lag は出ない）。収束の機械確認は `./bin/mise bootstrap status --missing`（CI と同じ検証）。
+各マシンは `./bin/mise bootstrap` の再実行で main に収束する。bootstrap は dotfiles ステップ直後に config をディスクから再読込するため、repos ステップが pull した変更のうち **symlink 先・copy 元ファイルの中身・`[bootstrap.macos.defaults]`・`[tools]` は同じ run で反映**される。一方、再読込より前に評価される **`[bootstrap.packages]` と `[dotfiles]` のエントリ増減・block 本文は次の run 送り**になる。これらを含む変更を取り込むときは bootstrap を続けて2回流すか、先に `git pull` してから流す（checkout が既に main 先端なら lag は出ない）。収束の機械確認は `./bin/mise bootstrap status --missing`（CI と同じ検証）。
 
 `min_version` の bump（renovate が `bin/mise` 埋込版と lockstep で追従）を bootstrap 自身の pull で取り込んだ回は、config 再読込時の min_version チェックで一度停止するが、次回は pull 済みの新 `bin/mise` が新しい mise を self-install して通る（自己修復）。
