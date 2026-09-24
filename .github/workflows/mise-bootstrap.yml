@@ -61,7 +61,7 @@ jobs:
         run: |
           cd "$HOME/dotfiles"
           ./bin/mise bootstrap --skip packages,repos --force-dotfiles
-          # 全 [dotfiles] エントリ（symlink / block 両モード）を機械検証する
+          # 全 [dotfiles] エントリ（symlink / copy / block の各モード）を機械検証する
           # （missing / source missing / differs があれば exit 1）。config が検証の
           # 単一真実源になり、エントリの追加・変更に CI 側の手動追随が不要になる。
           ./bin/mise bootstrap dotfiles status --missing

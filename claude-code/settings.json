@@ -1,8 +1,10 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh"
+  "env": {
+    "CLAUDE_CODE_EFFORT_LEVEL": "max"
   },
+  "enabledMcpjsonServers": [
+    "scraps"
+  ],
   "hooks": {
     "SessionStart": [
       {
@@ -16,12 +18,12 @@
       }
     ]
   },
-  "enabledMcpjsonServers": ["scraps"],
-  "effortLevel": "max",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
   "autoMemoryEnabled": false,
   "skipWorkflowUsageWarning": true,
   "enableRemoteControl": true,
-  "env": {
-    "CLAUDE_CODE_EFFORT_LEVEL": "max"
-  }
+  "agentPushNotifEnabled": true
 }
