@@ -10,6 +10,7 @@ targets:
 dependencies:
   apm:
     - boykush/ai-plugins/plugins/wiki-remote-mcp#7b757c1de428713dd667b8d74f466762a0229c69
+    - boykush/ai-plugins/plugins/doc-refactor#5e03b117926ffa7711c5c3794150c10bfadf5152
     # 外から来る plugin はここだけで宣言する。
     - anthropics/claude-plugins-official/plugins/skill-creator#db467cc56673fc963ca418b4165c688dfbe77007
   mcp: []
