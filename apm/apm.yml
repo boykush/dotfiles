@@ -9,7 +9,7 @@ targets:
   - codex
 dependencies:
   apm:
-    - boykush/ai-plugins/plugins/wiki-remote-mcp#0a6dd936c8be229cae095eaf40c0170db59bf45b
+    - boykush/ai-plugins/plugins/wiki-remote-mcp#7b757c1de428713dd667b8d74f466762a0229c69
     # 外から来る plugin はここだけで宣言する。
     - anthropics/claude-plugins-official/plugins/skill-creator#db467cc56673fc963ca418b4165c688dfbe77007
   mcp: []
