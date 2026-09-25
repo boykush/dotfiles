@@ -47,12 +47,7 @@ cd ~/dotfiles
 
 ### MCP サーバー
 
-サーバーの定義は [boykush/ai-plugins](https://github.com/boykush/ai-plugins) が apm package として配る。**サーバー定義の正は ai-plugins**。
-
-| package | サーバー名 | URL | どこで効かせるか |
-| --- | --- | --- | --- |
-| `wiki-remote-mcp` | `scraps` | `https://wiki-mcp.boykush.com/mcp` | **global**（ここで宣言） |
-| `adr-remote-mcp` | `adr` | `https://adr-mcp.boykush.com/mcp` | 宣言したリポジトリだけ |
+サーバーの定義は [boykush/ai-plugins](https://github.com/boykush/ai-plugins) が apm package として配る。**サーバー名も URL もそちらの package が持つ**ので、ここには写さない。
 
 **global に載せるのは wiki だけ**。wiki は [agents/AGENTS.md](agents/AGENTS.md) がセッションを問わず引かせる1次ソースで、リポジトリの外で始めたセッションからも引ける必要がある。
 
@@ -61,10 +56,6 @@ cd ~/dotfiles
 ### プラグイン
 
 外から来る plugin は apm だけで宣言し、Claude Code の `enabledPlugins`（[claude-code/settings.json](claude-code/settings.json)）には書かない。あれは Claude Code にしか効かず、入っている版もアプリの runtime しか知らないので、宣言からは何が効いているか分からない。
-
-| package | 中身 | 届く先 |
-| --- | --- | --- |
-| [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) の `skill-creator` | skill `skill-creator` | Claude Code / Codex |
 
 展開先は skill が `~/.claude/skills/<name>` と `~/.agents/skills/<name>`（Codex の user scope は `$HOME/.agents/skills`）、command が `~/.claude/commands/<name>.md`。**command は Codex へ届かない**（apm から見て Claude Code は skill も command も native だが、Codex は skill だけ）。
 
