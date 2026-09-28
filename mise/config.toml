@@ -56,7 +56,7 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 "aqua:anthropics/claude-code" = "2.1.282"
 # aqua registry に無いので github backend。mise が release の artifact attestation と
 # SLSA provenance を検証して入れる。MCP サーバーの宣言を各クライアントへ展開する役。
-"github:microsoft/apm" = "0.31.0"
+"github:microsoft/apm" = "0.32.0"
 "aqua:tmux/tmux-builds" = "3.6a"
 
 # GUI アプリ・フォントを brew-cask backend で宣言的に管理する。`[tools]` と違い自動では入らず、
