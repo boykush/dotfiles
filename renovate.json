@@ -13,6 +13,23 @@
       "addLabels": [
         "automerge"
       ]
+    },
+    {
+      "description": "mise 本体の非 major 更新も自動マージする。gate は必須 check の bootstrap (macOS): paths の絞り込みなしに全 PR で走り、bin/mise に上がった版を実際に self-install して bootstrap の適用と収束まで確かめる。版は CalVer で年が変わる更新が major になるので、それは手で見る。addLabels は上のルールと同じ理由で必須。",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchDepNames": [
+        "jdx/mise"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true,
+      "addLabels": [
+        "automerge"
+      ]
     }
   ],
   "customManagers": [
