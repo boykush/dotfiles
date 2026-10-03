@@ -51,7 +51,7 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 "aqua:starship/starship" = "1.26.0"
 "aqua:ajeetdsouza/zoxide" = "0.10.0"
 "aqua:dalance/procs" = "0.14.12"
-"aqua:cli/cli" = "2.101.0"
+"aqua:cli/cli" = "2.102.0"
 "aqua:sxyazi/yazi" = "26.9.1"
 "aqua:anthropics/claude-code" = "2.1.285"
 # aqua registry に無いので github backend。mise が release の artifact attestation と
