@@ -89,6 +89,20 @@ project scope の `.mcp.json` 由来のサーバーは repo ごとに承認プ�
 
 エージェントがいつ wiki を引くかは [agents/AGENTS.md](agents/AGENTS.md) の「私のナレッジ（Scraps wiki）を引く」に書いてある。
 
+### MCP 呼び出しに trace ID を載せる
+
+Claude Code の tracing を有効にして、HTTP の MCP ツール呼び出しに W3C の `traceparent` ヘッダを載せる。remote サーバー側のスパンをプロンプト単位の1トレースにまとめるためのもので、**クライアントのスパンはどこにも届けない**。届いたヘッダをサーバーがどう読むかは [boykush/infrastructure-as-code](https://github.com/boykush/infrastructure-as-code) が持つ。
+
+設定は [claude-code/settings.json](claude-code/settings.json) の `env` にある。Claude Code は traces の exporter が無いと ID も載せないので、宛先だけ置いている。宛先は誰も listen していないローカルのポートで、export は接続拒否で即座に失敗し、スパンは捨てられる。OTLP 標準の 4318 を避けたのは、別件でローカルに立てた collector がこのスパンを受け取らないようにするため。実際の送り先ができたら、変えるのはこの URL だけ。
+
+metrics と logs の exporter は置かない（未設定なら無効のまま）。`OTEL_LOG_*` も置かないので、スパンにプロンプト本文・ツール引数・Bash コマンドの全文は入らない。それでもツール名やアカウントの識別子は入るので、そのポートを listen するものを立てれば、それを受け取ることになる。
+
+user scope の設定なので、このマシンの全セッションに効く。`boykush` 配下以外のリポジトリでも、セッションが繋ぐ HTTP の MCP サーバーすべてに ID が届く（ID は乱数で、内容を含まない）。project / local settings からは tracing を有効にできないので、対象を `boykush` 配下に絞る書き方は無い。止めることはできて、ID を載せたくないリポジトリでは、その repo の `.claude/settings.local.json` の `env` で `OTEL_TRACES_EXPORTER` を `none` にする（どの scope が何を上書きできるかは Claude Code の [settings reference](https://code.claude.com/docs/en/settings-reference#variables-claude-code-ignores-in-env) が持つ）。
+
+tracing を有効にすると、ID を載せる以外の挙動も変わる（Bash の子プロセスに `TRACEPARENT` が入る、など）。一覧は Claude Code の [Monitoring](https://code.claude.com/docs/en/monitoring-usage#traces-beta) が持つ。
+
+Codex にはまだ入れていない。`~/.codex/config.toml` の `[otel]` に同じ宛先を置けば ID は載るが、呼び出し元の trace context を MCP リクエストに載せる変更（[openai/codex#47212](https://github.com/openai/codex/pull/47212)）が入ったのは 0.157.0 で、それ未満では MCP 接続ごとの1トレースになり、プロンプト単位にまとまらない。
+
 ## 更新
 
 - **mise 本体**: renovate が `min_version` と `bin/mise` の埋込版を lockstep で追従（minimum release age 付き、同じ depName なので1 PR で一括）。日常で最新にしたいときは `mise self-update`。`bin/mise` を綺麗に作り直したいときだけ手動再生成する: `mise generate bootstrap -w bin/mise`（checksum baseline も最新化される）
