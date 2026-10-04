@@ -66,10 +66,14 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 # cask はバージョンを名前で表現し、GUI アプリは自身で自動更新するため latest 固定でよい
 # （フォントも cask 追従で足りる）。
 [bootstrap.packages]
-"brew-cask:arc"       = "latest"
-"brew-cask:claude"    = "latest"
-"brew-cask:codex-app" = "latest"
-"brew-cask:ghostty"   = "latest"
+"brew-cask:arc"     = "latest"
+# Codex を動かすデスクトップアプリ。ChatGPT.app の名前で配られるので cask も chatgpt になる。
+# adopt は、mise が入れた記録の無い ChatGPT.app が既にあるとき、それを差し替えさせないため。
+# 指定しないと brew-cask は警告だけで置き換え、macOS の Privacy & Security の許可が外れうる。
+# 自己更新する cask なので、中身が cask の版と違っていてもそのまま引き取る。
+"brew-cask:chatgpt" = { version = "latest", adopt = true }
+"brew-cask:claude"  = "latest"
+"brew-cask:ghostty" = "latest"
 # フォント（ghostty 主フォント）
 "brew-cask:font-hack-nerd-font" = "latest"
 
@@ -119,7 +123,7 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # ホーム直下
 # --- 対話シェル初期化（~/.zshrc）: whole-file symlink ではなく block-edit で宣言管理する ---
 # 順序が重要: activate が mise のツールを PATH に通すので必ず先頭。zoxide/starship はその後で
-# ないとバイナリが未解決になる。login(.zprofile) でなく rc に置くのは Codex.app 等の non-login
+# ないとバイナリが未解決になる。login(.zprofile) でなく rc に置くのは ChatGPT.app 等の non-login
 # interactive shell でも効かせるため。※ mise 純正の [bootstrap.mise_shell_activate] は使わない
 # （activate 行しか書けず zoxide/starship を管理できない上、bootstrap のステップ順で activate が
 # 末尾に回り順序が壊れるため。block-edit なら宣言順で activate を先頭に固定できる）。
