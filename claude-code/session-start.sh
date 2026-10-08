@@ -19,9 +19,10 @@ after=$(git rev-parse -q --verify HEAD)
 
 msgs=()
 
-# CLI は設定を hook より先に読むので、pull で変わった設定はこのセッションには効いていない
+# CLI は設定を hook より先に読むので、pull で変わった設定は Claude がファイルを直接読んで補う
 if [ -n "$before" ] && [ "$before" != "$after" ] && ! git diff --quiet "$before" "$after" -- "${config[@]}"; then
-  msgs+=("${root} の .mcp.json / .claude を pull で更新しました。このセッションには反映されていないので、開き直してください。")
+  changed=$(git diff --name-only "$before" "$after" -- "${config[@]}" | paste -sd ' ' -)
+  msgs+=("${root} の .mcp.json / .claude を pull で更新しました（${changed}）。起動時の設定には入っていないので、更新された skill などは必要になったらファイルを直接読んで使ってください。")
 fi
 
 # デスクトップアプリは worktree のセッションに、.mcp.json と .claude を元の checkout の作業ツリーから
@@ -29,6 +30,8 @@ fi
 # 黙って欠けるので、既定ブランチとのずれを知らせる
 session_root=$(git -C "$(jq -r '.cwd // empty' <<<"$input")" rev-parse --show-toplevel 2>/dev/null)
 if [ -n "$session_root" ] && [ "$session_root" != "$root" ]; then
+  # origin/HEAD は clone 時のまま残るので、既定ブランチの変更（master → main など）に追従させる
+  git remote set-head origin --auto >/dev/null 2>&1
   base=$(git symbolic-ref -q --short refs/remotes/origin/HEAD || echo origin/main)
   if git rev-parse -q --verify "${base}^{commit}" >/dev/null && ! git diff --quiet "$base" -- "${config[@]}"; then
     drift=""
@@ -38,10 +41,11 @@ if [ -n "$session_root" ] && [ "$session_root" != "$root" ]; then
     branch=$(git branch --show-current)
     dirty=$(git status --porcelain | wc -l | tr -d ' ')
     if [ "$branch" = "${base#origin/}" ]; then
-      fix="${root} の未コミットの変更や ${base} から分岐したコミットを片付けて ${base} に揃え、セッションを開き直してください。"
+      fix="${root} の未コミットの変更や ${base} から分岐したコミットの扱いをユーザーに確認し、${base} に揃えてください。"
     else
-      fix="${root} を ${base#origin/} に戻して pull し、セッションを開き直してください。"
+      fix="${root} を ${base#origin/} に切り替えて pull してください（未コミットの変更があれば先にユーザーに確認）。"
     fi
+    fix="${fix} 揃えた後、ずれていた skill などはファイルを直接読んで使い、セッションの開き直しは求めないでください。"
     msgs+=("$(printf '%s\n' \
       "このセッションは .mcp.json と .claude（skills など）を ${root} から読んでいますが、その作業ツリーが ${base} とずれています。" \
       "  ブランチ: ${branch:-detached HEAD} / 未コミット: ${dirty} 件 / ずれ: ${drift}" \
@@ -57,6 +61,6 @@ jq -n --arg msg "$msg" '{
   systemMessage: $msg,
   hookSpecificOutput: {
     hookEventName: "SessionStart",
-    additionalContext: ("SessionStart hook からの警告です。最初の返答の冒頭でユーザーに伝えてください。\n" + $msg)
+    additionalContext: ("SessionStart hook からの警告です。最初の返答で、ユーザーの依頼に入る前にその場で直し、何をしたかを短く伝えてください。\n" + $msg)
   }
 }'
