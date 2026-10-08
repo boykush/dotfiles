@@ -30,8 +30,6 @@ fi
 # 黙って欠けるので、既定ブランチとのずれを知らせる
 session_root=$(git -C "$(jq -r '.cwd // empty' <<<"$input")" rev-parse --show-toplevel 2>/dev/null)
 if [ -n "$session_root" ] && [ "$session_root" != "$root" ]; then
-  # origin/HEAD は clone 時のまま残るので、既定ブランチの変更（master → main など）に追従させる
-  git remote set-head origin --auto >/dev/null 2>&1
   base=$(git symbolic-ref -q --short refs/remotes/origin/HEAD || echo origin/main)
   if git rev-parse -q --verify "${base}^{commit}" >/dev/null && ! git diff --quiet "$base" -- "${config[@]}"; then
     drift=""
