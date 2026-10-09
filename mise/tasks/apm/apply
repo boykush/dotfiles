@@ -3,4 +3,5 @@
 
 # -g は cwd を見ず ~/.apm/apm.yml を読む。展開先は MCP が ~/.claude.json と
 # ~/.codex/config.toml、skill が ~/.claude/skills と ~/.agents/skills、command が ~/.claude/commands。
-mise exec -- apm install -g
+# `mise run` がツールを PATH に通すので apm を直接呼ぶ（task 内で bare `mise` は不可視）。
+apm install -g
