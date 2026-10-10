@@ -10,7 +10,7 @@ Claude Code / Codex 共通の個人ルール（`~/.claude/CLAUDE.md` と `~/.cod
 
 **よしなに引くとき** — 頼まれなくても、一般的な専門用語（公開されている技術・概念・ツールの名前）が出たら、断りなく引いてから話す。公開されていない固有名（プロジェクト名・略語・システム名）では引かない。空振りは黙って流す。毎回「wiki に無い」と報告されると会話が途切れる。
 
-- `search_scraps` → 当たりを `get_scrap` で読む → 関連を辿るなら `lookup_scrap_links` / `lookup_scrap_backlinks`。語彙の地図が要るときは `list_tags`、タグ起点で並べるなら `lookup_tag_backlinks`。
+- `search_scraps` → 当たりを `get_scrap` で読む → 関連を辿るなら `lookup_scrap_links` / `lookup_scrap_backlinks`、あるトピックの周辺をまとめて見るなら `lookup_scrap_neighborhood`。語彙の地図が要るときは `list_tags`、タグ起点で並べるなら `lookup_tag_backlinks`。
 - ある語は共通語彙として素で使い、定義から説明し直さない（`[[Title]]`、ctx 付きなら `[[Ctx/Title]]` を添えて私の理解と揃える）。無い語は弱い証拠。講義を始めず私の反応で上書きする。
 - wiki は私の理解のスナップショットで、リポジトリの現状ではない。食い違ったらコードを正とし、その旨を報告する。
 - MCP はクラスタ上の remote サーバーを見ている。繋がっていないセッションでは公開サイト <https://boykush.github.io/wiki/> を読む。ローカルに wiki の複製は置かないので、Grep / Read での代用はできない。
