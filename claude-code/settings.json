@@ -10,13 +10,12 @@
     "scraps"
   ],
   "hooks": {
-    "SessionStart": [
+    "WorktreeCreate": [
       {
-        "matcher": "startup",
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/session-start.sh"
+            "command": "~/.claude/worktree-create.sh"
           }
         ]
       }
