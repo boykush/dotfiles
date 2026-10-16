@@ -12,5 +12,5 @@ dependencies:
     - boykush/ai-plugins/plugins/wiki-remote-mcp#c1bb99f37c25ebe11432be84fb37ada18d4f8367
     - boykush/ai-plugins/plugins/doc-refactor#c1bb99f37c25ebe11432be84fb37ada18d4f8367
     # 外から来る plugin はここだけで宣言する。
-    - anthropics/claude-plugins-official/plugins/skill-creator#fa59bc9037741ecfa131aa27938272605710d7b2
+    - anthropics/claude-plugins-official/plugins/skill-creator#ea10b213686c90bb1984b2016937310e05336cf3
   mcp: []
