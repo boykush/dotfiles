@@ -1,0 +1,21 @@
+# This repository's entities in boykush's Backstage catalog, found on main by its
+# GitHub discovery (boykush/infrastructure-as-code's applications/backstage/).
+# How an entity is written — which edges to draw, what a tag means — is set in
+# boykush/github-management's AGENTS.md and the comments atop its catalog/ files.
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: dotfiles
+  description: >-
+    マシンの設定一式。coding agent の全体方針（agents/AGENTS.md → ~/.claude/CLAUDE.md）と user
+    scope の MCP サーバーを置くので、このマシンの全セッションに効く
+spec:
+  type: repository
+  lifecycle: production
+  owner: user:boykush
+  system: agent-config
+  consumesApis:
+    - wiki-mcp
+  dependsOn:
+    - component:ai-plugins
+    - component:workflows
