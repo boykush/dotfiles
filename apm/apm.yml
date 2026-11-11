@@ -9,8 +9,8 @@ targets:
   - codex
 dependencies:
   apm:
-    - boykush/ai-plugins/plugins/wiki-remote-mcp#dbb5f18b29a956a4c3ded7f1b1ecbcd8454bbabe
-    - boykush/ai-plugins/plugins/doc-refactor#dbb5f18b29a956a4c3ded7f1b1ecbcd8454bbabe
+    - boykush/ai-plugins/plugins/wiki-remote-mcp#f7ca0cfd7a097a713c7fd23f1d313111c6e8993c
+    - boykush/ai-plugins/plugins/doc-refactor#f7ca0cfd7a097a713c7fd23f1d313111c6e8993c
     # 外から来る plugin はここだけで宣言する。
     - anthropics/claude-plugins-official/plugins/skill-creator#fa59bc9037741ecfa131aa27938272605710d7b2
   mcp: []
