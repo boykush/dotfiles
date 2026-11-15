@@ -1,6 +1,6 @@
 # doc-refactor
 
-文書をコードと同じようにリファクタリングする skill を配る apm の package。MCP サーバーは配らず、skill `doc-refactor`（`.apm/skills/doc-refactor/`）だけを配る。
+文書をコードと同じようにリファクタリングする skill を配る apm の package。MCP サーバーは配らず、skill `doc-refactor`（`skills/doc-refactor/`）だけを配る。
 
 dotfiles に置くのは、この skill を直す理由が、文書の扱い方についての自分の方針——[agents/AGENTS.md](../../agents/AGENTS.md) がこの skill に従うよう名指ししている——と同じところで生まれるため。
 

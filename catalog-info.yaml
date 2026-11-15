@@ -41,7 +41,7 @@ metadata:
   name: doc-refactor
   description: 事実を機械が読める持ち主へ移し、散文をその参照に置き換える手順
   annotations:
-    backstage.io/source-location: url:https://github.com/boykush/dotfiles/tree/main/plugins/doc-refactor/.apm/skills/doc-refactor/
+    backstage.io/source-location: url:https://github.com/boykush/dotfiles/tree/main/plugins/doc-refactor/skills/doc-refactor/
 spec:
   type: skill
   lifecycle: production
