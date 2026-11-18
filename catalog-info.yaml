@@ -23,25 +23,10 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: AiResource
 metadata:
-  name: doc-refactor-plugin
-  description: >-
-    文書をコードと同じようにリファクタリングする skill を束ねた plugin（Agent Plugins の形）。直す理由が
-    agents/AGENTS.md の方針と同じところで生まれるので、この repo が持つ
-spec:
-  type: plugin
-  lifecycle: production
-  owner: user:boykush
-  system: agent-config
-  skills:
-    - airesource:doc-refactor
----
-apiVersion: backstage.io/v1alpha1
-kind: AiResource
-metadata:
   name: doc-refactor
   description: 事実を機械が読める持ち主へ移し、散文をその参照に置き換える手順
   annotations:
-    backstage.io/source-location: url:https://github.com/boykush/dotfiles/tree/main/plugins/doc-refactor/skills/doc-refactor/
+    backstage.io/source-location: url:https://github.com/boykush/dotfiles/tree/main/agents/skills/doc-refactor/
 spec:
   type: skill
   lifecycle: production
