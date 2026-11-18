@@ -1,4 +1,9 @@
-name: doc-refactor
-version: 0.1.0
+# Written from plugin.json and mcp.json by boykush/workflows' agent-plugins.yml; edit those.
+name: "doc-refactor"
+version: "0.1.0"
 description: "Refactoring documentation the way code is refactored - move a fact to its one machine-readable owner (a declaration, a setting, a schema, a catalog of entities and edges) and replace the prose with a reference, without losing what the prose knew. Covers the order to decide in, why a document written for the people using a repository is exempt, and how to find the copies already made."
-author: boykush
+author: "boykush"
+dependencies:
+  apm:
+    - ./skills/doc-refactor
+  mcp: []

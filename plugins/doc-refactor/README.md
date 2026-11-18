@@ -1,6 +1,6 @@
 # doc-refactor
 
-文書をコードと同じようにリファクタリングする skill を配る apm の package。MCP サーバーは配らず、skill `doc-refactor`（`skills/doc-refactor/`）だけを配る。
+文書をコードと同じようにリファクタリングする skill を配る plugin。[Agent Plugins](https://agent-plugins.org/specification) の形で書く。MCP サーバーは配らず、skill `doc-refactor`（`skills/doc-refactor/`）だけを配る。
 
 dotfiles に置くのは、この skill を直す理由が、文書の扱い方についての自分の方針——[agents/AGENTS.md](../../agents/AGENTS.md) がこの skill に従うよう名指ししている——と同じところで生まれるため。
 
@@ -39,4 +39,4 @@ apm install
 
 Claude は `.claude/skills/`、Codex は `.agents/skills/` に入る。マシンの全セッション（リポジトリの外や `boykush` 配下以外も含む）に効かせるなら、この repo の [apm/apm.yml](../../apm/apm.yml)（user scope）で宣言する。基準にリポジトリ固有の話は入れていないので、どちらでも効く。
 
-版は `apm.yml` の `version` が持つ。中身を変えるときは `version` も上げ、main に入ったら `doc-refactor--v<version>` の tag を手で打つ（`git tag doc-refactor--v<version> && git push origin doc-refactor--v<version>`）。consumer の Renovate はこの tag を追う。
+隣の `apm.yml` は、apm がこの plugin を Claude と Codex へ展開するための中継ぎで、[boykush/workflows](https://github.com/boykush/workflows) の agent-plugins が `plugin.json` から書く。手では直さない。版は `plugin.json` の `version` が持ち、main に入ると同じ workflow が `doc-refactor--v<version>` の tag を打つ。consumer の Renovate はこの tag を追う。

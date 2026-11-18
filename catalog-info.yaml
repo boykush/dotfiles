@@ -25,7 +25,7 @@ kind: AiResource
 metadata:
   name: doc-refactor-plugin
   description: >-
-    文書をコードと同じようにリファクタリングする skill を束ねた plugin（apm の package）。直す理由が
+    文書をコードと同じようにリファクタリングする skill を束ねた plugin（Agent Plugins の形）。直す理由が
     agents/AGENTS.md の方針と同じところで生まれるので、この repo が持つ
 spec:
   type: plugin

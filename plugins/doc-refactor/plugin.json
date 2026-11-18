@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "author": {
+    "name": "boykush"
+  },
+  "description": "Refactoring documentation the way code is refactored - move a fact to its one machine-readable owner (a declaration, a setting, a schema, a catalog of entities and edges) and replace the prose with a reference, without losing what the prose knew. Covers the order to decide in, why a document written for the people using a repository is exempt, and how to find the copies already made.",
+  "name": "doc-refactor",
+  "version": "0.1.0"
+}

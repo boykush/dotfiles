@@ -1,0 +1,18 @@
+# Ships the plugins under plugins/ from here: boykush/workflows writes and checks their
+# apm.yml, and tags each version for consumers to pin.
+name: agent-plugins
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  agent-plugins:
+    uses: boykush/workflows/.github/workflows/agent-plugins.yml@8533f9d69cc9e9ad9f5de1814ff5b5ae259ee5ab
+    with:
+      path: plugins
+    permissions:
+      contents: write
