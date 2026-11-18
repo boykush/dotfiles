@@ -63,6 +63,12 @@ Codex にも同じ plugin を marketplace から入れる口が `~/.codex/config
 
 クライアントが自分で同梱するものは宣言しない。Claude Code はバイナリに `anthropic-skills`（docx / pdf / pptx / xlsx / claude-api ほか）を、Codex は `~/.codex/skills/.system`（skill-creator / skill-installer / plugin-creator / openai-docs / imagegen）を持つ。Codex では system の `skill-creator` と apm の `skill-creator` が同名で並ぶが、Codex は同名を統合せず両方見せる仕様で、プラグイン経由だった移行前と同じ状態になる。
 
+### 自前の skill
+
+`.apm/skills/` に置き、[apm/apm.yml](apm/apm.yml) が `~/dotfiles/...` の path で引く。使うのはこのマシンの user scope だけなので、plugin にも版の tag にもしない。ほかの repo から引きたくなったら、そのとき plugin にする。
+
+`doc-refactor` がここにあるのは、[agents/AGENTS.md](agents/AGENTS.md) が名指しして従わせる skill で、直す理由が同じところで生まれるため。command ではなく skill にしてあるのは、command が Codex へ届かないため。
+
 ### 適用
 
 ```bash
