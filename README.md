@@ -65,7 +65,7 @@ Codex にも同じ plugin を marketplace から入れる口が `~/.codex/config
 
 ### 自前の skill
 
-`agents/skills/` に置き、[apm/apm.yml](apm/apm.yml) が `~/dotfiles/...` の path で引く。使うのはこのマシンの user scope だけなので、plugin にも版の tag にもしない。ほかの repo から引きたくなったら、そのとき plugin にする。
+`.apm/skills/` に置き、[apm/apm.yml](apm/apm.yml) が `~/dotfiles/...` の path で引く。使うのはこのマシンの user scope だけなので、plugin にも版の tag にもしない。ほかの repo から引きたくなったら、そのとき plugin にする。
 
 `doc-refactor` がここにあるのは、[agents/AGENTS.md](agents/AGENTS.md) が名指しして従わせる skill で、直す理由が同じところで生まれるため。command ではなく skill にしてあるのは、command が Codex へ届かないため。
 
