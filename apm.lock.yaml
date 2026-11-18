@@ -1,0 +1,49 @@
+lockfile_version: '1'
+apm_version: 0.35.1
+dependencies:
+- repo_url: anthropics/claude-plugins-official
+  name: commit-commands
+  host: github.com
+  resolved_commit: fd30cee3ecd5a8ee772733c5d20c0f2bae2da2f0
+  resolved_ref: fd30cee3ecd5a8ee772733c5d20c0f2bae2da2f0
+  version: 1.0.1
+  virtual_path: plugins/commit-commands
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/commands/clean_gone.md
+  - .claude/commands/commit-push-pr.md
+  - .claude/commands/commit.md
+  deployed_file_hashes:
+    .claude/commands/clean_gone.md: sha256:24ce5c79da87b481d346d26b297cbe327862f1e4bbee05406589f4b5468c7fa3
+    .claude/commands/commit-push-pr.md: sha256:63ee94bcf2a60101d542ec46bf2afa18b31565105ebfc63f1a38e4d308d3cd2f
+    .claude/commands/commit.md: sha256:366740b9d9f45e05bf7cc5b703156f95fe28180012899ceb90d89d34d4110e47
+  content_hash: sha256:6eb9000363d6139288556971cf80e76b346b51bafa056a1ecb2de0c7554781fd
+deployments:
+- kind: project-relative
+  target: claude
+  value: .claude/commands/clean_gone.md
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/commit-commands
+  active_owner: anthropics/claude-plugins-official/plugins/commit-commands
+  content_hash: sha256:24ce5c79da87b481d346d26b297cbe327862f1e4bbee05406589f4b5468c7fa3
+- kind: project-relative
+  target: claude
+  value: .claude/commands/commit-push-pr.md
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/commit-commands
+  active_owner: anthropics/claude-plugins-official/plugins/commit-commands
+  content_hash: sha256:63ee94bcf2a60101d542ec46bf2afa18b31565105ebfc63f1a38e4d308d3cd2f
+- kind: project-relative
+  target: claude
+  value: .claude/commands/commit.md
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/commit-commands
+  active_owner: anthropics/claude-plugins-official/plugins/commit-commands
+  content_hash: sha256:366740b9d9f45e05bf7cc5b703156f95fe28180012899ceb90d89d34d4110e47
