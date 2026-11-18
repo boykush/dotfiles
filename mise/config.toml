@@ -2,7 +2,7 @@
 # self-update だけは例外的に通る）。renovate が minimum release age 付きで追従し、同じ PR で
 # bin/mise の埋込版も一緒に上がる（lockstep。renovate.json 参照）ため、埋込版がこの floor を
 # 下回ることはない。日常の最新化は `mise self-update`。
-min_version = "2026.11.7"
+min_version = "2026.11.8"
 
 [settings]
 # lockfile は使わない（既定の false のまま）。[tools] は全て版数を pin しており、aqua backend が
@@ -51,9 +51,9 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 "aqua:starship/starship" = "1.27.0"
 "aqua:ajeetdsouza/zoxide" = "0.10.0"
 "aqua:dalance/procs" = "0.14.12"
-"aqua:cli/cli" = "2.103.3"
+"aqua:cli/cli" = "2.104.0"
 "aqua:sxyazi/yazi" = "26.9.1"
-"aqua:anthropics/claude-code" = "2.1.322"
+"aqua:anthropics/claude-code" = "2.1.325"
 # aqua registry に無いので github backend。mise が release の artifact attestation と
 # SLSA provenance を検証して入れる。MCP サーバーの宣言を各クライアントへ展開する役。
 "github:microsoft/apm" = "0.35.1"
