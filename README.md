@@ -47,7 +47,7 @@ cd ~/dotfiles
 
 ### MCP サーバー
 
-サーバーの定義は [boykush/ai-plugins](https://github.com/boykush/ai-plugins) が apm package として配る。**サーバー名も URL もそちらの package が持つ**ので、ここには写さない。
+サーバーの定義は、そのサーバーを持つリポジトリが apm package として配り、どれを取るかは `apm/apm.yml` が持つ。**サーバー名も URL も各 package の `mcp.json` が持つ**ので、ここには写さない。
 
 **global に載せるのは wiki だけ**。wiki は [agents/AGENTS.md](agents/AGENTS.md) がセッションを問わず引かせる1次ソースで、リポジトリの外で始めたセッションからも引ける必要がある。
 
