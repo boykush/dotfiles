@@ -17,7 +17,7 @@ spec:
   consumesApis:
     - wiki-mcp
   dependsOn:
-    - component:ai-plugins
+    - component:wiki
     - component:workflows
 ---
 apiVersion: backstage.io/v1alpha1
