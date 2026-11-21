@@ -9,7 +9,7 @@ targets:
   - codex
 dependencies:
   apm:
-    - boykush/ai-plugins/plugins/wiki-remote-mcp#fdb71842c6cff55e022c3663c26f95b220c01795
+    - boykush/ai-plugins/plugins/wiki-remote-mcp#976890acce13160d65bae0d651243f03c1acb874
     # 使うのはこのマシンだけなので、plugin にも tag にもせず path で引く。
     - ~/dotfiles/.apm/skills/doc-refactor
     # 外から来る plugin はここだけで宣言する。
