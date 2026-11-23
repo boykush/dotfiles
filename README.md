@@ -161,3 +161,17 @@ UserKeyMapping との自動マージは行わない。Karabiner を終了して�
 参考: [Apple の修飾キー設定](https://support.apple.com/ja-jp/guide/mac-help/mchlp1011/mac)、
 [hidutil の仕様と再起動時の制限](https://developer.apple.com/library/archive/technotes/tn2450/)、
 [日本語入力のライブ変換](https://support.apple.com/ja-jp/guide/japanese-input-method/jpim10265/mac)。
+
+### ログイン時の再適用
+
+`mise bootstrap` の dotfiles ステップが LaunchAgent
+[macos/launchagents/com.github.boykush.dotfiles.macos-keyboard.plist](macos/launchagents/com.github.boykush.dotfiles.macos-keyboard.plist)
+を `~/Library/LaunchAgents` に copy で置く。ログインのたびに `mise run macos:keyboard` を1回だけ実行するので、
+再起動後に手でタスクを流す必要はない（常駐はしない）。ログは `/tmp/com.github.boykush.dotfiles.macos-keyboard.log`。
+ログアウトせずに今すぐ読み込むなら次を使う。
+
+```bash
+launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.github.boykush.dotfiles.macos-keyboard.plist
+```
+
+ログイン後に繋いだ外付けキーボードは対象外なので、繋いだら `mise run macos:keyboard` を流す。
