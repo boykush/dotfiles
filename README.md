@@ -124,7 +124,7 @@ Codex にはまだ入れていない。`~/.codex/config.toml` の `[otel]` に�
 
 ## macOS 標準のキーボード・日本語入力設定
 
-Finder と日本語のライブ変換は `mise/config.toml` の `[bootstrap.macos.defaults]` で管理する。
+日本語のライブ変換は `mise/config.toml` の `[bootstrap.macos.defaults]` で管理する。
 通常の bootstrap に含まれ、設定だけを適用する場合は次を使う。
 
 ```bash

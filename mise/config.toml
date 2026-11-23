@@ -97,9 +97,6 @@ ApplePressAndHoldEnabled = false
 [bootstrap.macos.defaults."com.apple.dock"]
 autohide = true
 
-[bootstrap.macos.defaults."com.apple.finder"]
-FXPreferredViewStyle = "Nlsv" # リスト表示
-
 [bootstrap.macos.defaults."com.apple.inputmethod.Kotoeri"]
 JIMPrefLiveConversionKey = false
 
