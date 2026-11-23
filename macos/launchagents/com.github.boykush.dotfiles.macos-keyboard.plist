@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  ログイン時に `mise run macos:keyboard` を1回だけ実行し、hidutil のキー割り当てを再適用する。
+  hidutil の UserKeyMapping は再起動で消えるため。常駐はしない（RunAtLoad のみ）。
+  plist はパスに ~ / $HOME を書けないので、zsh 経由で $HOME を展開する。
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.github.boykush.dotfiles.macos-keyboard</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/zsh</string>
+        <string>-c</string>
+        <string>exec "$HOME/dotfiles/bin/mise" run macos:keyboard</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>ProcessType</key>
+    <string>Background</string>
+    <key>StandardOutPath</key>
+    <string>/tmp/com.github.boykush.dotfiles.macos-keyboard.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/com.github.boykush.dotfiles.macos-keyboard.log</string>
+</dict>
+</plist>

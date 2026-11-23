@@ -166,3 +166,6 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # ~/.codex/config.toml はここで管理しない。Codex 自身が同じファイルを読み書きして再整形するため、
 # block-edit だとアプリの追記がマーカー内側に入り込んで次の apply で消え、`codex mcp add` は
 # マーカー行ごと落として重複定義を作る（どちらも再現確認済み）。戻すなら block-edit 以外の手段で。
+# ログイン時に `mise run macos:keyboard` を流す LaunchAgent（hidutil の割り当ては再起動で消えるため）。
+# symlink ではなく copy にする。launchd は所有者・パーミッションを満たす実ファイルを前提とするため。
+"~/Library/LaunchAgents/com.github.boykush.dotfiles.macos-keyboard.plist" = { source = "~/dotfiles/macos/launchagents/com.github.boykush.dotfiles.macos-keyboard.plist", mode = "copy" }
