@@ -6,7 +6,8 @@ case "${1:-}" in
     *) printf 'Usage: macos:keyboard [--dry-run]\n' >&2; exit 2 ;;
 esac
 [[ $# -le 1 ]] || exit 2
-repo_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../../.." && pwd)"
+# ~/.config/mise は ~/dotfiles/mise への symlink なので、-P で実体側から辿る。
+repo_dir="$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")/../../.." && pwd)"
 config="$repo_dir/macos/external-keyboard.json"
 matching="$(jq -ce '.matching | select(.VendorID and .ProductID and .PrimaryUsagePage == 1 and .PrimaryUsage == 6)' "$config")"
 mapping="$(jq -c '{UserKeyMapping: [.mappings[] | {HIDKeyboardModifierMappingSrc, HIDKeyboardModifierMappingDst}]}' "$config")"
