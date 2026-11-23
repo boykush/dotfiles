@@ -85,7 +85,7 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 # macOS の defaults も宣言管理する。`mise bootstrap` の macos ステップで値の型に応じた
 # `defaults write`（-bool / -int 等）が適用され、`mise bootstrap macos defaults status --missing`
 # で乖離を機械検証できる。まずはキーボードリピートと Dock の最小セット（現マシンの実値）から。
-# 反映は対象プロセスの再読込後（Dock は killall Dock、キーリピートは再ログイン/アプリ再起動）。
+# 反映は対象プロセスの再読込後（Dock は killall Dock、キーリピート・外観は再ログイン）。
 [bootstrap.macos.defaults.NSGlobalDomain]
 # System Settings のスライダーは real（float）で書くため、型付き比較の status が
 # differs にならないよう float で宣言する（int 宣言だと値が同じでも型不一致になる）。
@@ -93,6 +93,8 @@ KeyRepeat = 2.0         # キーリピート速度: 最速
 InitialKeyRepeat = 15.0 # リピート開始までの遅延: 最短
 # 長押しでアクセント記号ピッカーを出さずキーリピートさせる（エディタのカーソル移動向け）
 ApplePressAndHoldEnabled = false
+# 外観: ダーク
+AppleInterfaceStyle = "Dark"
 
 [bootstrap.macos.defaults."com.apple.dock"]
 autohide = true
