@@ -121,3 +121,43 @@ Codex にはまだ入れていない。`~/.codex/config.toml` の `[otel]` に�
 各マシンは `./bin/mise bootstrap` の再実行で main に収束する。bootstrap は dotfiles ステップ直後に config をディスクから再読込するため、repos ステップが pull した変更のうち **symlink 先・copy 元ファイルの中身・`[bootstrap.macos.defaults]`・`[tools]` は同じ run で反映**される。一方、再読込より前に評価される **`[bootstrap.packages]` と `[dotfiles]` のエントリ増減・block 本文は次の run 送り**になる。これらを含む変更を取り込むときは bootstrap を続けて2回流すか、先に `git pull` してから流す（checkout が既に main 先端なら lag は出ない）。収束の機械確認は `./bin/mise bootstrap status --missing`（CI と同じ検証）。
 
 `min_version` の bump（renovate が `bin/mise` 埋込版と lockstep で追従）を bootstrap 自身の pull で取り込んだ回は、config 再読込時の min_version チェックで一度停止するが、次回は pull 済みの新 `bin/mise` が新しい mise を self-install して通る（自己修復）。
+
+## macOS 標準のキーボード・日本語入力設定
+
+Finder と日本語のライブ変換は `mise/config.toml` の `[bootstrap.macos.defaults]` で管理する。
+通常の bootstrap に含まれ、設定だけを適用する場合は次を使う。
+
+```bash
+./bin/mise bootstrap macos defaults apply
+```
+
+入力ソース切り替えと外付けキーボードは、macOS 標準コマンドを使う任意のタスクで適用する。
+
+```bash
+./bin/mise run macos:input-source --dry-run
+./bin/mise run macos:keyboard --dry-run
+# 表示した対象と内容を確認して適用
+./bin/mise run macos:input-source
+./bin/mise run macos:keyboard
+```
+
+`macos:input-source` は Control + Space を「前の入力ソース」に割り当てる。
+他のショートカットは維持する。英語（ABC 等）と日本語をシステム設定で追加しておき、
+適用後はログアウト・ログインして反映する。入力ソースが3つ以上あれば英日専用の切り替えにはならない。
+ライブ変換を無効にすると、入力したひらがなを Space で変換する従来方式になる。
+入力ソースの追加や辞書・学習データの移植は行わない。
+
+`macos:keyboard` の対象とキー割り当ては [macos/external-keyboard.json](macos/external-keyboard.json) が持つ。
+VendorID / ProductID とキーボードの Usage が一致するデバイスの UserKeyMapping を置き換え、
+内蔵キーボードや他の機種には適用しない。同じ値を再適用できるが、そのデバイスで別途設定した
+UserKeyMapping との自動マージは行わない。Karabiner を終了してから実行する。
+再起動・再接続でマッピングが失われるため、その後はタスクを再実行する（常駐処理は追加しない）。
+旧設定の Left Control → Fn と Fn + hjkl はこの定義に含めず、Left Control は元の動作を保つ。
+実際のキー操作は対象キーボードで確認する。
+
+内蔵キーボードの Caps Lock → Control は「システム設定 → キーボード → キーボードショートカット →
+修飾キー」で対象キーボードを選んで設定できる。現在の外付け用定義を内蔵へ一括適用はしない。
+
+参考: [Apple の修飾キー設定](https://support.apple.com/ja-jp/guide/mac-help/mchlp1011/mac)、
+[hidutil の仕様と再起動時の制限](https://developer.apple.com/library/archive/technotes/tn2450/)、
+[日本語入力のライブ変換](https://support.apple.com/ja-jp/guide/japanese-input-method/jpim10265/mac)。

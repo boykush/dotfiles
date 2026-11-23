@@ -1,0 +1,17 @@
+#!/bin/bash
+#MISE description="Set Control+Space to select the previous input source (use --dry-run to preview)"
+set -euo pipefail
+case "${1:-}" in
+    ""|--dry-run) ;;
+    *) printf 'Usage: macos:input-source [--dry-run]\n' >&2; exit 2 ;;
+esac
+[[ $# -le 1 ]] || exit 2
+# Merge only the previous-input-source entry; retain all other shortcuts.
+entry='<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>32</integer><integer>49</integer><integer>262144</integer></array><key>type</key><string>standard</string></dict></dict>'
+command=(/usr/bin/defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "$entry")
+if [[ "${1:-}" == --dry-run ]]; then
+    printf '%q ' "${command[@]}"; printf '\n'
+    exit 0
+fi
+"${command[@]}"
+printf 'Control+Space is configured. Log out and back in to refresh shortcut settings.\n'
