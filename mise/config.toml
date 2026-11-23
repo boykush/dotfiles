@@ -72,7 +72,9 @@ NPM_CONFIG_REGISTRY = "https://npm.flatt.tech/"
 # 指定しないと brew-cask は警告だけで置き換え、macOS の Privacy & Security の許可が外れうる。
 # 自己更新する cask なので、中身が cask の版と違っていてもそのまま引き取る。
 "brew-cask:chatgpt" = { version = "latest", adopt = true }
-"brew-cask:claude"  = "latest"
+# ChatGPT と同様、既存の Claude.app（公式インストーラー等で導入済み）を差し替えずに引き取る。
+# 差し替えると Privacy & Security の許可が外れうるうえ、実行中のアプリを置き換えてしまう。
+"brew-cask:claude"  = { version = "latest", adopt = true }
 "brew-cask:ghostty" = "latest"
 # フォント（ghostty 主フォント）
 "brew-cask:font-hack-nerd-font" = "latest"
