@@ -1,0 +1,35 @@
+{
+  "matching": {
+    "VendorID": 1241,
+    "ProductID": 1111,
+    "PrimaryUsagePage": 1,
+    "PrimaryUsage": 6
+  },
+  "mappings": [
+    {
+      "description": "Caps Lock → Control",
+      "HIDKeyboardModifierMappingSrc": 30064771129,
+      "HIDKeyboardModifierMappingDst": 30064771296
+    },
+    {
+      "description": "Escape → grave/tilde",
+      "HIDKeyboardModifierMappingSrc": 30064771113,
+      "HIDKeyboardModifierMappingDst": 30064771125
+    },
+    {
+      "description": "Left Command → Left Option",
+      "HIDKeyboardModifierMappingSrc": 30064771299,
+      "HIDKeyboardModifierMappingDst": 30064771298
+    },
+    {
+      "description": "Left Option → Left Command",
+      "HIDKeyboardModifierMappingSrc": 30064771298,
+      "HIDKeyboardModifierMappingDst": 30064771299
+    },
+    {
+      "description": "Right Option → Right Command",
+      "HIDKeyboardModifierMappingSrc": 30064771302,
+      "HIDKeyboardModifierMappingDst": 30064771303
+    }
+  ]
+}

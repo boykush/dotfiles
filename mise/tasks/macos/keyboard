@@ -1,0 +1,23 @@
+#!/bin/bash
+#MISE description="Apply native key mappings to the external keyboard (use --dry-run to preview)"
+set -euo pipefail
+case "${1:-}" in
+    ""|--dry-run) ;;
+    *) printf 'Usage: macos:keyboard [--dry-run]\n' >&2; exit 2 ;;
+esac
+[[ $# -le 1 ]] || exit 2
+repo_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../../.." && pwd)"
+config="$repo_dir/macos/external-keyboard.json"
+matching="$(jq -ce '.matching | select(.VendorID and .ProductID and .PrimaryUsagePage == 1 and .PrimaryUsage == 6)' "$config")"
+mapping="$(jq -c '{UserKeyMapping: [.mappings[] | {HIDKeyboardModifierMappingSrc, HIDKeyboardModifierMappingDst}]}' "$config")"
+command=(/usr/bin/hidutil property --matching "$matching" --set "$mapping")
+if [[ "${1:-}" == --dry-run ]]; then
+    printf '%q ' "${command[@]}"; printf '\n'
+    exit 0
+fi
+if pgrep -q -f '[k]arabiner_grabber'; then
+    printf 'Quit Karabiner-Elements before applying native key mappings.\n' >&2
+    exit 1
+fi
+"${command[@]}"
+printf 'Requested mappings for the configured keyboard. Reapply after restarting or reconnecting it.\n'

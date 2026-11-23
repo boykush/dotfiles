@@ -97,6 +97,9 @@ ApplePressAndHoldEnabled = false
 [bootstrap.macos.defaults."com.apple.dock"]
 autohide = true
 
+[bootstrap.macos.defaults."com.apple.inputmethod.Kotoeri"]
+JIMPrefLiveConversionKey = false
+
 [shell_alias]
 cat = "bat"
 vi = "hx"
