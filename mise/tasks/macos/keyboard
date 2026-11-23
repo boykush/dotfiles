@@ -1,24 +1,42 @@
 #!/bin/bash
-#MISE description="Apply native key mappings to the external keyboard (use --dry-run to preview)"
+#MISE description="Apply native key mappings to all keyboards and the external keyboard (use --dry-run to preview)"
 set -euo pipefail
 case "${1:-}" in
     ""|--dry-run) ;;
     *) printf 'Usage: macos:keyboard [--dry-run]\n' >&2; exit 2 ;;
 esac
 [[ $# -le 1 ]] || exit 2
+dry_run=false
+[[ "${1:-}" == --dry-run ]] && dry_run=true
 # ~/.config/mise は ~/dotfiles/mise への symlink なので、-P で実体側から辿る。
 repo_dir="$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")/../../.." && pwd)"
-config="$repo_dir/macos/external-keyboard.json"
-matching="$(jq -ce '.matching | select(.VendorID and .ProductID and .PrimaryUsagePage == 1 and .PrimaryUsage == 6)' "$config")"
-mapping="$(jq -c '{UserKeyMapping: [.mappings[] | {HIDKeyboardModifierMappingSrc, HIDKeyboardModifierMappingDst}]}' "$config")"
-command=(/usr/bin/hidutil property --matching "$matching" --set "$mapping")
-if [[ "${1:-}" == --dry-run ]]; then
-    printf '%q ' "${command[@]}"; printf '\n'
+to_mapping='{UserKeyMapping: [.mappings[] | {HIDKeyboardModifierMappingSrc, HIDKeyboardModifierMappingDst}]}'
+
+# 全キーボード共通（内蔵キーボードを含む）。--matching を付けずに設定する。
+common_config="$repo_dir/macos/common-keyboard.json"
+common_command=(/usr/bin/hidutil property --set "$(jq -c "$to_mapping" "$common_config")")
+
+# 特定の外付けキーボード。デバイス単位の UserKeyMapping は共通設定より優先されるため、
+# external-keyboard.json には共通の割り当ても含める。
+external_config="$repo_dir/macos/external-keyboard.json"
+matching="$(jq -ce '.matching | select(.VendorID and .ProductID and .PrimaryUsagePage == 1 and .PrimaryUsage == 6)' "$external_config")"
+external_command=(/usr/bin/hidutil property --matching "$matching" --set "$(jq -c "$to_mapping" "$external_config")")
+
+if $dry_run; then
+    printf '%q ' "${common_command[@]}"; printf '\n'
+    printf '%q ' "${external_command[@]}"; printf '\n'
     exit 0
 fi
 if pgrep -q -f '[k]arabiner_grabber'; then
     printf 'Quit Karabiner-Elements before applying native key mappings.\n' >&2
     exit 1
 fi
-"${command[@]}"
-printf 'Requested mappings for the configured keyboard. Reapply after restarting or reconnecting it.\n'
+"${common_command[@]}" >/dev/null
+printf 'Applied common mappings to all keyboards.\n'
+if [[ -n "$(/usr/bin/hidutil list --matching "$matching" | tail -n +3)" ]]; then
+    "${external_command[@]}" >/dev/null
+    printf 'Applied mappings to the configured external keyboard.\n'
+else
+    printf 'Configured external keyboard is not connected; skipped. Run again after connecting it.\n'
+fi
+printf 'Reapply after restarting or reconnecting a keyboard.\n'

@@ -147,16 +147,19 @@ Codex にはまだ入れていない。`~/.codex/config.toml` の `[otel]` に�
 ライブ変換を無効にすると、入力したひらがなを Space で変換する従来方式になる。
 入力ソースの追加や辞書・学習データの移植は行わない。
 
-`macos:keyboard` の対象とキー割り当ては [macos/external-keyboard.json](macos/external-keyboard.json) が持つ。
-VendorID / ProductID とキーボードの Usage が一致するデバイスの UserKeyMapping を置き換え、
-内蔵キーボードや他の機種には適用しない。同じ値を再適用できるが、そのデバイスで別途設定した
-UserKeyMapping との自動マージは行わない。Karabiner を終了してから実行する。
+`macos:keyboard` は2段階で適用する。
+
+- **全キーボード共通**: [macos/common-keyboard.json](macos/common-keyboard.json)（Caps Lock → Control）。
+  `--matching` なしで設定し、内蔵キーボードを含むすべてのキーボードに効く。
+- **特定の外付けキーボード**: [macos/external-keyboard.json](macos/external-keyboard.json)。
+  VendorID / ProductID とキーボードの Usage が一致するデバイスの UserKeyMapping を置き換える。
+  デバイス単位の設定は共通設定より優先されるため、共通の割り当てもこちらに含める。
+  接続されていなければスキップし、その旨を表示する。
+
+同じ値を再適用できるが、別途設定した UserKeyMapping との自動マージは行わない。Karabiner を終了してから実行する。
 再起動・再接続でマッピングが失われるため、その後はタスクを再実行する（常駐処理は追加しない）。
 旧設定の Left Control → Fn と Fn + hjkl はこの定義に含めず、Left Control は元の動作を保つ。
 実際のキー操作は対象キーボードで確認する。
-
-内蔵キーボードの Caps Lock → Control は「システム設定 → キーボード → キーボードショートカット →
-修飾キー」で対象キーボードを選んで設定できる。現在の外付け用定義を内蔵へ一括適用はしない。
 
 参考: [Apple の修飾キー設定](https://support.apple.com/ja-jp/guide/mac-help/mchlp1011/mac)、
 [hidutil の仕様と再起動時の制限](https://developer.apple.com/library/archive/technotes/tn2450/)、

@@ -1,0 +1,9 @@
+{
+  "mappings": [
+    {
+      "description": "Caps Lock → Control",
+      "HIDKeyboardModifierMappingSrc": 30064771129,
+      "HIDKeyboardModifierMappingDst": 30064771296
+    }
+  ]
+}
