@@ -13,5 +13,5 @@ dependencies:
     # 使うのはこのマシンだけなので、plugin にも tag にもせず path で引く。
     - ~/dotfiles/.apm/skills/doc-refactor
     # 外から来る plugin はここだけで宣言する。
-    - anthropics/claude-plugins-official/plugins/skill-creator#73c8cf3ea7e296057b467990f2f5d61b4c922260
+    - anthropics/claude-plugins-official/plugins/skill-creator#5cec6716767283f4675a05f5f8855b5b49c81783
   mcp: []
