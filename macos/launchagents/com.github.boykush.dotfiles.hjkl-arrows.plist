@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-  右 Control + hjkl を矢印キーに読み替える macos/bin/hjkl-arrows.swift を常駐させる。
-  権限（アクセシビリティ・入力監視）はバイナリ単位で付くため、swift で毎回解釈せず
+  Control + hjkl を矢印キーとして送る macos/bin/hjkl-arrows.swift を常駐させる。
+  権限（アクセシビリティ）はバイナリ単位で付くため、swift で毎回解釈せず
   ~/.local/bin にビルドして使い、ソースが変わったときだけビルドし直す。
 -->
 <plist version="1.0">

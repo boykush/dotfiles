@@ -164,7 +164,6 @@ Spotlight のショートカットは1つしか持てないため、⌘Space で
 
 同じ値を再適用できるが、別途設定した UserKeyMapping との自動マージは行わない。Karabiner を終了してから実行する。
 再起動・再接続でマッピングが失われるため、その後はタスクを再実行する（常駐処理は追加しない）。
-物理の左 Control は右 Control に読み替え、下記の hjkl カーソル移動のトリガーにする（Control としての動作は保つ）。
 実際のキー操作は対象キーボードで確認する。
 
 参考: [Apple の修飾キー設定](https://support.apple.com/ja-jp/guide/mac-help/mchlp1011/mac)、
@@ -199,18 +198,20 @@ launchd が起動したプロセスは接続イベントを XPC で受け取ら�
 
 ### hjkl でのカーソル移動
 
-物理の左 Control（右 Control に読み替え済み）を押しながら h / j / k / l で ← ↓ ↑ → を送る。
+Control（左右・Caps Lock 由来を問わない）を押しながら h / j / k / l で ← ↓ ↑ → を送る。
 Shift・Option・Command との組み合わせ（選択・単語移動など）もそのまま効く。
-Caps Lock は左 Control のままなので、Ctrl+H などの通常の Control 操作とはぶつからない。
+代わりに Ctrl+H（1文字削除）・Ctrl+J・Ctrl+K・Ctrl+L は、どのアプリにも届かなくなる。
 
-`hidutil` はキーの組み合わせを扱えないため、CGEventTap でキー入力を読み替える
+`hidutil` はキーの組み合わせを扱えないため、Control + hjkl をホットキーとして登録して矢印キーを送る
 [macos/bin/hjkl-arrows.swift](macos/bin/hjkl-arrows.swift) を LaunchAgent
 [macos/launchagents/com.github.boykush.dotfiles.hjkl-arrows.plist](macos/launchagents/com.github.boykush.dotfiles.hjkl-arrows.plist)
 で常駐させる。初回起動時に `~/.local/bin/hjkl-arrows` へビルドし、以後はソースが変わったときだけビルドし直す。
 ログは `/tmp/com.github.boykush.dotfiles.hjkl-arrows.log`。
 
-初回はシステム設定の「プライバシーとセキュリティ」で `hjkl-arrows` に**アクセシビリティ**と**入力監視**を許可する。
-許可されるまでプロセスは待機する（足りない権限はログに出る）。許可は動いているプロセスには反映されないため、
+全キーを横取りする方式（CGEventTap）は Control + Space の入力切り替えを目に見えて遅らせたため使わない。
+
+初回はシステム設定の「プライバシーとセキュリティ」で `hjkl-arrows` に**アクセシビリティ**を許可する。
+許可されるまでプロセスは待機する（待機中はログに出る）。許可は動いているプロセスには反映されないため、
 許可したら次で再起動する（ログアウト・ログインでもよい）。
 
 ```bash

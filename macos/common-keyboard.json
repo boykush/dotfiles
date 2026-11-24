@@ -4,11 +4,6 @@
       "description": "Caps Lock → Control",
       "HIDKeyboardModifierMappingSrc": 30064771129,
       "HIDKeyboardModifierMappingDst": 30064771296
-    },
-    {
-      "description": "Left Control → Right Control（hjkl-arrows のトリガー）",
-      "HIDKeyboardModifierMappingSrc": 30064771296,
-      "HIDKeyboardModifierMappingDst": 30064771300
     }
   ]
 }
