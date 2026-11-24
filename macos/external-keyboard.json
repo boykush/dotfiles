@@ -30,6 +30,11 @@
       "description": "Right Option → Right Command",
       "HIDKeyboardModifierMappingSrc": 30064771302,
       "HIDKeyboardModifierMappingDst": 30064771303
+    },
+    {
+      "description": "Left Control → Right Control（hjkl-arrows のトリガー）",
+      "HIDKeyboardModifierMappingSrc": 30064771296,
+      "HIDKeyboardModifierMappingDst": 30064771300
     }
   ]
 }

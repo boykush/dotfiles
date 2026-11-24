@@ -173,3 +173,5 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 "~/Library/LaunchAgents/com.github.boykush.dotfiles.macos-keyboard.plist" = { source = "~/dotfiles/macos/launchagents/com.github.boykush.dotfiles.macos-keyboard.plist", mode = "copy" }
 # 外付けキーボードの接続時に同じタスクを流す LaunchAgent（デバイスが作り直されると割り当てが消えるため）。
 "~/Library/LaunchAgents/com.github.boykush.dotfiles.macos-keyboard-attach.plist" = { source = "~/dotfiles/macos/launchagents/com.github.boykush.dotfiles.macos-keyboard-attach.plist", mode = "copy" }
+# 右 Control + hjkl を矢印キーにする常駐プロセス（hidutil はキーの組み合わせを扱えないため）。
+"~/Library/LaunchAgents/com.github.boykush.dotfiles.hjkl-arrows.plist" = { source = "~/dotfiles/macos/launchagents/com.github.boykush.dotfiles.hjkl-arrows.plist", mode = "copy" }
