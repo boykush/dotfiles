@@ -131,15 +131,21 @@ Codex にはまだ入れていない。`~/.codex/config.toml` の `[otel]` に�
 ./bin/mise bootstrap macos defaults apply
 ```
 
-入力ソース切り替えと外付けキーボードは、macOS 標準コマンドを使う任意のタスクで適用する。
+入力ソース切り替え・Spotlight のショートカット・外付けキーボードは、macOS 標準コマンドを使う任意のタスクで適用する。
 
 ```bash
 ./bin/mise run macos:input-source --dry-run
+./bin/mise run macos:spotlight --dry-run
 ./bin/mise run macos:keyboard --dry-run
 # 表示した対象と内容を確認して適用
 ./bin/mise run macos:input-source
+./bin/mise run macos:spotlight
 ./bin/mise run macos:keyboard
 ```
+
+`macos:spotlight` は Control + Return を「Spotlight 検索を表示」に割り当てる。
+Spotlight のショートカットは1つしか持てないため、⌘Space では開かなくなる。他のショートカットは維持する。
+適用時にショートカット設定を読み直すので、ログアウトは不要。
 
 `macos:input-source` は Control + Space を「前の入力ソース」に割り当てる。
 他のショートカットは維持する。英語（ABC 等）と日本語をシステム設定で追加しておき、

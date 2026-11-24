@@ -1,0 +1,20 @@
+#!/bin/bash
+#MISE description="Set Control+Return to show Spotlight search (use --dry-run to preview)"
+set -euo pipefail
+case "${1:-}" in
+    ""|--dry-run) ;;
+    *) printf 'Usage: macos:spotlight [--dry-run]\n' >&2; exit 2 ;;
+esac
+[[ $# -le 1 ]] || exit 2
+# 64 = Spotlight 検索を表示。65535 は文字を持たないキー、36 は Return、262144 は Control。
+# このエントリだけを入れ替え、他のショートカットは維持する。
+entry='<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>65535</integer><integer>36</integer><integer>262144</integer></array><key>type</key><string>standard</string></dict></dict>'
+command=(/usr/bin/defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "$entry")
+if [[ "${1:-}" == --dry-run ]]; then
+    printf '%q ' "${command[@]}"; printf '\n'
+    exit 0
+fi
+"${command[@]}"
+# ログアウトせずにショートカット設定を読み直させる。
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+printf 'Control+Return now shows Spotlight search.\n'
