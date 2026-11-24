@@ -171,3 +171,5 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # ログイン時に `mise run macos:keyboard` を流す LaunchAgent（hidutil の割り当ては再起動で消えるため）。
 # symlink ではなく copy にする。launchd は所有者・パーミッションを満たす実ファイルを前提とするため。
 "~/Library/LaunchAgents/com.github.boykush.dotfiles.macos-keyboard.plist" = { source = "~/dotfiles/macos/launchagents/com.github.boykush.dotfiles.macos-keyboard.plist", mode = "copy" }
+# 外付けキーボードの接続時に同じタスクを流す LaunchAgent（デバイスが作り直されると割り当てが消えるため）。
+"~/Library/LaunchAgents/com.github.boykush.dotfiles.macos-keyboard-attach.plist" = { source = "~/dotfiles/macos/launchagents/com.github.boykush.dotfiles.macos-keyboard-attach.plist", mode = "copy" }

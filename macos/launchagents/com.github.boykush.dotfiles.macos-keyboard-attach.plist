@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  外付けキーボードの接続（再接続・ログイン後の再認識を含む）で `mise run macos:keyboard` を流す。
+  hidutil の割り当てはデバイス単位で、デバイスが作り直されると消えるため。
+  VendorID / ProductID は macos/external-keyboard.json の matching と揃える。
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.github.boykush.dotfiles.macos-keyboard-attach</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/zsh</string>
+        <string>-c</string>
+        <string>exec /usr/bin/swift "$HOME/dotfiles/macos/bin/keyboard-attach.swift"</string>
+    </array>
+    <key>LaunchEvents</key>
+    <dict>
+        <key>com.apple.iokit.matching</key>
+        <dict>
+            <key>com.github.boykush.dotfiles.external-keyboard</key>
+            <dict>
+                <key>IOProviderClass</key>
+                <string>IOHIDDevice</string>
+                <key>VendorID</key>
+                <integer>1241</integer>
+                <key>ProductID</key>
+                <integer>1111</integer>
+                <key>PrimaryUsagePage</key>
+                <integer>1</integer>
+                <key>PrimaryUsage</key>
+                <integer>6</integer>
+                <key>IOMatchLaunchStream</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
+    <key>ProcessType</key>
+    <string>Background</string>
+    <key>StandardOutPath</key>
+    <string>/tmp/com.github.boykush.dotfiles.macos-keyboard-attach.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/com.github.boykush.dotfiles.macos-keyboard-attach.log</string>
+</dict>
+</plist>
