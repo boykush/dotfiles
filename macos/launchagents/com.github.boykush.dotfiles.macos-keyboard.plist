@@ -4,6 +4,7 @@
   ログイン時に `mise run macos:keyboard` を1回だけ実行し、hidutil のキー割り当てを再適用する。
   hidutil の UserKeyMapping は再起動で消えるため。常駐はしない（RunAtLoad のみ）。
   plist はパスに ~ / $HOME を書けないので、zsh 経由で $HOME を展開する。
+  未導入ツールの自動インストールを待つと割り当てが遅れるため止める。
 -->
 <plist version="1.0">
 <dict>
@@ -13,7 +14,7 @@
     <array>
         <string>/bin/zsh</string>
         <string>-c</string>
-        <string>exec "$HOME/dotfiles/bin/mise" run macos:keyboard</string>
+        <string>MISE_TASK_RUN_AUTO_INSTALL=false exec "$HOME/dotfiles/bin/mise" run macos:keyboard</string>
     </array>
     <key>RunAtLoad</key>
     <true/>

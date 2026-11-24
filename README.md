@@ -177,4 +177,16 @@ Codex にはまだ入れていない。`~/.codex/config.toml` の `[otel]` に�
 launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.github.boykush.dotfiles.macos-keyboard.plist
 ```
 
-ログイン後に繋いだ外付けキーボードは対象外なので、繋いだら `mise run macos:keyboard` を流す。
+### 外付けキーボード接続時の再適用
+
+hidutil の割り当てはデバイス単位なので、外付けキーボードを抜き差しする・ログイン後に認識し直されると消える。
+LaunchAgent [macos/launchagents/com.github.boykush.dotfiles.macos-keyboard-attach.plist](macos/launchagents/com.github.boykush.dotfiles.macos-keyboard-attach.plist)
+が launchd の IOKit マッチング（`LaunchEvents` の `com.apple.iokit.matching`）で接続を待ち、繋がるたびに
+`mise run macos:keyboard` を流す。こちらも常駐はせず、接続時だけ起動する。ログは `/tmp/com.github.boykush.dotfiles.macos-keyboard-attach.log`。
+
+launchd が起動したプロセスは接続イベントを XPC で受け取らないと、launchd が起動し直し続ける。
+シェルからは受け取れないため、受け取りとタスク起動を [macos/bin/keyboard-attach.swift](macos/bin/keyboard-attach.swift) が担う。
+`swift` は Command Line Tools に含まれ、`git` を使うために入っている前提。
+
+マッチングの VendorID / ProductID は plist に直書きしている（launchd が plist 以外を読めないため）。
+[macos/external-keyboard.json](macos/external-keyboard.json) の `matching` を変えるときは plist も揃える。
