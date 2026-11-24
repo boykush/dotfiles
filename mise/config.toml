@@ -124,7 +124,8 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # mise 設定自身（global config の実体）。bin/mise をリポジトリ内で実行すると
 # mise/config.toml がローカル config として読まれるので、この自己リンクも
 # `mise bootstrap dotfiles apply` で張れる。
-"~/.config/mise" = "~/dotfiles/mise"
+"~/.config/mise/config.toml" = "~/dotfiles/mise/config.toml"
+"~/.config/mise/tasks" = "~/dotfiles/mise/tasks"
 # ホーム直下
 # --- 対話シェル初期化（~/.zshrc）: whole-file symlink ではなく block-edit で宣言管理する ---
 # 順序が重要: activate が mise のツールを PATH に通すので必ず先頭。zoxide/starship はその後で
@@ -132,13 +133,11 @@ gst = "git status -s | awk '{print $2}' | xargs -I {} lsd -l --git --blocks git,
 # interactive shell でも効かせるため。※ mise 純正の [bootstrap.mise_shell_activate] は使わない
 # （activate 行しか書けず zoxide/starship を管理できない上、bootstrap のステップ順で activate が
 # 末尾に回り順序が壊れるため。block-edit なら宣言順で activate を先頭に固定できる）。
-# activate は bin/mise（bootstrap ラッパー）を絶対パスで参照する（mise 公式の
-# `eval "$(~/.local/bin/mise activate zsh)"` と同型）。PATH の事前設定が不要になるため
-# ~/.zshenv は管理しない。効果範囲: 対話シェルでは mise は関数・ツールは実 PATH に入り、
-# 子プロセス（Claude Code 等）へはツールの PATH だけ継承される（bare `mise` は不可視）。
-# シェル初期化を経ないスクリプト・エージェントが mise を呼ぶときは ~/dotfiles/bin/mise を
-# 絶対パスで叩く（[env] も適用される）。mise 純正の非対話サポートが入ったら移行する。
-"~/.zshrc/activate" = { block = 'eval "$(~/dotfiles/bin/mise activate zsh)"' }
+# bin/mise（bootstrap ラッパー）を PATH に足してから activate する。子プロセス（Claude Code 等）が
+# 起動する MCP サーバーなどが bare `mise` を呼べるようにするため。~/.zshenv は管理しない。
+"~/.zshrc/activate" = { block = '''
+export PATH="$HOME/dotfiles/bin:$PATH"
+eval "$(mise activate zsh)"''' }
 "~/.zshrc/zoxide"   = { block = 'eval "$(zoxide init zsh)"' }
 "~/.zshrc/starship" = { block = 'eval "$(starship init zsh)"' }
 "~/.gitconfig" = "~/dotfiles/.gitconfig"
