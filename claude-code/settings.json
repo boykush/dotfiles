@@ -25,6 +25,7 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
+  "language": "japanese",
   "autoMemoryEnabled": false,
   "skipWorkflowUsageWarning": true,
   "enableRemoteControl": true,
